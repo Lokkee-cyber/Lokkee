@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run generate:sitemap && vite build",
     "preview": "vite preview",
     "generate:sitemap": "node scripts/generate-sitemap.mjs",
     "build:production": "npm run generate:sitemap && vite build",
@@ -17,11 +17,13 @@
     "@mui/icons-material": "^5.16.7",
     "@mui/material": "^5.16.7",
     "bcryptjs": "^2.4.3",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.3",
     "express-rate-limit": "^7.2.0",
     "jsonwebtoken": "^9.0.2",
+    "mongodb": "^7.7.0",
+    "mongoose": "^9.11.1",
     "pg": "^8.12.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -36,8 +38,8 @@
     "vite": "^5.4.10"
   },
   "overrides": {
-  "react-hash-scroll": {
-    "react": "$react"
-  }
+    "react-hash-scroll": {
+      "react": "$react"
+    }
   }
 }

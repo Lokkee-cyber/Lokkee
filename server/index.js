@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import rateLimit from 'express-rate-limit';
 import { z } from 'zod';
+import articleRoutes from "./routes/articleRoutes.js";
 
 dotenv.config();
 
@@ -77,3 +78,29 @@ app.post('/api/newsletter', (req, res) => {
 app.listen(PORT, () => {
   console.log(`ToolPilot AI API running on http://localhost:${PORT}`);
 });
+
+connectDB();
+
+app.use(express.json());
+
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  })
+);
+
+app.get("/api/health", (req, res) => {
+  res.json({
+    success: true,
+    message: "ToolPilot API is running",
+  });
+});
+
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+}   
+)
+
+app.use("/api/articles", articleRoutes);
