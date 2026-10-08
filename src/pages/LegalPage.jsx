@@ -69,7 +69,7 @@ export default function LegalPage({ type = 'privacy' }) {
   return (
     <Container maxWidth="md" sx={{ py: { xs: 4, md: 8 } }}>
       <SEO title={`${content.title} | ToolPilot AI`} description={content.description} canonical={path} />
-      <Typography variant="h1" fontWeight={800}>{content.title}</Typography>
+      <Typography variant="h1" fontWeight={800} sx={{ fontSize: { xs: '2.5rem', sm: '3.5rem', md: '6rem' } }}>{content.title}</Typography>
       <Paper elevation={0} sx={{ p: { xs: 3, md: 5 }, mt: 4, borderRadius: 4 }}>
         <Box component="article">
           {content.sections.map(([heading, body]) => (

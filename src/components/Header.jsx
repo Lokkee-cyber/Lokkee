@@ -26,24 +26,25 @@ export default function Header({ mode, onToggleMode }) {
   return (
     <AppBar position="sticky" elevation={0}>
       <Container maxWidth="xl">
-        <Toolbar disableGutters sx={{ minHeight: 78, gap: 2 }}>
-          <Box component={Link} to="/" sx={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
+        <Toolbar disableGutters sx={{ minHeight: { xs: 64, sm: 78 }, gap: { xs: 1, sm: 2 }, minWidth: 0 }}>
+          <Box component={Link} to="/" sx={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit', minWidth: 0, flexShrink: 1 }}>
             <Box
               sx={{
-                width: 38,
-                height: 38,
+                width: { xs: 34, sm: 38 },
+                height: { xs: 34, sm: 38 },
+                flexShrink: 0,
                 borderRadius: 12,
                 background: 'linear-gradient(135deg, #5041f8 0%, #13b8a6 100%)',
                 display: 'grid',
                 placeItems: 'center',
                 color: '#fff',
                 fontWeight: 800,
-                mr: 1.5,
+                mr: { xs: 1, sm: 1.5 },
               }}
             >
               T
             </Box>
-            <Typography variant="h6" sx={{ fontWeight: 800, letterSpacing: '-0.04em', color: '#0f2c8d' }}>
+            <Typography variant="h6" sx={{ fontWeight: 800, fontSize: { xs: '1rem', sm: '1.25rem' }, letterSpacing: '-0.04em', color: '#0f2c8d', whiteSpace: 'nowrap' }}>
               ToolPilot AI
             </Typography>
           </Box>
@@ -66,7 +67,7 @@ export default function Header({ mode, onToggleMode }) {
             ))}
           </Box>
 
-          <Stack direction="row" spacing={1} alignItems="center" sx={{ ml: 'auto' }}>
+          <Stack direction="row" spacing={{ xs: 0, sm: 1 }} alignItems="center" sx={{ ml: 'auto', flexShrink: 0 }}>
             <IconButton component={Link} to="/search?q=" aria-label="Open search" color="primary">
               <SearchRounded />
             </IconButton>

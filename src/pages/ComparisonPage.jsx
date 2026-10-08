@@ -12,7 +12,7 @@ export default function ComparisonPage() {
     <Container maxWidth="xl" sx={{ py: { xs: 4, md: 6 } }}>
       <SEO title={`${comparison.title} | ToolPilot AI`} description={comparison.summary} canonical={`/compare/${comparison.slug}`} />
       <Typography variant="overline" color="primary.main" fontWeight={700}>AI Comparison</Typography>
-      <Typography variant="h2" sx={{ mb: 2 }}>{comparison.title}</Typography>
+      <Typography variant="h2" sx={{ mb: 2, fontSize: { xs: '2.25rem', sm: '3rem', md: '3.75rem' } }}>{comparison.title}</Typography>
       <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 760 }}>{comparison.summary}</Typography>
 
       <Box sx={{ my: 4 }}>

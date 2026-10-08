@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Container, Grid, Pagination, Stack, Typography } from '@mui/material';
+import { Box, Container, Pagination, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import ArticleCard from '../components/ArticleCard.jsx';
 import ToolCard from '../components/ToolCard.jsx';
@@ -43,31 +43,27 @@ export default function CategoryPage({ categorySlug }) {
       <SEO title={`${category.title} | ToolPilot AI`} description={categoryDescriptions[categorySlug] || category.description} canonical={category.path} />
       <Container maxWidth="xl" sx={{ py: { xs: 4, md: 6 } }}>
       <Typography variant="overline" color="primary.main" fontWeight={700}>{category.title}</Typography>
-      <Typography variant="h2" sx={{ mt: 1, mb: 2 }}>{category.title}</Typography>
+      <Typography variant="h2" sx={{ mt: 1, mb: 2, fontSize: { xs: '2.25rem', sm: '3rem', md: '3.75rem' } }}>{category.title}</Typography>
       <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 760 }}>
         {categoryDescriptions[categorySlug] || category.description}
       </Typography>
 
       <Stack spacing={4} sx={{ my: 5 }}>
         <Typography variant="h4" fontWeight={800}>Featured articles</Typography>
-        <Grid container spacing={3}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'minmax(0, 1fr)', md: 'repeat(3, minmax(0, 1fr))' }, gap: 3, width: '100%', minWidth: 0 }}>
           {categoryArticles.slice(0, 3).map((article) => (
-            <Grid item xs={12} md={4} key={article.slug}>
-              <ArticleCard article={article} />
-            </Grid>
+            <ArticleCard key={article.slug} article={article} />
           ))}
-        </Grid>
+        </Box>
       </Stack>
 
       <Stack spacing={4} sx={{ my: 5 }}>
         <Typography variant="h4" fontWeight={800}>Latest articles</Typography>
-        <Grid container spacing={3}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'minmax(0, 1fr)', sm: 'repeat(2, minmax(0, 1fr))', lg: 'repeat(4, minmax(0, 1fr))' }, gap: 3, width: '100%', minWidth: 0 }}>
           {visibleArticles.map((article) => (
-            <Grid item xs={12} sm={6} lg={3} key={article.slug}>
-              <ArticleCard article={article} />
-            </Grid>
+            <ArticleCard key={article.slug} article={article} />
           ))}
-        </Grid>
+        </Box>
         <Stack alignItems="center">
           <Pagination count={Math.max(1, Math.ceil(categoryArticles.length / pageSize))} page={page - 1} onChange={(e, value) => setPage(value)} color="primary" />
         </Stack>
@@ -75,13 +71,11 @@ export default function CategoryPage({ categorySlug }) {
 
       <Stack spacing={3} sx={{ my: 5 }}>
         <Typography variant="h4" fontWeight={800}>Popular tools</Typography>
-        <Grid container spacing={3}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'minmax(0, 1fr)', md: 'repeat(3, minmax(0, 1fr))' }, gap: 3, width: '100%', minWidth: 0 }}>
           {relatedTools.slice(0, 3).map((tool) => (
-            <Grid item xs={12} md={4} key={tool.slug}>
-              <ToolCard tool={tool} />
-            </Grid>
+            <ToolCard key={tool.slug} tool={tool} />
           ))}
-        </Grid>
+        </Box>
       </Stack>
 
       <Newsletter />

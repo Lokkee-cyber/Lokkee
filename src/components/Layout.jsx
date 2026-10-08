@@ -7,7 +7,7 @@ export default function Layout({ mode, onToggleMode }) {
   return (
     <>
       <Header mode={mode} onToggleMode={onToggleMode} />
-      <Box component="main" sx={{ minHeight: '70vh' }}>
+      <Box component="main" sx={{ minHeight: '70vh', minWidth: 0 }}>
         <Outlet />
       </Box>
       <Footer />
