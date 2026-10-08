@@ -7,6 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "generate:sitemap": "node scripts/generate-sitemap.mjs",
+    "build:production": "npm run generate:sitemap && vite build",
     "server": "node server/index.js"
   },
   "dependencies": {
@@ -32,5 +34,10 @@
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",
     "vite": "^5.4.10"
+  },
+  "overrides": {
+  "react-hash-scroll": {
+    "react": "$react"
+  }
   }
 }

@@ -23,12 +23,13 @@ import {
   SchoolRounded,
   VideoCameraBackRounded,
 } from '@mui/icons-material';
-import { articlePreviews, categories, tools } from '../data/siteData';
-import SEO from '../components/SEO';
-import ToolCard from '../components/ToolCard';
-import ArticleCard from '../components/ArticleCard';
-import CategoryCard from '../components/CategoryCard';
-import Newsletter from '../components/Newsletter';
+import { articlePreviews, categories, tools } from '../data/siteData.js';
+import SEO from '../components/SEO.jsx';
+import ToolCard from '../components/ToolCard.jsx';
+import ArticleCard from '../components/ArticleCard.jsx';
+import CategoryCard from '../components/CategoryCard.jsx';
+import Newsletter from '../components/Newsletter.jsx';
+import SearchBar from '../components/SearchBar.jsx';
 
 const categoryIcons = {
   'AI Tools': AutoAwesome,
@@ -67,8 +68,8 @@ export default function HomePage() {
               <Button component={Link} to="/ai-tools" variant="contained" size="large">
                 Explore AI Tools
               </Button>
-              <Button component={Link} to="/comparisons" variant="outlined" size="large">
-                Browse Categories
+              <Button component={Link} to="/search" variant="outlined" size="large">
+                Search the directory
               </Button>
             </Stack>
           </Grid>
@@ -119,6 +120,18 @@ export default function HomePage() {
             </Box>
           </Grid>
         </Grid>
+      </Paper>
+
+      <Paper elevation={0} sx={{ p: { xs: 2, md: 3 }, mb: 6, border: 1, borderColor: 'divider' }}>
+        <Stack direction={{ xs: 'column', sm: 'row' }} alignItems={{ xs: 'stretch', sm: 'center' }} spacing={2}>
+          <Box sx={{ flexGrow: 1 }}>
+            <Typography variant="h6" fontWeight={800} mb={0.5}>Find the right tool faster</Typography>
+            <Typography variant="body2" color="text.secondary">Search tools, articles and categories by name or workflow.</Typography>
+          </Box>
+          <Box sx={{ width: { xs: '100%', sm: 460 } }}>
+            <SearchBar compact />
+          </Box>
+        </Stack>
       </Paper>
 
       <Box sx={{ py: 8 }}>

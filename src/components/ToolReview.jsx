@@ -7,7 +7,6 @@ import {
   List,
   ListItem,
   ListItemText,
-  Rating,
   Stack,
   Typography,
 } from '@mui/material';
@@ -33,32 +32,34 @@ export default function ToolReview({ tool }) {
             fontWeight: 800,
             flexShrink: 0,
           }}
+          aria-hidden="true"
         >
           {tool.name.slice(0, 1)}
         </Box>
         <Box sx={{ width: '100%' }}>
           <Typography variant="overline" color="primary.main" fontWeight={700}>{tool.category}</Typography>
-          <Typography
-            variant="h3"
-            fontWeight={800}
-            sx={{ fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' }, lineHeight: 1.1 }}
-          >
+          <Typography variant="h1" fontWeight={800} sx={{ fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' }, lineHeight: 1.1 }}>
             {tool.name}
           </Typography>
           <Typography variant="body1" color="text.secondary" sx={{ mt: 1, fontSize: { xs: '0.96rem', md: '1rem' } }}>
             {tool.description}
           </Typography>
           <Stack direction="row" spacing={1.5} alignItems="center" flexWrap="wrap" sx={{ mt: 2 }}>
-            <Rating value={tool.rating} readOnly precision={0.1} />
-            <Typography variant="body2" fontWeight={700}>{tool.rating}</Typography>
             <Chip label={tool.price} color="secondary" size="small" />
+            <Typography variant="caption" color="text.secondary">Editorial overview · last reviewed {tool.lastReviewed || 'when available'}</Typography>
           </Stack>
         </Box>
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5} sx={{ my: { xs: 2, md: 3 }, width: '100%' }}>
-        <Button variant="contained" fullWidth sx={{ width: { xs: '100%', sm: 'auto' } }}>Website</Button>
-        <Button variant="outlined" fullWidth sx={{ width: { xs: '100%', sm: 'auto' } }}>Try It Free</Button>
+        {tool.website && (
+          <Button component="a" href={tool.website} target="_blank" rel="noopener noreferrer" variant="contained" fullWidth sx={{ width: { xs: '100%', sm: 'auto' } }}>
+            Visit official site
+          </Button>
+        )}
+        <Button component="a" href="/comparisons" variant="outlined" fullWidth sx={{ width: { xs: '100%', sm: 'auto' } }}>
+          See comparisons
+        </Button>
       </Stack>
 
       <Grid container spacing={{ xs: 2, md: 3 }}>

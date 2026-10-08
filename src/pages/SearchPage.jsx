@@ -14,11 +14,11 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { searchIndex } from '../data/siteData';
-import ArticleCard from '../components/ArticleCard';
-import ToolCard from '../components/ToolCard';
-import CategoryCard from '../components/CategoryCard';
-import SEO from '../components/SEO';
+import { searchIndex } from '../data/siteData.js';
+import SEO from '../components/SEO.jsx';
+import ArticleCard from '../components/ArticleCard.jsx';
+import ToolCard from '../components/ToolCard.jsx';
+import CategoryCard from '../components/CategoryCard.jsx';
 
 const categoryIcons = {
   'AI Tools': () => 'A',

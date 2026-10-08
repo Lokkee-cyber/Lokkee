@@ -33,7 +33,7 @@ export default function Header({ mode, onToggleMode }) {
                 width: 38,
                 height: 38,
                 borderRadius: 12,
-                background: 'linear-gradient(135deg, #5b4cf5 0%, #13b8a6 100%)',
+                background: 'linear-gradient(135deg, #5041f8 0%, #13b8a6 100%)',
                 display: 'grid',
                 placeItems: 'center',
                 color: '#fff',

@@ -1,15 +1,18 @@
 import { useParams } from 'react-router-dom';
 import { Container, Grid, Paper, Typography } from '@mui/material';
-import { tools, articlePreviews } from '../data/siteData';
-import ToolReview from '../components/ToolReview';
-import ArticleCard from '../components/ArticleCard';
+import { tools, articlePreviews } from '../data/siteData.js';
+import ToolReview from '../components/ToolReview.jsx';
+import ArticleCard from '../components/ArticleCard.jsx';
+import SEO from '../components/SEO.jsx';
 
 export default function ToolPage() {
   const { slug } = useParams();
   const tool = tools.find((item) => item.slug === slug) || tools[0];
 
   return (
-    <Container maxWidth="xl" sx={{ py: { xs: 3, md: 6 }, px: { xs: 2, sm: 3, md: 4 } }}>
+    <>
+      <SEO title={`${tool.name} overview | ToolPilot AI`} description={tool.description} canonical={`/tools/${tool.slug}`} />
+      <Container maxWidth="xl" sx={{ py: { xs: 3, md: 6 }, px: { xs: 2, sm: 3, md: 4 } }}>
       <Paper elevation={0} sx={{ p: { xs: 2.25, sm: 3, md: 5 }, borderRadius: 4 }}>
         <ToolReview tool={tool} />
       </Paper>
@@ -31,5 +34,6 @@ export default function ToolPage() {
         ))}
       </Grid>
     </Container>
+    </>
   );
 }

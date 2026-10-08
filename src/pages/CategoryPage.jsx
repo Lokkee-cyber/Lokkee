@@ -1,10 +1,11 @@
 import { useMemo, useState } from 'react';
 import { Container, Grid, Pagination, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import ArticleCard from '../components/ArticleCard';
-import ToolCard from '../components/ToolCard';
-import Newsletter from '../components/Newsletter';
-import { articlePreviews, categories, tools } from '../data/siteData';
+import ArticleCard from '../components/ArticleCard.jsx';
+import ToolCard from '../components/ToolCard.jsx';
+import Newsletter from '../components/Newsletter.jsx';
+import { articlePreviews, categories, tools } from '../data/siteData.js';
+import SEO from '../components/SEO.jsx';
 
 const categoryDescriptions = {
   'ai-tools': 'Discover the best AI tools for productivity, writing, coding, research and daily work.',
@@ -37,7 +38,9 @@ export default function CategoryPage({ categorySlug }) {
   const visibleArticles = categoryArticles.slice((page - 1) * pageSize, page * pageSize);
 
   return (
-    <Container maxWidth="xl" sx={{ py: { xs: 4, md: 6 } }}>
+    <>
+      <SEO title={`${category.title} | ToolPilot AI`} description={categoryDescriptions[categorySlug] || category.description} canonical={category.path} />
+      <Container maxWidth="xl" sx={{ py: { xs: 4, md: 6 } }}>
       <Typography variant="overline" color="primary.main" fontWeight={700}>{category.title}</Typography>
       <Typography variant="h2" sx={{ mt: 1, mb: 2 }}>{category.title}</Typography>
       <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 760 }}>
@@ -82,5 +85,6 @@ export default function CategoryPage({ categorySlug }) {
 
       <Newsletter />
     </Container>
+    </>
   );
 }

@@ -18,6 +18,7 @@ import { articlePreviews } from '../data/siteData';
 import ArticleCard from '../components/ArticleCard';
 import Newsletter from '../components/Newsletter';
 import AdSlot from '../components/AdSlot';
+import SEO from '../components/SEO';
 
 const articleBody = {
   'best-ai-tools-to-try-in-2026': {
@@ -41,7 +42,9 @@ export default function ArticlePage() {
   const content = articleBody[slug] || articleBody['best-ai-tools-to-try-in-2026'];
 
   return (
-    <Container maxWidth="xl" sx={{ py: { xs: 4, md: 6 } }}>
+    <>
+      <SEO title={`${article.title} | ToolPilot AI`} description={article.excerpt} canonical={`/articles/${article.slug}`} />
+      <Container maxWidth="xl" sx={{ py: { xs: 4, md: 6 } }}>
       <Breadcrumbs aria-label="Breadcrumb" sx={{ mb: 2 }}>
         <Link to="/">Home</Link>
         <Link to="/ai-tools">AI Tools</Link>
@@ -162,5 +165,6 @@ export default function ArticlePage() {
         </Grid>
       </Grid>
     </Container>
+    </>
   );
 }

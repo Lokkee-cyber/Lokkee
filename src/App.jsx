@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
 import HomePage from './pages/HomePage';
 import CategoryPage from './pages/CategoryPage';
@@ -9,7 +9,7 @@ import SearchPage from './pages/SearchPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import LegalPage from './pages/LegalPage';
-import AdminPage from './pages/AdminPage';
+import AuthorPage from './pages/AuthorPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 export default function App({ mode, setMode }) {
@@ -31,6 +31,7 @@ export default function App({ mode, setMode }) {
         <Route path="/articles/:slug" element={<ArticlePage />} />
         <Route path="/tools/:slug" element={<ToolPage />} />
         <Route path="/compare/:slug" element={<ComparisonPage />} />
+        <Route path="/authors/:slug" element={<AuthorPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/privacy-policy" element={<LegalPage type="privacy" />} />
@@ -38,9 +39,8 @@ export default function App({ mode, setMode }) {
         <Route path="/disclaimer" element={<LegalPage type="disclaimer" />} />
         <Route path="/affiliate-disclosure" element={<LegalPage type="affiliate" />} />
         <Route path="/editorial-policy" element={<LegalPage type="editorial" />} />
-        <Route path="/admin" element={<AdminPage />} />
         <Route path="/404" element={<NotFoundPage />} />
-        <Route path="*" element={<Navigate to="/404" replace />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   );

@@ -5,10 +5,12 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { HelmetProvider } from 'react-helmet-async';
 import App from './App';
 import { getDesignTokens } from './theme/theme';
+import { siteConfig } from './config/siteConfig';
+import Analytics from './components/Analytics';
 
 const getInitialTheme = () => {
   const storedTheme = localStorage.getItem('toolpilot-theme');
-  return storedTheme || 'light';
+  return storedTheme === 'dark' || storedTheme === 'light' ? storedTheme : 'light';
 };
 
 function Root() {
@@ -25,6 +27,7 @@ function Root() {
       <CssBaseline />
       <HelmetProvider>
         <BrowserRouter>
+          <Analytics measurementId={siteConfig.gaMeasurementId} />
           <App mode={mode} setMode={setMode} />
         </BrowserRouter>
       </HelmetProvider>

@@ -5,7 +5,6 @@ import {
   Card,
   CardContent,
   Chip,
-  Rating,
   Stack,
   Typography,
 } from '@mui/material';
@@ -28,10 +27,7 @@ export default function ToolCard({ tool }) {
 
         <Stack direction="row" justifyContent="space-between" alignItems="center">
           <Chip label={tool.price} color="secondary" size="small" />
-          <Stack direction="row" alignItems="center" spacing={0.5}>
-            <Rating value={tool.rating} precision={0.1} readOnly size="small" />
-            <Typography variant="body2" fontWeight={700}>{tool.rating}</Typography>
-          </Stack>
+          <Typography variant="caption" color="text.secondary">Overview guide</Typography>
         </Stack>
 
         <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700 }}>
@@ -40,11 +36,13 @@ export default function ToolCard({ tool }) {
 
         <Stack direction="row" spacing={1} sx={{ mt: 'auto' }}>
           <Button component={Link} to={`/tools/${tool.slug}`} variant="contained" size="small">
-            Read Review
+            Read overview
           </Button>
-          <Button component={Link} to={`/compare/chatgpt-vs-gemini`} variant="outlined" size="small">
-            Visit Tool
-          </Button>
+          {tool.website && (
+            <Button component="a" href={tool.website} target="_blank" rel="noopener noreferrer" variant="outlined" size="small">
+              Official site
+            </Button>
+          )}
         </Stack>
       </CardContent>
     </Card>

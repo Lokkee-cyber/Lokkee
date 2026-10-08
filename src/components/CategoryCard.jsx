@@ -23,7 +23,7 @@ export default function CategoryCard({ category, icon: Icon }) {
         <Typography variant="h6" fontWeight={700}>{category.title}</Typography>
         <Typography variant="body2" color="text.secondary">{category.description}</Typography>
         <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mt: 'auto' }}>
-          <Typography variant="caption" color="text.secondary">{category.articleCount} articles</Typography>
+          <Typography variant="caption" color="text.secondary">Browse guides</Typography>
           <Button component={Link} to={category.path} size="small" variant="text">
             Explore
           </Button>

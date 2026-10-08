@@ -1,8 +1,17 @@
 import { Box, Typography } from '@mui/material';
+import { siteConfig } from '../config/siteConfig';
 
-export default function AdSlot({ label = 'Ad placeholder', height = 220 }) {
+export default function AdSlot({
+  label = 'Advertisement',
+  height = 220,
+  placement = 'content',
+}) {
+  if (!siteConfig.adsEnabled || !siteConfig.adsenseClient) return null;
+
   return (
     <Box
+      component="aside"
+      aria-label={`${label} advertisement`}
       sx={{
         minHeight: height,
         border: '1px dashed',
@@ -17,7 +26,7 @@ export default function AdSlot({ label = 'Ad placeholder', height = 220 }) {
       }}
     >
       <Typography variant="caption" sx={{ textTransform: 'uppercase', letterSpacing: 1.5, fontWeight: 700 }}>
-        {label}
+        {label} · {placement}
       </Typography>
     </Box>
   );
