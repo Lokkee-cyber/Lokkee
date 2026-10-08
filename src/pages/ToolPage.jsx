@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { Container, Grid, Paper, Typography } from '@mui/material';
-import { tools, articlePreviews } from '../data/siteData.js';
+import { tools } from '../data/siteData.js';
+import { publishedArticles } from '../data/articles.js';
 import ToolReview from '../components/ToolReview.jsx';
 import ArticleCard from '../components/ArticleCard.jsx';
 import SEO from '../components/SEO.jsx';
@@ -27,7 +28,7 @@ export default function ToolPage() {
             Related articles
           </Typography>
         </Grid>
-        {articlePreviews.slice(0, 3).map((article) => (
+        {publishedArticles.slice(0, 3).map((article) => (
           <Grid item xs={12} md={4} key={article.slug}>
             <ArticleCard article={article} />
           </Grid>

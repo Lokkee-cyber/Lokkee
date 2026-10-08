@@ -23,7 +23,8 @@ import {
   SchoolRounded,
   VideoCameraBackRounded,
 } from '@mui/icons-material';
-import { articlePreviews, categories, tools } from '../data/siteData.js';
+import { categories, tools } from '../data/siteData.js';
+import { publishedArticles } from '../data/articles.js';
 import SEO from '../components/SEO.jsx';
 import ToolCard from '../components/ToolCard.jsx';
 import ArticleCard from '../components/ArticleCard.jsx';
@@ -47,7 +48,7 @@ const categoryIcons = {
 export default function HomePage() {
   const [page, setPage] = useState(1);
   const perPage = 4;
-  const latestArticles = articlePreviews.slice(0, 8);
+  const latestArticles = publishedArticles.slice(0, 8);
   const pageArticles = latestArticles.slice((page - 1) * perPage, page * perPage);
 
   return (
@@ -165,7 +166,7 @@ export default function HomePage() {
       <Box sx={{ py: 8 }}>
         <Typography variant="h4" fontWeight={800} sx={{ mb: 3 }}>Popular guides</Typography>
         <Grid container spacing={3}>
-          {articlePreviews.slice(0, 3).map((article) => (
+          {publishedArticles.slice(0, 3).map((article) => (
             <Grid item xs={12} md={4} key={article.slug}>
               <ArticleCard article={article} />
             </Grid>

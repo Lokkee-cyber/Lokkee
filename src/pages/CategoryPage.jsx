@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import ArticleCard from '../components/ArticleCard.jsx';
 import ToolCard from '../components/ToolCard.jsx';
 import Newsletter from '../components/Newsletter.jsx';
-import { articlePreviews, categories, tools } from '../data/siteData.js';
+import { categories, tools } from '../data/siteData.js';
+import { publishedArticles } from '../data/articles.js';
 import SEO from '../components/SEO.jsx';
 
 const categoryDescriptions = {
@@ -26,7 +27,7 @@ export default function CategoryPage({ categorySlug }) {
   const pageSize = 4;
 
   const categoryArticles = useMemo(
-    () => articlePreviews.filter((article) => article.category.toLowerCase().includes(category.title.toLowerCase().split(' ')[0]) || article.category === category.title),
+    () => publishedArticles.filter((article) => article.category.toLowerCase().includes(category.title.toLowerCase().split(' ')[0]) || article.category === category.title),
     [category.title],
   );
 

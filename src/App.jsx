@@ -11,6 +11,7 @@ import ContactPage from './pages/ContactPage';
 import LegalPage from './pages/LegalPage';
 import AuthorPage from './pages/AuthorPage';
 import NotFoundPage from './pages/NotFoundPage';
+import AdminPage from './pages/AdminPage';
 
 export default function App({ mode, setMode }) {
   return (
@@ -39,6 +40,7 @@ export default function App({ mode, setMode }) {
         <Route path="/disclaimer" element={<LegalPage type="disclaimer" />} />
         <Route path="/affiliate-disclosure" element={<LegalPage type="affiliate" />} />
         <Route path="/editorial-policy" element={<LegalPage type="editorial" />} />
+        {import.meta.env.DEV && <Route path="/admin" element={<AdminPage />} />}
         <Route path="/404" element={<NotFoundPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>

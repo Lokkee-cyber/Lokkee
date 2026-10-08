@@ -14,7 +14,8 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { searchIndex } from '../data/siteData.js';
+import { categories, tools } from '../data/siteData.js';
+import { publishedArticles } from '../data/articles.js';
 import SEO from '../components/SEO.jsx';
 import ArticleCard from '../components/ArticleCard.jsx';
 import ToolCard from '../components/ToolCard.jsx';
@@ -27,6 +28,12 @@ const categoryIcons = {
   'AI Writing': () => 'W',
 };
 
+const searchItems = [
+  ...categories.map((item) => ({ type: 'Category', ...item })),
+  ...tools.map((tool) => ({ type: 'Tool', ...tool })),
+  ...publishedArticles.map((article) => ({ type: 'Article', ...article })),
+];
+
 export default function SearchPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [categoryFilter, setCategoryFilter] = useState('all');
@@ -36,7 +43,7 @@ export default function SearchPage() {
   const searchTerm = (searchParams.get('q') || '').toLowerCase();
 
   const results = useMemo(() => {
-    const items = searchIndex.filter((item) => {
+    const items = searchItems.filter((item) => {
       const matchesText = !searchTerm || [item.title, item.name, item.label, item.slug, item.description, item.excerpt].filter(Boolean).join(' ').toLowerCase().includes(searchTerm);
       const matchesCategory = categoryFilter === 'all' || item.category === categoryFilter || item.title === categoryFilter;
       const matchesType = typeFilter === 'all' || item.type === typeFilter;
