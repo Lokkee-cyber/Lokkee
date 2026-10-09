@@ -12,6 +12,7 @@ import LegalPage from './pages/LegalPage';
 import AuthorPage from './pages/AuthorPage';
 import NotFoundPage from './pages/NotFoundPage';
 import AdminPage from './pages/AdminPage';
+import ComparisonIndexPage from './pages/ComparisonIndexPage';
 
 export default function App({ mode, setMode }) {
   return (
@@ -27,7 +28,7 @@ export default function App({ mode, setMode }) {
         <Route path="/ai-creators" element={<CategoryPage categorySlug="ai-creators" />} />
         <Route path="/ai-business" element={<CategoryPage categorySlug="ai-business" />} />
         <Route path="/ai-students" element={<CategoryPage categorySlug="ai-students" />} />
-        <Route path="/comparisons" element={<CategoryPage categorySlug="comparisons" />} />
+        <Route path="/comparisons" element={<ComparisonIndexPage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/articles/:slug" element={<ArticlePage />} />
         <Route path="/tools/:slug" element={<ToolPage />} />

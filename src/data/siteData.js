@@ -302,7 +302,7 @@ export const comparisons = [
     fields: [
       { label: 'Pricing', left: 'Freemium', right: 'Freemium' },
       { label: 'Free plan', left: 'Yes', right: 'Limited' },
-      { label: 'AI writing', left: 'Strong', right: 'Very strong' },
+      { label: 'AI writing', left: 'Strong', right: 'Very strong' },  
       { label: 'Coding', left: 'Strong', right: 'Good' },
       { label: 'Research', left: 'Strong', right: 'Strong' },
       { label: 'Speed', left: 'Fast', right: 'Fast' },

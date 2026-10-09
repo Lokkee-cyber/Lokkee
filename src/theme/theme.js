@@ -70,6 +70,11 @@ export const getDesignTokens = (mode) => {
           '*': {
             boxSizing: 'border-box',
           },
+          '@media (max-width: 600px)': {
+            '.MuiPaper-root.MuiPaper-root, .MuiCard-root.MuiCard-root, .MuiButton-root.MuiButton-root, .MuiOutlinedInput-root.MuiOutlinedInput-root, .MuiChip-root.MuiChip-root': {
+              borderRadius: '12px',
+            },
+          },
         },
       },
       MuiAppBar: {

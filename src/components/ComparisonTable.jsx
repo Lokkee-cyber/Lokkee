@@ -6,26 +6,30 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Typography,
 } from '@mui/material';
 
 export default function ComparisonTable({ comparison }) {
+  const columns = comparison.objects
+    ? comparison.objects.map((object) => typeof object === 'string' ? object : object.name)
+    : [comparison.left, comparison.right];
+  const rows = comparison.features
+    ? comparison.features.map((feature) => ({ label: feature.name, values: feature.values }))
+    : comparison.fields.map((field) => ({ label: field.label, values: [field.left, field.right] }));
+
   return (
-    <TableContainer component={Paper} sx={{ overflowX: 'auto', borderRadius: 3 }}>
-      <Table sx={{ minWidth: 700 }}>
+    <TableContainer component={Paper} sx={{ overflowX: 'auto', borderRadius: { xs: 2, sm: 3 } }}>
+      <Table sx={{ minWidth: { xs: 480, sm: 620 } }}>
         <TableHead>
           <TableRow>
-            <TableCell>Category</TableCell>
-            <TableCell>{comparison.left}</TableCell>
-            <TableCell>{comparison.right}</TableCell>
+            <TableCell>Features</TableCell>
+            {columns.map((column) => <TableCell key={column}>{column}</TableCell>)}
           </TableRow>
         </TableHead>
         <TableBody>
-          {comparison.fields.map((row) => (
+          {rows.map((row) => (
             <TableRow key={row.label}>
               <TableCell>{row.label}</TableCell>
-              <TableCell>{row.left}</TableCell>
-              <TableCell>{row.right}</TableCell>
+              {columns.map((column, index) => <TableCell key={`${row.label}-${column}`}>{row.values[index] || '—'}</TableCell>)}
             </TableRow>
           ))}
         </TableBody>

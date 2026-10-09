@@ -12,6 +12,7 @@ const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const maxRequestBytes = 1_000_000;
 const { articlePreviews: legacyArticles, categories } = await import('../src/data/siteData.js');
 const { getLegacyArticleContent, legacyArticleContentToMarkdown } = await import('../src/data/legacyArticleContent.js');
+const { comparisonDataForArticle } = await import('../src/data/comparisonData.js');
 const legacySlugs = new Set(legacyArticles.map((article) => article.slug));
 const categoryNames = new Set(categories.map((category) => category.title));
 
@@ -87,6 +88,32 @@ function validateArticle(value, routeSlug) {
     }
   }
 
+  if (value.comparison !== undefined && value.comparison !== null) {
+    const { objects, features } = value.comparison;
+    if (!Array.isArray(objects) || objects.length < 2 || objects.length > 4) {
+      return 'Comparison articles must have between two and four compared objects.';
+    }
+    if (objects.some((name) => typeof name !== 'string' || !name.trim() || name.length > 80)
+      || new Set(objects.map((name) => name.trim().toLowerCase())).size !== objects.length) {
+      return 'Compared object names must be unique, non-empty strings no longer than 80 characters.';
+    }
+    if (!Array.isArray(features) || features.length < 1) {
+      return 'Comparison articles must have at least one feature.';
+    }
+    if (features.some((feature) => (
+      !feature || typeof feature.name !== 'string' || !feature.name.trim() || feature.name.length > 100
+      || !Array.isArray(feature.values) || feature.values.length !== objects.length
+      || feature.values.some((item) => typeof item !== 'string' || !item.trim() || item.length > 500)
+    ))) {
+      return 'Each comparison feature needs a name and a value for every compared object.';
+    }
+    if (value.category !== 'AI Comparisons') {
+      return 'Comparison articles must use the AI Comparisons category.';
+    }
+  } else if (value.category === 'AI Comparisons') {
+    return 'Choose comparison article and complete its comparison table.';
+  }
+
   return null;
 }
 
@@ -127,6 +154,7 @@ async function listArticles() {
         seoTitle: '',
         metaDescription: '',
         status: 'published',
+        comparison: comparisonDataForArticle(article.slug),
         source: 'code',
       }];
     }));

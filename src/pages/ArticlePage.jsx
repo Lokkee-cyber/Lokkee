@@ -21,6 +21,7 @@ import AdSlot from '../components/AdSlot';
 import SEO from '../components/SEO';
 import NotFoundPage from './NotFoundPage';
 import { getLegacyArticleContent } from '../data/legacyArticleContent';
+import ComparisonTable from '../components/ComparisonTable';
 
 function renderMarkdown(markdown) {
   const lines = markdown.split(/\r?\n/);
@@ -108,6 +109,12 @@ export default function ArticlePage() {
           </Stack>
 
           <Box component="img" src={article.image} alt={article.title} sx={{ width: '100%', borderRadius: 4, mt: 4, height: 420, objectFit: 'cover' }} />
+
+          {article.comparison && (
+            <Box sx={{ my: 4 }}>
+              <ComparisonTable comparison={article.comparison} />
+            </Box>
+          )}
 
           {!article.content && (
             <Paper elevation={0} sx={{ p: 3, my: 4, backgroundColor: 'rgba(91,76,245,0.04)', borderRadius: 3 }}>

@@ -1,4 +1,5 @@
 import { articlePreviews } from './siteData';
+import { comparisonDataForArticle } from './comparisonData';
 
 const fallbackImage = 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=1200&q=80';
 const localArticleModules = import.meta.glob('../../content/articles/*.json', {
@@ -16,6 +17,7 @@ export const localArticles = Object.values(localArticleModules)
     date: article.publishedAt?.slice(0, 10) || article.date,
     updated: article.updatedAt?.slice(0, 10) || article.updated,
     readTime: article.readTime || '1 min read',
+    comparison: article.comparison,
   }));
 
 const deletedArticleModules = import.meta.glob('../../content/articles/*.deleted', {
@@ -33,7 +35,13 @@ const legacySlugs = new Set(articlePreviews.map((article) => article.slug));
 export const publishedArticles = [
   ...articlePreviews
     .filter((article) => !deletedSlugs.has(article.slug))
-    .map((article) => localArticlesBySlug.get(article.slug) || article),
+    .map((article) => {
+      const localArticle = localArticlesBySlug.get(article.slug);
+      return localArticle || {
+        ...article,
+        comparison: article.comparison || comparisonDataForArticle(article.slug),
+      };
+    }),
   ...localArticles.filter((article) => !legacySlugs.has(article.slug) && !deletedSlugs.has(article.slug)),
 ];
 

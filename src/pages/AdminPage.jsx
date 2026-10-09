@@ -5,6 +5,7 @@ import {
   Button,
   Card,
   CardContent,
+  Checkbox,
   Container,
   Dialog,
   DialogActions,
@@ -12,6 +13,7 @@ import {
   DialogContentText,
   DialogTitle,
   FormControl,
+  FormControlLabel,
   Grid,
   InputLabel,
   MenuItem,
@@ -40,6 +42,14 @@ function emptyArticle() {
     status: 'draft',
     publishedAt: '',
     updatedAt: '',
+    comparison: null,
+  };
+}
+
+function emptyComparison() {
+  return {
+    objects: ['', ''],
+    features: [{ name: '', values: ['', ''] }],
   };
 }
 
@@ -137,6 +147,107 @@ export default function AdminPage() {
     if (field === 'slug') {
       setSlugWasEdited(true);
     }
+  };
+
+  const setComparisonEnabled = (enabled) => {
+    setArticle((current) => ({
+      ...current,
+      category: enabled ? 'AI Comparisons' : current.category === 'AI Comparisons' ? categories[0].title : current.category,
+      comparison: enabled ? current.comparison || emptyComparison() : null,
+    }));
+  };
+
+  const updateComparisonObject = (objectIndex, value) => {
+    setArticle((current) => ({
+      ...current,
+      comparison: {
+        ...current.comparison,
+        objects: current.comparison.objects.map((object, index) => index === objectIndex ? value : object),
+      },
+    }));
+  };
+
+  const addComparisonObject = () => {
+    setArticle((current) => {
+      if (!current.comparison || current.comparison.objects.length >= 4) return current;
+      return {
+        ...current,
+        comparison: {
+          ...current.comparison,
+          objects: [...current.comparison.objects, ''],
+          features: current.comparison.features.map((feature) => ({ ...feature, values: [...feature.values, ''] })),
+        },
+      };
+    });
+  };
+
+  const removeComparisonObject = (objectIndex) => {
+    setArticle((current) => {
+      if (!current.comparison || current.comparison.objects.length <= 2) return current;
+      return {
+        ...current,
+        comparison: {
+          ...current.comparison,
+          objects: current.comparison.objects.filter((_, index) => index !== objectIndex),
+          features: current.comparison.features.map((feature) => ({
+            ...feature,
+            values: feature.values.filter((_, index) => index !== objectIndex),
+          })),
+        },
+      };
+    });
+  };
+
+  const updateComparisonFeature = (featureIndex, field, value) => {
+    setArticle((current) => ({
+      ...current,
+      comparison: {
+        ...current.comparison,
+        features: current.comparison.features.map((feature, index) => (
+          index === featureIndex ? { ...feature, [field]: value } : feature
+        )),
+      },
+    }));
+  };
+
+  const updateComparisonValue = (featureIndex, objectIndex, value) => {
+    setArticle((current) => ({
+      ...current,
+      comparison: {
+        ...current.comparison,
+        features: current.comparison.features.map((feature, index) => (
+          index === featureIndex
+            ? { ...feature, values: feature.values.map((item, valueIndex) => valueIndex === objectIndex ? value : item) }
+            : feature
+        )),
+      },
+    }));
+  };
+
+  const addComparisonFeature = () => {
+    setArticle((current) => {
+      if (!current.comparison) return current;
+      return {
+        ...current,
+        comparison: {
+          ...current.comparison,
+          features: [...current.comparison.features, {
+            name: '',
+            values: current.comparison.objects.map(() => ''),
+          }],
+        },
+      };
+    });
+  };
+
+  const removeComparisonFeature = (featureIndex) => {
+    setArticle((current) => ({
+      ...current,
+      comparison: {
+        ...current.comparison,
+        features: current.comparison.features.filter((_, index) => index !== featureIndex),
+      },
+    }));
   };
 
   const saveArticle = async (event) => {
@@ -288,7 +399,9 @@ export default function AdminPage() {
                         value={article.category}
                         onChange={updateField('category')}
                       >
-                        {categories.filter((category) => category.slug !== 'comparisons').map((category) => (
+                        {categories.filter((category) => (
+                          article.comparison ? category.slug === 'comparisons' : category.slug !== 'comparisons'
+                        )).map((category) => (
                           <MenuItem key={category.slug} value={category.title}>{category.title}</MenuItem>
                         ))}
                       </Select>
@@ -300,6 +413,87 @@ export default function AdminPage() {
                   <Grid item xs={12}>
                     <TextField fullWidth label="Featured image URL (HTTPS or site-relative path)" value={article.image} onChange={updateField('image')} />
                   </Grid>
+                  <Grid item xs={12}>
+                    <FormControlLabel
+                      control={<Checkbox checked={Boolean(article.comparison)} onChange={(event) => setComparisonEnabled(event.target.checked)} />}
+                      label="This is a comparison article"
+                    />
+                  </Grid>
+                  {article.comparison && (
+                    <>
+                      <Grid item xs={12}>
+                        <Stack spacing={2}>
+                          <Typography variant="h6" fontWeight={800}>Compared objects (2–4)</Typography>
+                          {article.comparison.objects.map((object, objectIndex) => (
+                            <Stack key={`object-${objectIndex}`} direction={{ xs: 'column', sm: 'row' }} spacing={1}>
+                              <TextField
+                                fullWidth
+                                required
+                                label={`Object ${objectIndex + 1}`}
+                                value={object}
+                                onChange={(event) => updateComparisonObject(objectIndex, event.target.value)}
+                                inputProps={{ maxLength: 80 }}
+                              />
+                              <Button
+                                color="error"
+                                disabled={article.comparison.objects.length <= 2}
+                                onClick={() => removeComparisonObject(objectIndex)}
+                              >
+                                Remove
+                              </Button>
+                            </Stack>
+                          ))}
+                          <Button onClick={addComparisonObject} disabled={article.comparison.objects.length >= 4} sx={{ alignSelf: 'flex-start' }}>
+                            Add compared object
+                          </Button>
+                        </Stack>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Stack spacing={2}>
+                          <Typography variant="h6" fontWeight={800}>Comparison features</Typography>
+                          {article.comparison.features.map((feature, featureIndex) => (
+                            <Card key={`feature-${featureIndex}`} variant="outlined">
+                              <CardContent>
+                                <Stack spacing={2}>
+                                  <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1}>
+                                    <TextField
+                                      fullWidth
+                                      required
+                                      label="Feature"
+                                      value={feature.name}
+                                      onChange={(event) => updateComparisonFeature(featureIndex, 'name', event.target.value)}
+                                      inputProps={{ maxLength: 100 }}
+                                    />
+                                    <Button
+                                      color="error"
+                                      disabled={article.comparison.features.length <= 1}
+                                      onClick={() => removeComparisonFeature(featureIndex)}
+                                    >
+                                      Remove
+                                    </Button>
+                                  </Stack>
+                                  {article.comparison.objects.map((object, objectIndex) => (
+                                    <TextField
+                                      key={`value-${featureIndex}-${objectIndex}`}
+                                      fullWidth
+                                      required
+                                      label={`${object || `Object ${objectIndex + 1}`} value`}
+                                      value={feature.values[objectIndex] || ''}
+                                      onChange={(event) => updateComparisonValue(featureIndex, objectIndex, event.target.value)}
+                                      inputProps={{ maxLength: 500 }}
+                                    />
+                                  ))}
+                                </Stack>
+                              </CardContent>
+                            </Card>
+                          ))}
+                          <Button onClick={addComparisonFeature} sx={{ alignSelf: 'flex-start' }}>
+                            Add feature
+                          </Button>
+                        </Stack>
+                      </Grid>
+                    </>
+                  )}
                   <Grid item xs={12}>
                     <TextField
                       fullWidth
