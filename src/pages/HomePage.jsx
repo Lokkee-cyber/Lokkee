@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Box,
@@ -31,6 +31,7 @@ import ArticleCard from '../components/ArticleCard.jsx';
 import CategoryCard from '../components/CategoryCard.jsx';
 import Newsletter from '../components/Newsletter.jsx';
 import SearchBar from '../components/SearchBar.jsx';
+import { scrollToElement } from '../utils/scrollToElement.js';
 
 const categoryIcons = {
   'AI Tools': AutoAwesome,
@@ -47,9 +48,18 @@ const categoryIcons = {
 
 export default function HomePage() {
   const [page, setPage] = useState(1);
+  const latestArticlesRef = useRef(null);
+  const previousPageRef = useRef(page);
   const perPage = 4;
   const latestArticles = publishedArticles.slice(0, 8);
   const pageArticles = latestArticles.slice((page - 1) * perPage, page * perPage);
+
+  useLayoutEffect(() => {
+    if (previousPageRef.current !== page) {
+      scrollToElement(latestArticlesRef.current);
+      previousPageRef.current = page;
+    }
+  }, [page]);
 
   return (
     <>
@@ -174,7 +184,10 @@ export default function HomePage() {
         </Grid>
       </Box>
 
-      <Box sx={{ py: 2 }}>
+      <Box
+        ref={latestArticlesRef}
+        sx={{ py: 2, scrollMarginTop: { xs: 72, sm: 86 } }}
+      >
         <Typography variant="h4" fontWeight={800} sx={{ mb: 3 }}>Latest articles</Typography>
         <Grid container spacing={3}>
           {pageArticles.map((article) => (
@@ -184,7 +197,12 @@ export default function HomePage() {
           ))}
         </Grid>
         <Stack alignItems="center" sx={{ mt: 4 }}>
-          <Pagination count={Math.ceil(latestArticles.length / perPage)} page={page - 1} onChange={(event, value) => setPage(value)} color="primary" />
+          <Pagination
+            count={Math.ceil(latestArticles.length / perPage)}
+            page={page}
+            onChange={(event, value) => setPage(value)}
+            color="primary"
+          />
         </Stack>
       </Box>
 

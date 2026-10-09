@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Box, Container, Pagination, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import ArticleCard from '../components/ArticleCard.jsx';
@@ -7,6 +7,7 @@ import Newsletter from '../components/Newsletter.jsx';
 import { categories, tools } from '../data/siteData.js';
 import { publishedArticles } from '../data/articles.js';
 import SEO from '../components/SEO.jsx';
+import { scrollToElement } from '../utils/scrollToElement.js';
 
 const categoryDescriptions = {
   'ai-tools': 'Discover the best AI tools for productivity, writing, coding, research and daily work.',
@@ -24,6 +25,8 @@ const categoryDescriptions = {
 export default function CategoryPage({ categorySlug }) {
   const category = categories.find((item) => item.slug === categorySlug) || categories[0];
   const [page, setPage] = useState(1);
+  const latestArticlesRef = useRef(null);
+  const previousPageRef = useRef(page);
   const pageSize = 4;
 
   const categoryArticles = useMemo(
@@ -37,6 +40,13 @@ export default function CategoryPage({ categorySlug }) {
   );
 
   const visibleArticles = categoryArticles.slice((page - 1) * pageSize, page * pageSize);
+
+  useLayoutEffect(() => {
+    if (previousPageRef.current !== page) {
+      scrollToElement(latestArticlesRef.current);
+      previousPageRef.current = page;
+    }
+  }, [page]);
 
   return (
     <>
@@ -57,7 +67,7 @@ export default function CategoryPage({ categorySlug }) {
         </Box>
       </Stack>
 
-      <Stack spacing={4} sx={{ my: 5 }}>
+      <Stack ref={latestArticlesRef} spacing={4} sx={{ my: 5 }}>
         <Typography variant="h4" fontWeight={800}>Latest articles</Typography>
         <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'minmax(0, 1fr)', sm: 'repeat(2, minmax(0, 1fr))', lg: 'repeat(4, minmax(0, 1fr))' }, gap: 3, width: '100%', minWidth: 0 }}>
           {visibleArticles.map((article) => (
@@ -65,7 +75,12 @@ export default function CategoryPage({ categorySlug }) {
           ))}
         </Box>
         <Stack alignItems="center">
-          <Pagination count={Math.max(1, Math.ceil(categoryArticles.length / pageSize))} page={page - 1} onChange={(e, value) => setPage(value)} color="primary" />
+          <Pagination
+            count={Math.max(1, Math.ceil(categoryArticles.length / pageSize))}
+            page={page}
+            onChange={(event, value) => setPage(value)}
+            color="primary"
+          />
         </Stack>
       </Stack>
 

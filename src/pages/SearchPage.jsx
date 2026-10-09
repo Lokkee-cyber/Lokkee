@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
   Alert,
@@ -20,6 +20,7 @@ import SEO from '../components/SEO.jsx';
 import ArticleCard from '../components/ArticleCard.jsx';
 import ToolCard from '../components/ToolCard.jsx';
 import CategoryCard from '../components/CategoryCard.jsx';
+import { scrollToElement } from '../utils/scrollToElement.js';
 
 const categoryIcons = {
   'AI Tools': () => 'A',
@@ -39,8 +40,21 @@ export default function SearchPage() {
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [typeFilter, setTypeFilter] = useState('all');
   const [page, setPage] = useState(1);
+  const resultsRef = useRef(null);
+  const previousPageRef = useRef(page);
 
   const searchTerm = (searchParams.get('q') || '').toLowerCase();
+
+  useEffect(() => {
+    setPage(1);
+  }, [searchTerm, categoryFilter, typeFilter]);
+
+  useLayoutEffect(() => {
+    if (previousPageRef.current !== page) {
+      scrollToElement(resultsRef.current);
+      previousPageRef.current = page;
+    }
+  }, [page]);
 
   const results = useMemo(() => {
     const items = searchItems.filter((item) => {
@@ -94,7 +108,7 @@ export default function SearchPage() {
         <Alert severity="info">No results found. Try a different keyword or remove one of the filters.</Alert>
       ) : (
         <>
-          <Grid container spacing={3}>
+          <Grid container ref={resultsRef} spacing={3} sx={{ scrollMarginTop: { xs: 72, sm: 86 } }}>
             {paginated.map((item) => (
               <Grid item xs={12} sm={6} md={4} lg={3} key={`${item.type}-${item.slug || item.title}`}>
                 {item.type === 'Article' ? <ArticleCard article={item} /> : item.type === 'Tool' ? <ToolCard tool={item} /> : <CategoryCard category={{ ...item, articleCount: 12 }} icon={categoryIcons[item.title] || (() => item.title.slice(0, 1))} />}
@@ -102,7 +116,12 @@ export default function SearchPage() {
             ))}
           </Grid>
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
-            <Pagination count={Math.ceil(results.length / pageSize)} page={page - 1} onChange={(e, value) => setPage(value)} color="primary" />
+            <Pagination
+              count={Math.ceil(results.length / pageSize)}
+              page={page}
+              onChange={(event, value) => setPage(value)}
+              color="primary"
+            />
           </Box>
         </>
       )}
