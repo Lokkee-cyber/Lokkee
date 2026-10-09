@@ -1,0 +1,15 @@
+{
+  "title": "best ai",
+  "slug": "best-ai",
+  "excerpt": "top 10",
+  "category": "AI Tools",
+  "author": "ToolPilot AI Editorial",
+  "image": "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=1200&q=80",
+  "content": "I updated the API to accept both local URLs and documented that in local-content-server.mjs and README.md. The check passed for both local origins and still rejected an unrelated site.\n\nRestart the local editor API to load the fix: stop its existing terminal with Ctrl+C, then run npm run dev:admin-api again. Keep the Vite dev server running, then reload /admin. Your existing uncommitted footer edit was left untouched.",
+  "seoTitle": "",
+  "metaDescription": "",
+  "status": "draft",
+  "publishedAt": "",
+  "updatedAt": "2026-10-09T10:22:45.609Z",
+  "readTime": "1 min read"
+}

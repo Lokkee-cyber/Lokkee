@@ -18,7 +18,24 @@ export const localArticles = Object.values(localArticleModules)
     readTime: article.readTime || '1 min read',
   }));
 
-export const publishedArticles = [...localArticles, ...articlePreviews];
+const deletedArticleModules = import.meta.glob('../../content/articles/*.deleted', {
+  eager: true,
+  query: '?raw',
+  import: 'default',
+});
+const deletedSlugs = new Set(
+  Object.keys(deletedArticleModules)
+    .map((path) => path.split('/').at(-1).replace(/\.deleted$/, '')),
+);
+const localArticlesBySlug = new Map(localArticles.map((article) => [article.slug, article]));
+const legacySlugs = new Set(articlePreviews.map((article) => article.slug));
+
+export const publishedArticles = [
+  ...articlePreviews
+    .filter((article) => !deletedSlugs.has(article.slug))
+    .map((article) => localArticlesBySlug.get(article.slug) || article),
+  ...localArticles.filter((article) => !legacySlugs.has(article.slug) && !deletedSlugs.has(article.slug)),
+];
 
 export function findPublishedArticle(slug) {
   return publishedArticles.find((article) => article.slug === slug);

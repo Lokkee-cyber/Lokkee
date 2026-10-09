@@ -7,12 +7,13 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const contentDirectory = resolve(root, 'content', 'articles');
 const host = '127.0.0.1';
 const port = Number(process.env.LOCAL_CONTENT_PORT || 4179);
-const allowedOrigins = new Set(['http://127.0.0.1:5173']);
+const allowedOrigins = new Set(['http://127.0.0.1:5173', 'http://localhost:5173']);
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const maxRequestBytes = 1_000_000;
 const { articlePreviews: legacyArticles, categories } = await import('../src/data/siteData.js');
+const { getLegacyArticleContent, legacyArticleContentToMarkdown } = await import('../src/data/legacyArticleContent.js');
 const legacySlugs = new Set(legacyArticles.map((article) => article.slug));
-const categoryNames = new Set(categories.filter((category) => category.slug !== 'comparisons').map((category) => category.title));
+const categoryNames = new Set(categories.map((category) => category.title));
 
 function sendJson(response, statusCode, payload) {
   response.writeHead(statusCode, {
@@ -110,12 +111,35 @@ async function readRequestBody(request) {
 
 async function listArticles() {
   await mkdir(contentDirectory, { recursive: true });
-  const filenames = (await readdir(contentDirectory))
-    .filter((name) => name.endsWith('.json') || name.endsWith('.draft'));
-  const articles = await Promise.all(
-    filenames.map(async (filename) => JSON.parse(await readFile(join(contentDirectory, filename), 'utf8'))),
-  );
-  return articles.sort((first, second) => first.title.localeCompare(second.title));
+  const filenames = await readdir(contentDirectory);
+  const deletedSlugs = new Set(filenames
+    .filter((name) => name.endsWith('.deleted'))
+    .map((name) => name.slice(0, -'.deleted'.length)));
+  const articles = new Map(legacyArticles
+    .filter((article) => !deletedSlugs.has(article.slug))
+    .map((article) => {
+      const content = getLegacyArticleContent(article.slug);
+      return [article.slug, {
+        ...article,
+        content: legacyArticleContentToMarkdown(content),
+        publishedAt: article.date,
+        updatedAt: article.updated,
+        seoTitle: '',
+        metaDescription: '',
+        status: 'published',
+        source: 'code',
+      }];
+    }));
+
+  for (const filename of filenames.filter((name) => name.endsWith('.json') || name.endsWith('.draft'))) {
+    const article = JSON.parse(await readFile(join(contentDirectory, filename), 'utf8'));
+    articles.set(article.slug, {
+      ...articles.get(article.slug),
+      ...article,
+      source: legacySlugs.has(article.slug) ? 'override' : 'local',
+    });
+  }
+  return [...articles.values()].sort((first, second) => first.title.localeCompare(second.title));
 }
 
 async function removeIfPresent(filename) {
@@ -165,26 +189,6 @@ const server = createServer(async (request, response) => {
       const publishedFilename = resolve(contentDirectory, `${slug}.json`);
       const draftFilename = resolve(contentDirectory, `${slug}.draft`);
       const targetFilename = article.status === 'published' ? publishedFilename : draftFilename;
-      let hasLocalFile = true;
-      try {
-        await readFile(publishedFilename);
-      } catch (error) {
-        if (error.code !== 'ENOENT') {
-          throw error;
-        }
-        try {
-          await readFile(draftFilename);
-        } catch (draftError) {
-          if (draftError.code !== 'ENOENT') {
-            throw draftError;
-          }
-          hasLocalFile = false;
-        }
-      }
-      if (!hasLocalFile && legacySlugs.has(slug)) {
-        sendJson(response, 409, { error: 'This slug belongs to an existing built-in article. Choose a different slug.' });
-        return;
-      }
       await mkdir(contentDirectory, { recursive: true });
       const words = article.content.trim().split(/\s+/).filter(Boolean).length;
       const articleToSave = {
@@ -195,7 +199,13 @@ const server = createServer(async (request, response) => {
       await writeFile(tempFilename, `${JSON.stringify(articleToSave, null, 2)}\n`, { flag: 'w' });
       await rename(tempFilename, targetFilename);
       await removeIfPresent(article.status === 'published' ? draftFilename : publishedFilename);
-      sendJson(response, 200, { article: articleToSave });
+      await removeIfPresent(resolve(contentDirectory, `${slug}.deleted`));
+      sendJson(response, 200, {
+        article: {
+          ...articleToSave,
+          source: legacySlugs.has(slug) ? 'override' : 'local',
+        },
+      });
     } catch (error) {
       if (error.message === 'Request body is too large.' || error.message === 'Request body must be valid JSON.') {
         sendJson(response, error.message === 'Request body is too large.' ? 413 : 400, { error: error.message });
@@ -203,6 +213,27 @@ const server = createServer(async (request, response) => {
         console.error('Unable to save local article:', error);
         sendJson(response, 500, { error: 'Unable to write the local article file.' });
       }
+    }
+    return;
+  }
+
+  if (match && request.method === 'DELETE') {
+    const slug = match[1];
+    if (!slugPattern.test(slug)) {
+      sendJson(response, 400, { error: 'Invalid article slug.' });
+      return;
+    }
+    try {
+      await removeIfPresent(resolve(contentDirectory, `${slug}.json`));
+      await removeIfPresent(resolve(contentDirectory, `${slug}.draft`));
+      if (legacySlugs.has(slug)) {
+        await mkdir(contentDirectory, { recursive: true });
+        await writeFile(resolve(contentDirectory, `${slug}.deleted`), 'deleted\n');
+      }
+      sendJson(response, 200, { deleted: slug });
+    } catch (error) {
+      console.error('Unable to delete local article:', error);
+      sendJson(response, 500, { error: 'Unable to delete the local article.' });
     }
     return;
   }

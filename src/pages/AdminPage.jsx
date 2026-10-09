@@ -6,6 +6,11 @@ import {
   Card,
   CardContent,
   Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   FormControl,
   Grid,
   InputLabel,
@@ -54,6 +59,8 @@ export default function AdminPage() {
   const [slugWasEdited, setSlugWasEdited] = useState(false);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
 
@@ -92,6 +99,32 @@ export default function AdminPage() {
     setNotice('');
   };
 
+  const deleteArticle = async () => {
+    if (!article.slug) return;
+    setDeleting(true);
+    setError('');
+    setNotice('');
+    try {
+      const response = await fetch(`${apiPath}/${encodeURIComponent(article.slug)}`, { method: 'DELETE' });
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.error || 'Could not delete this article.');
+      }
+      setDeleteDialogOpen(false);
+      setArticle(emptyArticle());
+      setSlugWasEdited(false);
+      const deletedArticle = articles.find((item) => item.slug === result.deleted);
+      setNotice(deletedArticle?.source === 'code' || deletedArticle?.source === 'override'
+        ? 'Article deleted locally. Its code-defined version will also be hidden from the public site after the next build.'
+        : 'Local article deleted.');
+      await loadArticles();
+    } catch (deleteError) {
+      setError(deleteError.message);
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   const updateField = (field) => (event) => {
     const value = event.target.value;
     setArticle((current) => {
@@ -118,8 +151,10 @@ export default function AdminPage() {
     setError('');
     setNotice('');
     const now = new Date().toISOString();
+    const articleFields = { ...article };
+    delete articleFields.source;
     const payload = {
-      ...article,
+      ...articleFields,
       status,
       publishedAt: status === 'published' ? article.publishedAt || now : article.publishedAt || '',
       updatedAt: now,
@@ -168,14 +203,35 @@ export default function AdminPage() {
         <Grid item xs={12} lg={4}>
           <Card>
             <CardContent>
-              <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
+              <Stack direction="row" justifyContent="space-between" alignItems="center" flexWrap="wrap" gap={1} sx={{ mb: 2 }}>
                 <Typography variant="h5" fontWeight={800}>Local articles</Typography>
-                <Button onClick={startNewArticle}>New</Button>
+                <Stack direction="row" alignItems="center" spacing={0.5}>
+                  <FormControl size="small" sx={{ minWidth: 145, maxWidth: 210 }}>
+                    <InputLabel id="select-article-label">Select article</InputLabel>
+                    <Select
+                      labelId="select-article-label"
+                      label="Select article"
+                      value={articles.some((item) => item.slug === article.slug) ? article.slug : ''}
+                      onChange={(event) => {
+                        const selected = articles.find((item) => item.slug === event.target.value);
+                        if (selected) editArticle(selected);
+                      }}
+                    >
+                      {articles.map((item) => (
+                        <MenuItem key={item.slug} value={item.slug}>{item.title}</MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <Button color="error" disabled={!article.slug || saving || deleting} onClick={() => setDeleteDialogOpen(true)}>
+                    Delete
+                  </Button>
+                  <Button onClick={startNewArticle}>New</Button>
+                </Stack>
               </Stack>
               {loading ? (
                 <Typography color="text.secondary">Loading article files…</Typography>
               ) : articles.length === 0 ? (
-                <Typography color="text.secondary">No locally authored article files yet.</Typography>
+                <Typography color="text.secondary">No published or locally authored articles found.</Typography>
               ) : (
                 <Stack spacing={1}>
                   {articles.map((item) => (
@@ -187,7 +243,7 @@ export default function AdminPage() {
                     >
                       {item.title}
                       <Typography component="span" variant="caption" sx={{ display: 'block' }}>
-                        {item.status} · {item.slug}
+                        {item.status} · {item.source === 'code' ? 'code article' : item.source === 'override' ? 'code article · local edit' : 'local article'} · {item.slug}
                       </Typography>
                     </Button>
                   ))}
@@ -215,7 +271,8 @@ export default function AdminPage() {
                       label="URL slug"
                       value={article.slug}
                       onChange={updateField('slug')}
-                      helperText="Lowercase words separated by hyphens."
+                      disabled={Boolean(article.source)}
+                      helperText={article.source ? 'Existing article URLs cannot be changed here.' : 'Lowercase words separated by hyphens.'}
                       inputProps={{ pattern: '[a-z0-9]+(-[a-z0-9]+)*' }}
                     />
                   </Grid>
@@ -284,6 +341,22 @@ export default function AdminPage() {
           </Card>
         </Grid>
       </Grid>
+      <Dialog open={deleteDialogOpen} onClose={() => !deleting && setDeleteDialogOpen(false)}>
+        <DialogTitle>Delete article?</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {article.source === 'code' || article.source === 'override'
+              ? `This creates a local deletion marker for “${article.title}” and hides it from the public site after you build and deploy.`
+              : `This permanently removes the local article file for “${article.title}”.`}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDeleteDialogOpen(false)} disabled={deleting}>Cancel</Button>
+          <Button color="error" onClick={deleteArticle} disabled={deleting}>
+            {deleting ? 'Deleting…' : 'Delete article'}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 }

@@ -44,7 +44,7 @@ export default function Footer() {
       <Container maxWidth="xl" sx={{ py: 6 }}>
         <Grid container spacing={4}>
           <Grid item xs={12} md={4}>
-            <Typography variant="h6" fontWeight={800} mb={1}>ToolPilot AI</Typography>
+            <Typography variant="h6" fontWeight={800} mb={1}>ToolPilot AI[Lokkee]</Typography>
             <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 330 }}>
               Discover and compare the best AI tools for creators, students, developers and businesses.
             </Typography>

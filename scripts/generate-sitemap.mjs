@@ -7,6 +7,10 @@ const dataUrl = new URL('../src/data/siteData.js', import.meta.url);
 const { categories, tools, articlePreviews, comparisons } = await import(dataUrl.href);
 const siteUrl = (process.env.VITE_SITE_URL || 'https://toolpilot.ai').replace(/\/$/, '');
 const contentDirectory = resolve(root, 'content', 'articles');
+const contentFilenames = await readdir(contentDirectory);
+const deletedSlugs = new Set(contentFilenames
+  .filter((filename) => filename.endsWith('.deleted'))
+  .map((filename) => filename.slice(0, -'.deleted'.length)));
 
 const routes = [
   '/', '/ai-tools', '/ai-video', '/ai-image', '/ai-writing', '/ai-audio',
@@ -19,14 +23,16 @@ const urls = [
   ...routes,
   ...categories.map((category) => `/${category.slug}`),
   ...tools.map((tool) => `/tools/${tool.slug}`),
-  ...articlePreviews.map((article) => `/articles/${article.slug}`),
+  ...articlePreviews
+    .filter((article) => !deletedSlugs.has(article.slug))
+    .map((article) => `/articles/${article.slug}`),
   ...comparisons.map((comparison) => `/compare/${comparison.slug}`),
 ];
 
-const contentFiles = (await readdir(contentDirectory)).filter((filename) => filename.endsWith('.json'));
+const contentFiles = contentFilenames.filter((filename) => filename.endsWith('.json'));
 for (const filename of contentFiles) {
   const article = JSON.parse(await readFile(resolve(contentDirectory, filename), 'utf8'));
-  if (article.status === 'published' && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(article.slug || '')) {
+  if (article.status === 'published' && !deletedSlugs.has(article.slug) && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(article.slug || '')) {
     urls.push(`/articles/${article.slug}`);
   }
 }
