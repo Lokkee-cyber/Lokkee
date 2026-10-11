@@ -1,7 +1,7 @@
 import { siteConfig } from './siteConfig';
 
 export const defaultSeo = {
-  title: `${siteConfig.name} — Discover the Best AI Tools`,
+  title: `${siteConfig.name} — Explore More. Create Smarter.`,
   description: siteConfig.description,
   path: '/',
   type: 'website',
@@ -10,7 +10,7 @@ export const defaultSeo = {
 
 export function buildCanonical(path) {
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
-  return `${siteConfig.siteUrl}${normalizedPath}`;
+  return `${siteConfig.siteUrl.replace(/\/$/, '')}${normalizedPath}`;
 }
 
 export function buildPageUrl(path) {

@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /private
 Disallow: /api/private
-Sitemap: https://toolpilot.ai/sitemap.xml
+Sitemap: https://www.lokkeeverse.com/sitemap.xml

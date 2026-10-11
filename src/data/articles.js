@@ -1,5 +1,5 @@
-import { articlePreviews } from './siteData';
-import { comparisonDataForArticle } from './comparisonData';
+import { articlePreviews } from './siteData.js';
+import { comparisonDataForArticle } from './comparisonData.js';
 
 const fallbackImage = 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=1200&q=80';
 const localArticleModules = import.meta.glob('../../content/articles/*.json', {
@@ -11,8 +11,8 @@ export const localArticles = Object.values(localArticleModules)
   .filter((article) => article.status === 'published')
   .map((article) => ({
     ...article,
-    author: article.author || 'ToolPilot AI Editorial',
-    authorSlug: article.authorSlug || 'toolpilot-ai-editorial',
+    author: article.author || 'LokkeeVerse Editorial',
+    authorSlug: article.authorSlug || 'lokkeeverse-editorial',
     image: article.image || fallbackImage,
     date: article.publishedAt?.slice(0, 10) || article.date,
     updated: article.updatedAt?.slice(0, 10) || article.updated,

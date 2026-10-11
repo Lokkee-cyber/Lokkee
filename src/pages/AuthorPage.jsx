@@ -9,8 +9,8 @@ export default function AuthorPage() {
 
   return (
     <Container maxWidth="md" sx={{ py: { xs: 4, md: 8 } }}>
-      <SEO title="ToolPilot AI Editorial — Authors" description="Learn about the ToolPilot AI editorial team and its approach to research and publishing." canonical={`/authors/${slug}`} />
-      <Typography variant="h1" fontWeight={800}>ToolPilot AI Editorial</Typography>
+      <SEO title="LokkeeVerse Editorial — Authors" description="Learn about the LokkeeVerse editorial approach to research, verification, and publishing." canonical={`/authors/${slug}`} />
+      <Typography variant="h1" fontWeight={800}>LokkeeVerse Editorial</Typography>
       <Typography color="text.secondary" sx={{ display: 'block', mt: 2, maxWidth: 780 }}>
         {siteConfig.author.bio}
       </Typography>
@@ -25,7 +25,7 @@ export default function AuthorPage() {
           <Box>
             <Typography variant="h2" fontWeight={800}>Editorial approach</Typography>
             <Typography color="text.secondary">
-              All ToolPilot AI articles are developed with a clear scope, source-aware claims, practical examples and explicit limitations. Product details can change, so published guidance is reviewed and updated when the underlying information changes.
+              All LokkeeVerse articles are developed with a clear scope, source-aware claims, practical examples, and explicit limitations. Product details can change, so published guidance is reviewed and updated when the underlying information changes.
             </Typography>
           </Box>
           {isEditorial && (

@@ -37,7 +37,7 @@ export default function SearchBar({ compact = false, value = '', onChange, place
             </InputAdornment>
           ),
         }}
-        aria-label="Search ToolPilot AI"
+        aria-label="Search LokkeeVerse"
         size={compact ? 'small' : 'medium'}
         sx={{
           '& .MuiOutlinedInput-root': {

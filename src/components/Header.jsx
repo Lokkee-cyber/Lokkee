@@ -65,23 +65,19 @@ export default function Header({ mode, onToggleMode }) {
         <Toolbar disableGutters sx={{ minHeight: { xs: 64, sm: 78 }, gap: { xs: 1, sm: 2 }, minWidth: 0 }}>
           <Box component={Link} to="/" sx={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit', minWidth: 0, flexShrink: 1 }}>
             <Box
+              component="img"
+              src="/lokkeeverse-mark.svg"
+              alt=""
               sx={{
                 width: { xs: 34, sm: 38 },
                 height: { xs: 34, sm: 38 },
                 flexShrink: 0,
-                borderRadius: 12,
-                background: 'linear-gradient(135deg, #5041f8 0%, #13b8a6 100%)',
-                display: 'grid',
-                placeItems: 'center',
-                color: '#fff',
-                fontWeight: 800,
+                objectFit: 'contain',
                 mr: { xs: 1, sm: 1.5 },
               }}
-            >
-              T
-            </Box>
+            />
             <Typography variant="h6" sx={{ fontWeight: 800, fontSize: { xs: '1rem', sm: '1.25rem' }, letterSpacing: '-0.04em', color: '#0f2c8d', whiteSpace: 'nowrap' }}>
-              ToolPilot AI
+              LokkeeVerse
             </Typography>
           </Box>
 

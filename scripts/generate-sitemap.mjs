@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const dataUrl = new URL('../src/data/siteData.js', import.meta.url);
 const { categories, tools, articlePreviews, comparisons } = await import(dataUrl.href);
-const siteUrl = (process.env.VITE_SITE_URL || 'https://toolpilot.ai').replace(/\/$/, '');
+const siteUrl = (process.env.SITE_URL || process.env.VITE_SITE_URL || 'https://www.lokkeeverse.com').replace(/\/$/, '');
 const contentDirectory = resolve(root, 'content', 'articles');
 const contentFilenames = await readdir(contentDirectory);
 const deletedSlugs = new Set(contentFilenames

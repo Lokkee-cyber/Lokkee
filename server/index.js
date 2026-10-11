@@ -3,7 +3,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import rateLimit from 'express-rate-limit';
 import { z } from 'zod';
-import articleRoutes from "./routes/articleRoutes.js";
+import connectDB from './src/config/database.js';
+import articleRoutes from './src/routes/articleRoutes.js';
 
 dotenv.config();
 
@@ -17,16 +18,33 @@ const articleSeed = [
 ];
 
 const toolSeed = [
-  { slug: 'chatgpt', name: 'ChatGPT', category: 'AI Writing' },
-  { slug: 'gemini', name: 'Gemini', category: 'AI Research' },
+  { slug: 'chatgpt', name: 'ChatGPT', category: 'General AI' },
+  { slug: 'gemini', name: 'Google Gemini', category: 'AI Research' },
+  { slug: 'claude', name: 'Claude', category: 'AI Writing' },
+  { slug: 'perplexity', name: 'Perplexity', category: 'AI Research' },
+  { slug: 'microsoft-copilot', name: 'Microsoft Copilot', category: 'Productivity' },
+  { slug: 'deepseek', name: 'DeepSeek', category: 'AI Research' },
+  { slug: 'grok', name: 'Grok', category: 'General AI' },
+  { slug: 'midjourney', name: 'Midjourney', category: 'AI Image' },
+  { slug: 'ideogram', name: 'Ideogram', category: 'AI Image' },
+  { slug: 'leonardo-ai', name: 'Leonardo AI', category: 'AI Image' },
   { slug: 'runway', name: 'Runway', category: 'AI Video' },
+  { slug: 'openai-sora', name: 'OpenAI Sora', category: 'AI Video' },
+  { slug: 'cursor', name: 'Cursor', category: 'AI Coding' },
+  { slug: 'github-copilot', name: 'GitHub Copilot', category: 'AI Coding' },
+  { slug: 'suno', name: 'Suno', category: 'AI Audio' },
 ];
 
 const newsletterSchema = z.object({
   email: z.string().email(),
 });
 
-app.use(cors());
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  }),
+);
 app.use(express.json());
 app.use(
   rateLimit({
@@ -38,8 +56,16 @@ app.use(
   }),
 );
 
+if (process.env.MONGODB_URI) {
+  connectDB().catch((error) => {
+    console.error('MongoDB connection failed:', error.message);
+  });
+} else {
+  console.log('MongoDB not configured; running server without database connection.');
+}
+
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', service: 'ToolPilot AI API' });
+  res.json({ status: 'ok', service: 'LokkeeVerse API' });
 });
 
 app.get('/api/articles', (req, res) => {
@@ -75,32 +101,10 @@ app.post('/api/newsletter', (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`ToolPilot AI API running on http://localhost:${PORT}`);
-});
-
-connectDB();
-
-app.use(express.json());
-
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL,
-    credentials: true,
-  })
-);
-
-app.get("/api/health", (req, res) => {
-  res.json({
-    success: true,
-    message: "ToolPilot API is running",
-  });
-});
-
+app.use('/api/articles-db', articleRoutes);
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-}   
-)
+  console.log(`LokkeeVerse server running on http://localhost:${PORT}`);
+});
 
-app.use("/api/articles", articleRoutes);
+export default app;

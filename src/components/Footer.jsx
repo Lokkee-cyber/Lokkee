@@ -21,7 +21,7 @@ const footerLinks = {
     { label: 'About', to: '/about' },
     { label: 'Contact', to: '/contact' },
     { label: 'Editorial Policy', to: '/editorial-policy' },
-    { label: 'Author', to: '/authors/toolpilot-ai-editorial' },
+    { label: 'Author', to: '/authors/lokkeeverse-editorial' },
   ],
   Legal: [
     { label: 'Privacy Policy', to: '/privacy-policy' },
@@ -44,9 +44,12 @@ export default function Footer() {
       <Container maxWidth="xl" sx={{ py: 6 }}>
         <Grid container spacing={4}>
           <Grid item xs={12} md={4}>
-            <Typography variant="h6" fontWeight={800} mb={1}>ToolPilot AI[Lokkee]</Typography>
+            <Box component={Link} to="/" sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, color: 'inherit', textDecoration: 'none', mb: 1 }}>
+              <Box component="img" src="/lokkeeverse-mark.svg" alt="" sx={{ width: 32, height: 32, objectFit: 'contain' }} />
+              <Typography variant="h6" fontWeight={800}>LokkeeVerse</Typography>
+            </Box>
             <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 330 }}>
-              Discover and compare the best AI tools for creators, students, developers and businesses.
+              Discover verified AI tools, practical comparisons, and smart workflows for creators, students, developers, and businesses.
             </Typography>
             <Stack direction="row" spacing={1} sx={{ mt: 2 }}>
               {socialLinks.map((link) => (
@@ -69,7 +72,7 @@ export default function Footer() {
         </Grid>
         <Divider sx={{ my: 3 }} />
         <Typography variant="body2" color="text.secondary" textAlign="center">
-          © {new Date().getFullYear()} ToolPilot AI. All rights reserved.
+          © {new Date().getFullYear()} LokkeeVerse. All rights reserved.
         </Typography>
       </Container>
     </Box>

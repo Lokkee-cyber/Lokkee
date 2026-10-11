@@ -24,7 +24,7 @@ export default function ContactPage() {
       });
       if (!response.ok) throw new Error('The message could not be sent.');
       reset();
-      setStatus({ type: 'success', message: 'Your message was received. Thank you for contacting ToolPilot AI.' });
+      setStatus({ type: 'success', message: 'Your message was received. Thank you for contacting LokkeeVerse.' });
     } catch (error) {
       setStatus({ type: 'error', message: error.message || 'We could not send your message. Please try again later.' });
     } finally {
@@ -34,7 +34,7 @@ export default function ContactPage() {
 
   return (
     <Container maxWidth="md" sx={{ py: { xs: 4, md: 8 } }}>
-      <SEO title="Contact ToolPilot AI | Editorial Questions & Feedback" description="Contact ToolPilot AI about editorial questions, feedback, corrections or partnership inquiries." canonical="/contact" />
+      <SEO title="Contact LokkeeVerse | Editorial Questions & Feedback" description="Contact LokkeeVerse about editorial questions, feedback, corrections, or partnership inquiries." canonical="/contact" />
       <Typography variant="h1" fontWeight={800} sx={{ fontSize: { xs: '2.5rem', sm: '3.5rem', md: '6rem' } }}>Contact</Typography>
       <Typography color="text.secondary" sx={{ display: 'block', mt: 2 }}>
         Send an editorial question, correction request, feedback item or partnership inquiry. Do not send passwords, private account details or sensitive information.

@@ -9,6 +9,7 @@ import {
   Grid,
   List,
   ListItem,
+  ListItemButton,
   ListItemText,
   Paper,
   Stack,
@@ -85,7 +86,7 @@ export default function ArticlePage() {
 
   return (
     <>
-      <SEO title={article.seoTitle || `${article.title} | ToolPilot AI`} description={article.metaDescription || article.excerpt} canonical={`/articles/${article.slug}`} />
+      <SEO title={article.seoTitle || `${article.title} | LokkeeVerse`} description={article.metaDescription || article.excerpt} canonical={`/articles/${article.slug}`} />
       <Container maxWidth="xl" sx={{ py: { xs: 4, md: 6 } }}>
       <Breadcrumbs aria-label="Breadcrumb" sx={{ mb: 2 }}>
         <Link to="/">Home</Link>
@@ -200,9 +201,14 @@ export default function ArticlePage() {
               <Typography variant="h6" fontWeight={800}>Popular articles</Typography>
               <List>
                 {publishedArticles.slice(0, 3).map((item) => (
-                  <ListItem key={item.slug} disablePadding sx={{ py: 1 }}>
+                  <ListItemButton
+                    key={item.slug}
+                    component={Link}
+                    to={`/articles/${item.slug}`}
+                    sx={{ px: 0, py: 1, borderRadius: 1 }}
+                  >
                     <ListItemText primary={item.title} secondary={item.readTime} />
-                  </ListItem>
+                  </ListItemButton>
                 ))}
               </List>
             </Paper>

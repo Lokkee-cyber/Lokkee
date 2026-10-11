@@ -1,4 +1,4 @@
-# ToolPilot AI
+# LokkeeVerse
 
 ## Local article publishing
 

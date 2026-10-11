@@ -63,7 +63,7 @@ export default function HomePage() {
 
   return (
     <>
-      <SEO title="ToolPilot AI | Discover the right AI tools" description="Discover, compare and learn how to use AI tools and software that help you create, work and grow faster." canonical="/" />
+      <SEO title="LokkeeVerse | Discover useful AI tools and smarter workflows" description="Discover, compare, and learn how to use AI tools and software that help you create, work, and grow smarter." canonical="/" />
       <Container maxWidth="xl" sx={{ py: { xs: 4, md: 6 } }}>
       <Paper elevation={0} sx={{ p: { xs: 3, md: 6 }, background: 'linear-gradient(135deg, rgba(91,76,245,0.10), rgba(19,184,166,0.08))', borderRadius: 1, mb: 6 }}>
         <Grid container alignItems="center" spacing={4}>

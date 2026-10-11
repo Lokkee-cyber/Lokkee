@@ -71,7 +71,7 @@ export default function SearchPage() {
 
   return (
     <>
-      <SEO title="Search | ToolPilot AI" description="Search articles, AI tools and categories from ToolPilot AI." canonical="/search" />
+      <SEO title="Search | LokkeeVerse" description="Search articles, AI tools, and categories from LokkeeVerse." canonical="/search" />
       <Container maxWidth="xl" sx={{ py: { xs: 4, md: 6 } }}>
       <Typography variant="h3" fontWeight={800} sx={{ mb: 3 }}>Search</Typography>
       <TextField

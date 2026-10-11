@@ -10,7 +10,7 @@ export default function ComparisonIndexPage() {
   return (
     <Container maxWidth="xl" sx={{ py: { xs: 4, md: 6 } }}>
       <SEO
-        title="AI Tool Comparisons | ToolPilot AI"
+        title="AI Tool Comparisons | LokkeeVerse"
         description="Compare AI tools side by side to find the right fit for your workflow."
         canonical="/comparisons"
       />

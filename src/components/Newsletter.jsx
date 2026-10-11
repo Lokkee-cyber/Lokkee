@@ -23,7 +23,7 @@ export default function Newsletter() {
       });
       if (!response.ok) throw new Error('We could not complete your subscription.');
       reset();
-      setStatus({ type: 'success', message: 'You are subscribed. Watch your inbox for the next ToolPilot AI briefing.' });
+      setStatus({ type: 'success', message: 'You are subscribed. Watch your inbox for the next LokkeeVerse briefing.' });
     } catch (error) {
       setStatus({ type: 'error', message: error.message || 'Subscription unavailable. Please try again later.' });
     } finally {
@@ -44,7 +44,7 @@ export default function Newsletter() {
             <Button type="submit" variant="contained" size="large" disabled={sending} sx={{ minWidth: 170 }}>{sending ? 'Subscribing…' : 'Subscribe'}</Button>
           </Stack>
           {status && <FormStatus status={status.type} message={status.message} />}
-          {!siteConfig.newsletterEndpoint && <Alert severity="info" sx={{ mt: 2, textAlign: 'left' }}>Newsletter delivery is ready for a configured provider. No subscription data is stored by ToolPilot AI yet.</Alert>}
+          {!siteConfig.newsletterEndpoint && <Alert severity="info" sx={{ mt: 2, textAlign: 'left' }}>Newsletter delivery is ready for a configured provider. No subscription data is stored by LokkeeVerse yet.</Alert>}
           <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 2 }}>
             By subscribing, you agree to receive editorial updates. Unsubscribe at any time.
           </Typography>

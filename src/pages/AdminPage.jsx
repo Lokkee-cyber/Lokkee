@@ -34,7 +34,7 @@ function emptyArticle() {
     slug: '',
     excerpt: '',
     category: categories[0].title,
-    author: 'ToolPilot AI Editorial',
+    author: 'LokkeeVerse Editorial',
     image: defaultImage,
     content: '',
     seoTitle: '',
@@ -298,8 +298,8 @@ export default function AdminPage() {
   return (
     <Container maxWidth="xl" sx={{ py: { xs: 4, md: 8 } }}>
       <SEO
-        title="Local Article Editor | ToolPilot AI"
-        description="Local-only editor for preparing ToolPilot AI articles."
+        title="Local Article Editor | LokkeeVerse"
+        description="Local-only editor for preparing LokkeeVerse articles."
         canonical="/admin"
         noindex
       />

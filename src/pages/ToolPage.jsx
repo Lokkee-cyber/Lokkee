@@ -12,7 +12,7 @@ export default function ToolPage() {
 
   return (
     <>
-      <SEO title={`${tool.name} overview | ToolPilot AI`} description={tool.description} canonical={`/tools/${tool.slug}`} />
+      <SEO title={`${tool.name} overview | LokkeeVerse`} description={tool.description} canonical={`/tools/${tool.slug}`} />
       <Container maxWidth="xl" sx={{ py: { xs: 3, md: 6 }, px: { xs: 2, sm: 3, md: 4 } }}>
       <Paper elevation={0} sx={{ p: { xs: 2.25, sm: 3, md: 5 }, borderRadius: 4 }}>
         <ToolReview tool={tool} />

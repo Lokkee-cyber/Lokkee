@@ -50,7 +50,7 @@ export default function CategoryPage({ categorySlug }) {
 
   return (
     <>
-      <SEO title={`${category.title} | ToolPilot AI`} description={categoryDescriptions[categorySlug] || category.description} canonical={category.path} />
+      <SEO title={`${category.title} | LokkeeVerse`} description={categoryDescriptions[categorySlug] || category.description} canonical={category.path} />
       <Container maxWidth="xl" sx={{ py: { xs: 4, md: 6 } }}>
       <Typography variant="overline" color="primary.main" fontWeight={700}>{category.title}</Typography>
       <Typography variant="h2" sx={{ mt: 1, mb: 2, fontSize: { xs: '2.25rem', sm: '3rem', md: '3.75rem' } }}>{category.title}</Typography>

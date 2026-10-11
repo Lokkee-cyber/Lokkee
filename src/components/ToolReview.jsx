@@ -10,6 +10,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
+import ToolLogo from './ToolLogo';
 
 export default function ToolReview({ tool }) {
   return (
@@ -19,23 +20,7 @@ export default function ToolReview({ tool }) {
         spacing={{ xs: 2, md: 3 }}
         alignItems={{ xs: 'flex-start', md: 'center' }}
       >
-        <Box
-          sx={{
-            width: { xs: 72, sm: 90 },
-            height: { xs: 72, sm: 90 },
-            borderRadius: 4,
-            background: 'linear-gradient(135deg, #5b4cf5 0%, #13b8a6 100%)',
-            display: 'grid',
-            placeItems: 'center',
-            color: '#fff',
-            fontSize: { xs: 24, md: 28 },
-            fontWeight: 800,
-            flexShrink: 0,
-          }}
-          aria-hidden="true"
-        >
-          {tool.name.slice(0, 1)}
-        </Box>
+        <ToolLogo tool={tool} size={90} />
         <Box sx={{ width: '100%' }}>
           <Typography variant="overline" color="primary.main" fontWeight={700}>{tool.category}</Typography>
           <Typography variant="h1" fontWeight={800} sx={{ fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' }, lineHeight: 1.1 }}>

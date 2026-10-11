@@ -1,4 +1,4 @@
-import { comparisons } from './siteData';
+import { comparisons } from './siteData.js';
 
 export function comparisonDataForArticle(slug) {
   const comparison = comparisons.find((item) => slug === item.slug || slug.startsWith(`${item.slug}-`));

@@ -9,7 +9,7 @@ import { siteConfig } from './config/siteConfig';
 import Analytics from './components/Analytics';
 
 const getInitialTheme = () => {
-  const storedTheme = localStorage.getItem('toolpilot-theme');
+  const storedTheme = localStorage.getItem('lokkeeverse-theme');
   return storedTheme === 'dark' || storedTheme === 'light' ? storedTheme : 'light';
 };
 
@@ -17,7 +17,7 @@ function Root() {
   const [mode, setMode] = React.useState(getInitialTheme());
 
   React.useEffect(() => {
-    localStorage.setItem('toolpilot-theme', mode);
+    localStorage.setItem('lokkeeverse-theme', mode);
   }, [mode]);
 
   const theme = React.useMemo(() => getDesignTokens(mode), [mode]);
