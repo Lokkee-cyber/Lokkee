@@ -1,9 +1,21 @@
+const productionSiteUrl = 'https://www.toolpillot.com';
+const configuredSiteUrl = import.meta.env.VITE_SITE_URL || import.meta.env.SITE_URL;
+let siteUrl = productionSiteUrl;
+if (!import.meta.env.PROD && configuredSiteUrl) {
+  try {
+    const configuredUrl = new URL(configuredSiteUrl);
+    siteUrl = configuredUrl.origin;
+  } catch {
+    siteUrl = productionSiteUrl;
+  }
+}
+
 export const siteConfig = {
   name: 'LokkeeVerse',
   tagline: 'Explore More. Create Smarter.',
   description: 'Discover verified AI tools, practical comparisons, and smarter workflows for creators, students, businesses, and developers.',
-  domain: import.meta.env.SITE_URL || import.meta.env.VITE_SITE_URL || 'https://www.lokkeeverse.com',
-  siteUrl: import.meta.env.SITE_URL || import.meta.env.VITE_SITE_URL || 'https://www.lokkeeverse.com',
+  domain: siteUrl,
+  siteUrl,
   gaMeasurementId: import.meta.env.VITE_GA_MEASUREMENT_ID || '',
   adsenseClient: import.meta.env.VITE_ADSENSE_CLIENT || '',
   adsEnabled: import.meta.env.VITE_ADS_ENABLED === 'true',
