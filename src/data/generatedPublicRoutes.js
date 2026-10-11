@@ -106,5 +106,6 @@ export const publicRoutePaths = [
   "/compare/deepseek-vs-github-copilot",
   "/compare/ideogram-vs-leonardo-ai",
   "/compare/midjourney-vs-stability",
+  "/articles/how-to-make-500-10-000-month-using-ai-tools-2026-guide",
   "/search"
 ];
