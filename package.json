@@ -8,6 +8,7 @@
     "dev:admin-api": "node scripts/local-content-server.mjs",
     "build": "npm run generate:sitemap && vite build",
     "preview": "vite preview",
+    "test": "npm run generate:sitemap && node --test scripts/public-routing.test.mjs",
     "generate:sitemap": "node scripts/generate-sitemap.mjs",
     "build:production": "npm run generate:sitemap && vite build",
     "server": "node server/index.js"
@@ -17,6 +18,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.16.7",
     "@mui/material": "^5.16.7",
+    "@vercel/functions": "^3.9.11",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.6",
     "dotenv": "^16.6.1",

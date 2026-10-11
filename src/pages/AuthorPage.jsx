@@ -2,10 +2,12 @@ import { Box, Container, Paper, Stack, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import SEO from '../components/SEO';
 import { siteConfig } from '../config/siteConfig';
+import NotFoundPage from './NotFoundPage';
 
 export default function AuthorPage() {
   const { slug } = useParams();
   const isEditorial = slug === siteConfig.author.slug;
+  if (!isEditorial) return <NotFoundPage />;
 
   return (
     <Container maxWidth="md" sx={{ py: { xs: 4, md: 8 } }}>

@@ -5,10 +5,12 @@ import { publishedArticles } from '../data/articles.js';
 import ToolReview from '../components/ToolReview.jsx';
 import ArticleCard from '../components/ArticleCard.jsx';
 import SEO from '../components/SEO.jsx';
+import NotFoundPage from './NotFoundPage.jsx';
 
 export default function ToolPage() {
   const { slug } = useParams();
-  const tool = tools.find((item) => item.slug === slug) || tools[0];
+  const tool = tools.find((item) => item.slug === slug);
+  if (!tool) return <NotFoundPage />;
 
   return (
     <>

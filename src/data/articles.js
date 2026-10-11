@@ -6,8 +6,18 @@ const localArticleModules = import.meta.glob('../../content/articles/*.json', {
   eager: true,
   import: 'default',
 });
+const draftArticleModules = import.meta.glob('../../content/articles/*.draft', {
+  eager: true,
+  query: '?raw',
+  import: 'default',
+});
+const localArticleValues = Object.values(localArticleModules);
+const unpublishedSlugs = new Set([
+  ...localArticleValues.filter((article) => article.status !== 'published').map((article) => article.slug),
+  ...Object.keys(draftArticleModules).map((path) => path.split('/').at(-1).replace(/\.draft$/, '')),
+]);
 
-export const localArticles = Object.values(localArticleModules)
+export const localArticles = localArticleValues
   .filter((article) => article.status === 'published')
   .map((article) => ({
     ...article,
@@ -34,7 +44,7 @@ const legacySlugs = new Set(articlePreviews.map((article) => article.slug));
 
 export const publishedArticles = [
   ...articlePreviews
-    .filter((article) => !deletedSlugs.has(article.slug))
+    .filter((article) => !deletedSlugs.has(article.slug) && !unpublishedSlugs.has(article.slug))
     .map((article) => {
       const localArticle = localArticlesBySlug.get(article.slug);
       return localArticle || {

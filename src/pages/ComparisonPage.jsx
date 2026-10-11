@@ -3,10 +3,12 @@ import { Box, Container, Grid, Typography } from '@mui/material';
 import { comparisons } from '../data/siteData';
 import ComparisonTable from '../components/ComparisonTable';
 import SEO from '../components/SEO';
+import NotFoundPage from './NotFoundPage';
 
 export default function ComparisonPage() {
   const { slug } = useParams();
-  const comparison = comparisons.find((item) => item.slug === slug) || comparisons[0];
+  const comparison = comparisons.find((item) => item.slug === slug);
+  if (!comparison) return <NotFoundPage />;
 
   return (
     <Container maxWidth="xl" sx={{ py: { xs: 4, md: 6 } }}>
