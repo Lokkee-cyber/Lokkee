@@ -106,6 +106,18 @@ export const publicRoutePaths = [
   "/compare/deepseek-vs-github-copilot",
   "/compare/ideogram-vs-leonardo-ai",
   "/compare/midjourney-vs-stability",
+  "/articles/5-surprising-ways-beginners-can-use-ai-to-build-real-projects",
+  "/articles/6-ai-tools-that-can-automate-everyday-tasks-without-coding",
+  "/articles/7-ai-tools-youtubers-use-for-automation-in-2026",
+  "/articles/7-ai-websites-you-probably-haven-t-tried-yet-in-2026",
+  "/articles/9-things-you-can-do-with-ai-that-used-to-take-hours",
+  "/articles/before-you-pay-for-an-ai-tool-check-these-free-alternatives",
+  "/articles/can-ai-really-save-you-money-7-tools-to-try-and-compare",
+  "/articles/chatgpt-isn-t-the-only-option-7-ai-assistants-worth-exploring",
+  "/articles/how-content-creators-make-money-using-ai-in-2026",
   "/articles/how-to-make-500-10-000-month-using-ai-tools-2026-guide",
+  "/articles/i-asked-ai-to-create-these-things-the-results-were-interesting",
+  "/articles/i-tested-7-free-ai-tools-here-s-what-each-one-can-actually-do",
+  "/articles/these-ai-tools-can-turn-simple-ideas-into-videos-images-and-more",
   "/search"
 ];

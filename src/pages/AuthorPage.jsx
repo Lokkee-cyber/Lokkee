@@ -27,14 +27,24 @@ export default function AuthorPage() {
           <Box>
             <Typography variant="h2" fontWeight={800}>Editorial approach</Typography>
             <Typography color="text.secondary">
-              All LokkeeVerse articles are developed with a clear scope, source-aware claims, practical examples, and explicit limitations. Product details can change, so published guidance is reviewed and updated when the underlying information changes.
+              LokkeeVerse Editorial is the publishing identity used for site guides and tool coverage. Articles are intended to answer a defined reader question, explain the scope of the guidance, and make relevant trade-offs visible. Product information is checked against public documentation where available, but providers can change features, prices, and access without notice.
             </Typography>
           </Box>
-          {isEditorial && (
+          <Box>
+            <Typography variant="h2" fontWeight={800}>Verification and limitations</Typography>
             <Typography color="text.secondary">
-              This profile represents the site’s editorial publishing identity. It does not claim individual credentials, personal testing outcomes or a specific team history that has not been published.
+              Summaries and recommendations should not be read as a guarantee of product performance or a claim that every feature has been personally tested. Readers should confirm important details with the provider and use human review for factual, financial, legal, medical, or other consequential decisions.
             </Typography>
-          )}
+          </Box>
+          <Box>
+            <Typography variant="h2" fontWeight={800}>Corrections and updates</Typography>
+            <Typography color="text.secondary">
+              We welcome specific, source-supported correction requests through the contact page. When a published guide is revised, its displayed update information helps readers identify that the page has changed; it does not imply that every provider detail is continuously monitored.
+            </Typography>
+          </Box>
+          <Typography color="text.secondary">
+            This profile represents the site’s editorial publishing identity. It does not claim individual credentials, personal testing outcomes, or a team history that has not been published.
+          </Typography>
         </Stack>
       </Paper>
     </Container>

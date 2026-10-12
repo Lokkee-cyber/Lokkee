@@ -24,7 +24,7 @@ import {
   VideoCameraBackRounded,
 } from '@mui/icons-material';
 import { categories, tools } from '../data/siteData.js';
-import { publishedArticles } from '../data/articles.js';
+import { popularGuides, publishedArticles } from '../data/articles.js';
 import SEO from '../components/SEO.jsx';
 import ToolCard from '../components/ToolCard.jsx';
 import ArticleCard from '../components/ArticleCard.jsx';
@@ -176,7 +176,7 @@ export default function HomePage() {
       <Box sx={{ py: 8 }}>
         <Typography variant="h4" fontWeight={800} sx={{ mb: 3 }}>Popular guides</Typography>
         <Grid container spacing={3}>
-          {publishedArticles.slice(0, 3).map((article) => (
+          {popularGuides.map((article) => (
             <Grid item xs={12} md={4} key={article.slug}>
               <ArticleCard article={article} />
             </Grid>

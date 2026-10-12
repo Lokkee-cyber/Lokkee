@@ -3,7 +3,9 @@ import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import test from 'node:test';
 import middleware from '../middleware.js';
+import { popularGuideSlugs } from '../src/data/popularGuideSlugs.js';
 import { publicRoutePaths } from '../src/data/generatedPublicRoutes.js';
+import { sortArticlesByPublishedDate } from '../src/utils/sortArticles.js';
 
 const contentDirectory = new URL('../content/articles/', import.meta.url);
 const requestFor = (path) => new Request(`https://www.toolpillot.com${path}`);
@@ -57,4 +59,25 @@ test('does not expose draft or deleted articles as valid routes', async () => {
   for (const slug of excludedSlugs) {
     assert.equal(publicRoutePaths.includes(`/articles/${slug}`), false, `${slug} must not be routable`);
   }
+});
+
+test('sorts articles by published timestamp, newest first', () => {
+  const articles = sortArticlesByPublishedDate([
+    { slug: 'older', publishedAt: '2026-10-11T15:00:20.044Z' },
+    { slug: 'newest', publishedAt: '2026-10-12T16:15:35.976Z' },
+    { slug: 'middle', publishedAt: '2026-10-12T15:51:22.242Z' },
+  ]);
+  assert.deepEqual(articles.map((article) => article.slug), ['newest', 'middle', 'older']);
+});
+
+test('popular guides reference the requested published articles in order', async () => {
+  const articles = await Promise.all(popularGuideSlugs.map(async (slug) => (
+    JSON.parse(await readFile(new URL(`${slug}.json`, contentDirectory), 'utf8'))
+  )));
+  assert.ok(articles.every((article) => article.status === 'published'));
+  assert.deepEqual(articles.map((article) => article.title), [
+    '7 AI Tools YouTubers Use for Automation in 2026',
+    'These AI Tools Can Turn Simple Ideas Into Videos, Images and More',
+    'How to Make $500–$10,000/Month Using AI Tools (2026 Guide)',
+  ]);
 });

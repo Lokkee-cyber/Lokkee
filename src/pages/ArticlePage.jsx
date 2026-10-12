@@ -16,6 +16,7 @@ import {
   Typography,
 } from '@mui/material';
 import { publishedArticles } from '../data/articles';
+import { popularGuides } from '../data/articles';
 import ArticleCard from '../components/ArticleCard';
 import Newsletter from '../components/Newsletter';
 import AdSlot from '../components/AdSlot';
@@ -200,7 +201,7 @@ export default function ArticlePage() {
             <Paper elevation={0} sx={{ p: 3, borderRadius: 3, mb: 3 }}>
               <Typography variant="h6" fontWeight={800}>Popular articles</Typography>
               <List>
-                {publishedArticles.slice(0, 3).map((item) => (
+                {popularGuides.map((item) => (
                   <ListItemButton
                     key={item.slug}
                     component={Link}

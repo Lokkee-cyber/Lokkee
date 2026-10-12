@@ -37,8 +37,22 @@ export default function ContactPage() {
       <SEO title="Contact LokkeeVerse | Editorial Questions & Feedback" description="Contact LokkeeVerse about editorial questions, feedback, corrections, or partnership inquiries." canonical="/contact" />
       <Typography variant="h1" fontWeight={800} sx={{ fontSize: { xs: '2.5rem', sm: '3.5rem', md: '6rem' } }}>Contact</Typography>
       <Typography color="text.secondary" sx={{ display: 'block', mt: 2 }}>
-        Send an editorial question, correction request, feedback item or partnership inquiry. Do not send passwords, private account details or sensitive information.
+        Use this page for editorial questions, correction requests, feedback about a tool listing, or partnership inquiries. Helpful messages identify the relevant article or product and explain what should be reviewed. Please do not send passwords, private account details, financial information, or other sensitive data.
       </Typography>
+      <Grid container spacing={3} sx={{ mt: 1 }}>
+        <Grid item xs={12} md={6}>
+          <Typography variant="h6" fontWeight={700}>Corrections and product updates</Typography>
+          <Typography color="text.secondary" sx={{ mt: 1 }}>
+            If you spot an outdated price, changed feature, broken link, or factual error, include the page URL and the specific passage or detail. Links to current official documentation help us assess a proposed correction. A message is a request for review, not an automatic change to the page.
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography variant="h6" fontWeight={700}>Contact form delivery</Typography>
+          <Typography color="text.secondary" sx={{ mt: 1 }}>
+            The form can deliver a message only when a contact provider is configured for the site. If delivery is unavailable, the page will show a notice and your message will not be submitted. Do not use the form for urgent support with a third-party product; contact that provider directly.
+          </Typography>
+        </Grid>
+      </Grid>
       <Paper elevation={0} sx={{ p: { xs: 3, md: 5 }, mt: 4, borderRadius: 4 }}>
         <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
           <Grid container spacing={2}>

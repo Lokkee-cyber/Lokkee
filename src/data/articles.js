@@ -1,5 +1,7 @@
 import { articlePreviews } from './siteData.js';
 import { comparisonDataForArticle } from './comparisonData.js';
+import { popularGuideSlugs } from './popularGuideSlugs.js';
+import { sortArticlesByPublishedDate } from '../utils/sortArticles.js';
 
 const fallbackImage = 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=1200&q=80';
 const localArticleModules = import.meta.glob('../../content/articles/*.json', {
@@ -42,7 +44,7 @@ const deletedSlugs = new Set(
 const localArticlesBySlug = new Map(localArticles.map((article) => [article.slug, article]));
 const legacySlugs = new Set(articlePreviews.map((article) => article.slug));
 
-export const publishedArticles = [
+export const publishedArticles = sortArticlesByPublishedDate([
   ...articlePreviews
     .filter((article) => !deletedSlugs.has(article.slug) && !unpublishedSlugs.has(article.slug))
     .map((article) => {
@@ -53,7 +55,11 @@ export const publishedArticles = [
       };
     }),
   ...localArticles.filter((article) => !legacySlugs.has(article.slug) && !deletedSlugs.has(article.slug)),
-];
+]);
+
+export const popularGuides = popularGuideSlugs
+  .map((slug) => publishedArticles.find((article) => article.slug === slug))
+  .filter(Boolean);
 
 export function findPublishedArticle(slug) {
   return publishedArticles.find((article) => article.slug === slug);

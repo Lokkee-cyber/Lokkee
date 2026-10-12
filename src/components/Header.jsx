@@ -24,15 +24,22 @@ import ThemeToggle from './ThemeToggle';
 import { comparisons, navItems } from '../data/siteData';
 import { publishedArticles } from '../data/articles';
 
-const featuredArticleCount = 3;
+const featuredArticleSlugs = [
+  'best-ai-tools-to-try-in-2026',
+  'best-ai-video-generators-in-2026',
+  'best-ai-writing-tools',
+];
+const latestArticleCount = 8;
 
 export default function Header({ mode, onToggleMode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileSections, setMobileSections] = useState({ explore: false, comparisons: false });
   const [menuAnchor, setMenuAnchor] = useState(null);
   const [activeMenu, setActiveMenu] = useState('');
-  const featuredArticles = publishedArticles.slice(0, featuredArticleCount);
-  const latestArticles = publishedArticles.slice(featuredArticleCount);
+  const featuredArticles = featuredArticleSlugs
+    .map((slug) => publishedArticles.find((article) => article.slug === slug))
+    .filter(Boolean);
+  const latestArticles = publishedArticles.slice(0, latestArticleCount);
   const comparisonLinks = [
     ...comparisons.map((comparison) => ({
       title: comparison.title,
