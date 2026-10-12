@@ -16,6 +16,7 @@ export const siteConfig = {
   description: 'Discover verified AI tools, practical comparisons, and smarter workflows for creators, students, businesses, and developers.',
   domain: siteUrl,
   siteUrl,
+  contactEmail: 'toolpillot.support@gmail.com',
   gaMeasurementId: import.meta.env.VITE_GA_MEASUREMENT_ID || '',
   adsenseClient: import.meta.env.VITE_ADSENSE_CLIENT || '',
   adsEnabled: import.meta.env.VITE_ADS_ENABLED === 'true',
