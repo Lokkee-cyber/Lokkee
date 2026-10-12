@@ -13,9 +13,13 @@ import AuthorPage from './pages/AuthorPage';
 import NotFoundPage from './pages/NotFoundPage';
 import AdminPage from './pages/AdminPage';
 import ComparisonIndexPage from './pages/ComparisonIndexPage';
+import AnalyticsTracker from './AnalyticsTracker.jsx';
 
 export default function App({ mode, setMode }) {
   return (
+    <>
+      <AnalyticsTracker />
+
     <Routes>
       <Route element={<Layout mode={mode} onToggleMode={() => setMode((prev) => (prev === 'light' ? 'dark' : 'light'))} />}>
         <Route path="/" element={<HomePage />} />
@@ -46,5 +50,6 @@ export default function App({ mode, setMode }) {
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
+    </>
   );
 }
