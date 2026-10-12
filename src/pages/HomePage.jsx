@@ -32,6 +32,7 @@ import CategoryCard from '../components/CategoryCard.jsx';
 import Newsletter from '../components/Newsletter.jsx';
 import SearchBar from '../components/SearchBar.jsx';
 import { scrollToElement } from '../utils/scrollToElement.js';
+import AdCashBanner from "../components/AdCashBanner";
 
 const categoryIcons = {
   'AI Tools': AutoAwesome,
@@ -84,6 +85,7 @@ export default function HomePage() {
               </Button>
             </Stack>
           </Grid>
+          
           <Grid item xs={12} md={5}>
             <Box
               sx={{
@@ -144,7 +146,7 @@ export default function HomePage() {
           </Box>
         </Stack>
       </Paper>
-
+         <AdCashBanner />
       <Box sx={{ py: 8 }}>
         <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems="center" sx={{ mb: 3 }}>
           <Typography variant="h4" fontWeight={800}>Featured tools</Typography>

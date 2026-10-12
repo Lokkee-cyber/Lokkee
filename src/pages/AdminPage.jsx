@@ -24,6 +24,7 @@ import {
 } from '@mui/material';
 import SEO from '../components/SEO';
 import { categories } from '../data/siteData';
+import AdCashBanner from "../components/AdCashBanner";
 
 const apiPath = '/__local-content/articles';
 const defaultImage = 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=1200&q=80';
@@ -303,6 +304,7 @@ export default function AdminPage() {
         canonical="/admin"
         noindex
       />
+       <AdCashBanner />
       <Typography variant="h2" fontWeight={800}>Local article editor</Typography>
       <Alert severity="warning" sx={{ my: 3 }}>
         This editor writes JSON files into this checkout. Publishing here does not deploy the website; build, review, commit, push, and deploy the resulting content.

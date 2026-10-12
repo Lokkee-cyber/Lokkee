@@ -24,6 +24,7 @@ import SEO from '../components/SEO';
 import NotFoundPage from './NotFoundPage';
 import { getLegacyArticleContent } from '../data/legacyArticleContent';
 import ComparisonTable from '../components/ComparisonTable';
+import AdCashBanner from "../components/AdCashBanner";
 
 function renderMarkdown(markdown) {
   const lines = markdown.split(/\r?\n/);
@@ -101,6 +102,7 @@ export default function ArticlePage() {
             <Chip label={article.category} color="primary" sx={{ alignSelf: 'flex-start' }} />
             <Typography variant="h2" sx={{ fontSize: { xs: '2.5rem', md: '4rem' } }}>{article.title}</Typography>
             <Typography variant="h6" color="text.secondary">{article.excerpt}</Typography>
+            <AdCashBanner />
             <Stack direction="row" spacing={2} alignItems="center">
               <Avatar sx={{ bgcolor: 'primary.main' }}>{article.author.slice(0, 1)}</Avatar>
               <Box>
@@ -109,7 +111,7 @@ export default function ArticlePage() {
               </Box>
             </Stack>
           </Stack>
-
+           
           <Box component="img" src={article.image} alt={article.title} sx={{ width: '100%', borderRadius: 4, mt: 4, height: 420, objectFit: 'cover' }} />
 
           {article.comparison && (
@@ -127,8 +129,9 @@ export default function ArticlePage() {
                 <ListItem disablePadding><ListItemText primary="Smart workflows for real use" /></ListItem>
               </List>
             </Paper>
+            
           )}
-
+          
           <Stack spacing={3} sx={{ mt: 3 }}>
             {article.content
               ? renderMarkdown(article.content)
@@ -156,7 +159,7 @@ export default function ArticlePage() {
                   </Paper>
                 ))}
               </Stack>
-
+                  
               <Divider sx={{ my: 4 }} />
               <Typography variant="h5" fontWeight={800}>Sources</Typography>
               <List>
@@ -168,7 +171,7 @@ export default function ArticlePage() {
               </List>
             </>
           )}
-
+           
           <Divider sx={{ my: 4 }} />
 
           <Typography variant="h4" fontWeight={800}>Related articles</Typography>
@@ -184,7 +187,7 @@ export default function ArticlePage() {
             <Newsletter />
           </Box>
         </Grid>
-
+           
         <Grid item xs={12} lg={4}>
           <Box sx={{ position: { lg: 'sticky' }, top: 90 }}>
             {!article.content && (
@@ -197,7 +200,9 @@ export default function ArticlePage() {
                   <ListItem disablePadding><ListItemText primary="FAQ" /></ListItem>
                 </List>
               </Paper>
+              
             )}
+            
             <Paper elevation={0} sx={{ p: 3, borderRadius: 3, mb: 3 }}>
               <Typography variant="h6" fontWeight={800}>Popular articles</Typography>
               <List>
@@ -223,7 +228,7 @@ export default function ArticlePage() {
                 ))}
               </List>
             </Paper>
-            <AdSlot label="Sidebar ad" height={220} />
+            
           </Box>
         </Grid>
       </Grid>
