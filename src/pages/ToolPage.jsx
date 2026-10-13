@@ -6,6 +6,7 @@ import ToolReview from '../components/ToolReview.jsx';
 import ArticleCard from '../components/ArticleCard.jsx';
 import SEO from '../components/SEO.jsx';
 import NotFoundPage from './NotFoundPage.jsx';
+import AdCashBanner from "../components/AdCashBanner";
 
 export default function ToolPage() {
   const { slug } = useParams();
@@ -15,11 +16,14 @@ export default function ToolPage() {
   return (
     <>
       <SEO title={`${tool.name} overview | LokkeeVerse`} description={tool.description} canonical={`/tools/${tool.slug}`} />
+      <AdCashBanner zoneId="12304726" />
       <Container maxWidth="xl" sx={{ py: { xs: 3, md: 6 }, px: { xs: 2, sm: 3, md: 4 } }}>
       <Paper elevation={0} sx={{ p: { xs: 2.25, sm: 3, md: 5 }, borderRadius: 4 }}>
+        
         <ToolReview tool={tool} />
       </Paper>
-
+      
+         <AdCashBanner zoneId="12304726" />
       <Grid container spacing={{ xs: 2, md: 3 }} sx={{ mt: { xs: 2, md: 4 } }}>
         <Grid item xs={12}>
           <Typography
@@ -33,9 +37,11 @@ export default function ToolPage() {
         {publishedArticles.slice(0, 3).map((article) => (
           <Grid item xs={12} md={4} key={article.slug}>
             <ArticleCard article={article} />
+            
           </Grid>
         ))}
       </Grid>
+      <AdCashBanner zoneId="12304726" />
     </Container>
     </>
   );

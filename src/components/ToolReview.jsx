@@ -46,7 +46,6 @@ export default function ToolReview({ tool }) {
           See comparisons
         </Button>
       </Stack>
-
       <Grid container spacing={{ xs: 2, md: 3 }}>
         <Grid item xs={12} md={6}>
           <Typography variant="h5" fontWeight={700} sx={{ fontSize: { xs: '1.35rem', md: '1.5rem' } }}>Overview</Typography>
@@ -65,7 +64,6 @@ export default function ToolReview({ tool }) {
       </Grid>
 
       <Divider sx={{ my: 3 }} />
-
       <Grid container spacing={{ xs: 2, md: 3 }}>
         <Grid item xs={12} md={4}>
           <Typography variant="h6" fontWeight={700} sx={{ fontSize: { xs: '1.1rem', md: '1.25rem' } }}>Features</Typography>

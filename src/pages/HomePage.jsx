@@ -65,6 +65,7 @@ export default function HomePage() {
   return (
     <>
       <SEO title="LokkeeVerse | Discover useful AI tools and smarter workflows" description="Discover, compare, and learn how to use AI tools and software that help you create, work, and grow smarter." canonical="/" />
+      
       <Container maxWidth="xl" sx={{ py: { xs: 4, md: 6 } }}>
       <Paper elevation={0} sx={{ p: { xs: 3, md: 6 }, background: 'linear-gradient(135deg, rgba(91,76,245,0.10), rgba(19,184,166,0.08))', borderRadius: 1, mb: 6 }}>
         <Grid container alignItems="center" spacing={4}>
@@ -87,7 +88,8 @@ export default function HomePage() {
           </Grid>
           
           <Grid item xs={12} md={5}>
-            <Box
+            <AdCashBanner zoneId="12307066" />
+            {/* <Box
               sx={{
                 height: { xs: 260, md: 420 },
                 borderRadius: 2,
@@ -130,7 +132,7 @@ export default function HomePage() {
                   opacity: 0.8,
                 }}
               />
-            </Box>
+            </Box> */}
           </Grid>
         </Grid>
       </Paper>
@@ -146,7 +148,7 @@ export default function HomePage() {
           </Box>
         </Stack>
       </Paper>
-         <AdCashBanner />
+         <AdCashBanner zoneId="12304726" />
       <Box sx={{ py: 8 }}>
         <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems="center" sx={{ mb: 3 }}>
           <Typography variant="h4" fontWeight={800}>Featured tools</Typography>
@@ -160,7 +162,7 @@ export default function HomePage() {
           ))}
         </Grid>
       </Box>
-
+       <AdCashBanner zoneId="12306862" />
       <Box sx={{ py: 2 }}>
         <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems="center" sx={{ mb: 3 }}>
           <Typography variant="h4" fontWeight={800}>Browse categories</Typography>
@@ -174,7 +176,7 @@ export default function HomePage() {
           ))}
         </Grid>
       </Box>
-
+        <AdCashBanner zoneId="12304726" />
       <Box sx={{ py: 8 }}>
         <Typography variant="h4" fontWeight={800} sx={{ mb: 3 }}>Popular guides</Typography>
         <Grid container spacing={3}>
@@ -185,7 +187,7 @@ export default function HomePage() {
           ))}
         </Grid>
       </Box>
-
+          <AdCashBanner zoneId="12304726" />
       <Box
         ref={latestArticlesRef}
         sx={{ py: 2, scrollMarginTop: { xs: 72, sm: 86 } }}
@@ -207,7 +209,7 @@ export default function HomePage() {
           />
         </Stack>
       </Box>
-
+             <AdCashBanner zoneId="12304726" />
       <Box sx={{ py: 8 }}>
         <Newsletter />
       </Box>

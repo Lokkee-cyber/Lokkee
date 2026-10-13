@@ -21,6 +21,7 @@ import ArticleCard from '../components/ArticleCard.jsx';
 import ToolCard from '../components/ToolCard.jsx';
 import CategoryCard from '../components/CategoryCard.jsx';
 import { scrollToElement } from '../utils/scrollToElement.js';
+import AdCashBanner from "../components/AdCashBanner";
 
 const categoryIcons = {
   'AI Tools': () => 'A',
@@ -81,7 +82,7 @@ export default function SearchPage() {
         placeholder="Search AI tools, articles, categories..."
         sx={{ mb: 3 }}
       />
-
+             
       <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ mb: 4 }}>
         <FormControl fullWidth>
           <InputLabel>Category</InputLabel>
@@ -103,7 +104,7 @@ export default function SearchPage() {
           </Select>
         </FormControl>
       </Stack>
-
+        <AdCashBanner zoneId="12304726" />
       {results.length === 0 ? (
         <Alert severity="info">No results found. Try a different keyword or remove one of the filters.</Alert>
       ) : (
@@ -125,6 +126,7 @@ export default function SearchPage() {
           </Box>
         </>
       )}
+      <AdCashBanner zoneId="12304726" />
     </Container>
     </>
   );

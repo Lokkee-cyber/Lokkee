@@ -101,8 +101,9 @@ export default function ArticlePage() {
           <Stack spacing={2}>
             <Chip label={article.category} color="primary" sx={{ alignSelf: 'flex-start' }} />
             <Typography variant="h2" sx={{ fontSize: { xs: '2.5rem', md: '4rem' } }}>{article.title}</Typography>
+            
             <Typography variant="h6" color="text.secondary">{article.excerpt}</Typography>
-            <AdCashBanner />
+            <AdCashBanner zoneId="12304726" />
             <Stack direction="row" spacing={2} alignItems="center">
               <Avatar sx={{ bgcolor: 'primary.main' }}>{article.author.slice(0, 1)}</Avatar>
               <Box>
@@ -112,17 +113,18 @@ export default function ArticlePage() {
             </Stack>
           </Stack>
            
-          <Box component="img" src={article.image} alt={article.title} sx={{ width: '100%', borderRadius: 4, mt: 4, height: 420, objectFit: 'cover' }} />
+          {/* <Box component="img" src={article.image} alt={article.title} sx={{ width: '100%', borderRadius: 4, mt: 4, height: 420, objectFit: 'cover' }} /> */}
 
           {article.comparison && (
             <Box sx={{ my: 4 }}>
               <ComparisonTable comparison={article.comparison} />
             </Box>
           )}
-
+           
           {!article.content && (
-            <Paper elevation={0} sx={{ p: 3, my: 4, backgroundColor: 'rgba(91,76,245,0.04)', borderRadius: 3 }}>
+            <Paper elevation={0} sx={{ p: 3, my: 4, backgroundColor: '#5b4cf50a', borderRadius: 3 }}>
               <Typography variant="h6" fontWeight={700}>Table of contents</Typography>
+              <AdCashBanner zoneId="12304726" />
               <List dense>
                 <ListItem disablePadding><ListItemText primary="Why the right AI tool matters" /></ListItem>
                 <ListItem disablePadding><ListItemText primary="How to pick the best option" /></ListItem>
@@ -139,14 +141,14 @@ export default function ArticlePage() {
               <Typography key={paragraph} variant="body1" color="text.secondary" lineHeight={1.8}>{paragraph}</Typography>
               ))}
           </Stack>
-
+          <AdCashBanner zoneId="12304726" />
           <Paper elevation={0} sx={{ p: 3, my: 4, borderLeft: '4px solid', borderColor: 'primary.main', backgroundColor: 'background.paper', borderRadius: 3 }}>
             <Typography variant="h6" fontWeight={700}>Important note</Typography>
             <Typography color="text.secondary" sx={{ mt: 1 }}>
               AI can improve speed and output, but strong results still depend on responsible review, clear prompt design and fact-checking when facts matter.
             </Typography>
           </Paper>
-
+                  <AdCashBanner zoneId="12304726" />
           {content && (
             <>
               <Divider sx={{ my: 4 }} />
