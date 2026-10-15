@@ -1,0 +1,50 @@
+{
+  "name": "toolpilot-ai",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:admin-api": "node scripts/local-content-server.mjs",
+    "automation:scheduler": "node scripts/run-scheduled-content-update.mjs",
+    "build": "npm run generate:sitemap && vite build && node scripts/prerender-articles.mjs",
+    "preview": "vite preview",
+    "test": "npm run generate:sitemap && node --test scripts/public-routing.test.mjs scripts/content-automation.test.mjs scripts/admin-auth.test.mjs",
+    "generate:sitemap": "node scripts/generate-sitemap.mjs",
+    "build:production": "npm run generate:sitemap && vite build",
+    "server": "node server/index.js"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@google/genai": "^2.30.0",
+    "@mui/icons-material": "^5.16.7",
+    "@mui/material": "^5.16.7",
+    "@vercel/functions": "^3.9.11",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.3",
+    "express-rate-limit": "^7.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^7.7.0",
+    "mongoose": "^9.11.1",
+    "pg": "^8.12.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hash-scroll": "^1.0.0",
+    "react-helmet-async": "^2.0.0",
+    "react-hook-form": "^7.16.0",
+    "react-router-dom": "^6.28.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^5.4.10"
+  },
+  "overrides": {
+    "react-hash-scroll": {
+      "react": "$react"
+    }
+  }
+}
