@@ -17,7 +17,7 @@ export default function ComparisonTable({ comparison }) {
     : comparison.fields.map((field) => ({ label: field.label, values: [field.left, field.right] }));
 
   return (
-    <TableContainer component={Paper} sx={{ overflowX: 'auto', borderRadius: { xs: 2, sm: 3 } }}>
+    <TableContainer component={Paper} sx={{ maxWidth: '100%', overflowX: 'auto', WebkitOverflowScrolling: 'touch', borderRadius: { xs: 2, sm: 3 } }}>
       <Table sx={{ minWidth: { xs: 480, sm: 620 } }}>
         <TableHead>
           <TableRow>

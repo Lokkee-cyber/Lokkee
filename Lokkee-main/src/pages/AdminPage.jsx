@@ -409,8 +409,8 @@ export default function AdminPage() {
             <CardContent>
               <Stack direction="row" justifyContent="space-between" alignItems="center" flexWrap="wrap" gap={1} sx={{ mb: 2 }}>
                 <Typography variant="h5" fontWeight={800}>Local articles</Typography>
-                <Stack direction="row" alignItems="center" spacing={0.5}>
-                  <FormControl size="small" sx={{ minWidth: 145, maxWidth: 210 }}>
+                <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="stretch" spacing={{ xs: 1, sm: 0.5 }} sx={{ width: { xs: '100%', sm: 'auto' }, minWidth: 0 }}>
+                  <FormControl size="small" sx={{ width: { xs: '100%', sm: 'auto' }, minWidth: { xs: 0, sm: 145 }, maxWidth: { xs: '100%', sm: 210 } }}>
                     <InputLabel id="select-article-label">Select article</InputLabel>
                     <Select
                       labelId="select-article-label"
@@ -443,7 +443,7 @@ export default function AdminPage() {
                       key={item.slug}
                       variant={article.slug === item.slug ? 'contained' : 'outlined'}
                       onClick={() => editArticle(item)}
-                      sx={{ justifyContent: 'flex-start', textAlign: 'left', display: 'block' }}
+                      sx={{ justifyContent: 'flex-start', textAlign: 'left', display: 'block', width: '100%', minWidth: 0, whiteSpace: 'normal', overflowWrap: 'anywhere' }}
                     >
                       {item.title}
                       <Typography component="span" variant="caption" sx={{ display: 'block' }}>

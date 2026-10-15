@@ -92,7 +92,7 @@ export default function ArticlePage() {
     <>
       <SEO title={article.seoTitle || `${article.title} | LokkeeVerse`} description={article.metaDescription || article.excerpt} canonical={`/articles/${article.slug}`} />
       <Container maxWidth="xl" sx={{ py: { xs: 4, md: 6 } }}>
-      <Breadcrumbs aria-label="Breadcrumb" sx={{ mb: 2 }}>
+      <Breadcrumbs aria-label="Breadcrumb" sx={{ mb: 2, minWidth: 0, '& .MuiBreadcrumbs-ol': { flexWrap: 'wrap' } }}>
         <Link to="/">Home</Link>
         {articleCategory ? <Link to={articleCategory.path}>{articleCategory.title}</Link> : <Typography color="text.secondary">{article.category}</Typography>}
         <Typography color="text.primary">{article.title}</Typography>
@@ -102,7 +102,7 @@ export default function ArticlePage() {
         <Grid item xs={12} lg={8}>
           <Stack spacing={2}>
             <Chip label={article.category} color="primary" sx={{ alignSelf: 'flex-start' }} />
-            <Typography variant="h2" sx={{ fontSize: { xs: '2.5rem', md: '4rem' } }}>{article.title}</Typography>
+            <Typography variant="h2" sx={{ fontSize: { xs: '2rem', sm: '2.75rem', md: '4rem' }, lineHeight: 1.1 }}>{article.title}</Typography>
             
             <Typography variant="h6" color="text.secondary">{article.excerpt}</Typography>
             <AdCashBanner zoneId="12304726" />
@@ -144,7 +144,7 @@ export default function ArticlePage() {
               ))}
           </Stack>
           {article.sourceReferences?.length > 0 && (
-            <Paper elevation={0} sx={{ p: 3, mt: 4, borderRadius: 3, bgcolor: 'action.hover' }}>
+            <Paper elevation={0} sx={{ p: { xs: 2, sm: 3 }, mt: 4, borderRadius: 3, bgcolor: 'action.hover' }}>
               <Typography variant="h6" fontWeight={800}>Sources</Typography>
               <Stack spacing={1} sx={{ mt: 1 }}>
                 {article.sourceReferences.filter((source) => {
@@ -158,7 +158,7 @@ export default function ArticlePage() {
             </Paper>
           )}
           <AdCashBanner zoneId="12304726" />
-          <Paper elevation={0} sx={{ p: 3, my: 4, borderLeft: '4px solid', borderColor: 'primary.main', backgroundColor: 'background.paper', borderRadius: 3 }}>
+          <Paper elevation={0} sx={{ p: { xs: 2, sm: 3 }, my: 4, borderLeft: '4px solid', borderColor: 'primary.main', backgroundColor: 'background.paper', borderRadius: 3 }}>
             <Typography variant="h6" fontWeight={700}>Important note</Typography>
             <Typography color="text.secondary" sx={{ mt: 1 }}>
               AI can improve speed and output, but strong results still depend on responsible review, clear prompt design and fact-checking when facts matter.

@@ -80,6 +80,12 @@ export default function CategoryPage({ categorySlug }) {
             page={page}
             onChange={(event, value) => setPage(value)}
             color="primary"
+            sx={{
+              '& .MuiPagination-ul': { flexWrap: 'wrap', justifyContent: 'center' },
+              '& .MuiPaginationItem-root': {
+                '@media (max-width:420px)': { minWidth: 30, height: 30, mx: '1px', fontSize: '0.8125rem' },
+              },
+            }}
           />
         </Stack>
       </Stack>

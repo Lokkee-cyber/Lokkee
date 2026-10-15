@@ -261,7 +261,7 @@ export default function ContentAutomation({ onReviewDraft }) {
           ['Processing errors', dashboard.counts.errors],
         ].map(([label, count]) => (
           <Grid item xs={6} md={2.4} key={label}>
-            <Card variant="outlined" sx={{ height: '100%' }}><CardContent>
+            <Card variant="outlined" sx={{ height: '100%', minWidth: 0 }}><CardContent sx={{ p: { xs: 1.5, sm: 2 }, '&:last-child': { pb: { xs: 1.5, sm: 2 } } }}>
               <Typography color="text.secondary" variant="body2">{label}</Typography>
               <Typography variant="h4" fontWeight={800}>{count}</Typography>
             </CardContent></Card>
@@ -301,8 +301,8 @@ export default function ContentAutomation({ onReviewDraft }) {
           <Typography variant="h5" fontWeight={800} sx={{ mt: 2 }}>Recent processing jobs</Typography>
           {dashboard.jobs.length === 0 ? <Alert severity="info">No update jobs yet. Configure an enabled source, then select Update Content Now.</Alert> : dashboard.jobs.slice(0, 20).map((job) => (
             <Card variant="outlined" key={job.id}><CardContent>
-              <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" spacing={1}>
-                <Box>
+              <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" spacing={1} sx={{ minWidth: 0 }}>
+                <Box sx={{ minWidth: 0, flex: 1 }}>
                   <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
                     <Typography fontWeight={700}>{job.trigger.replaceAll('-', ' ')} · {dateLabel(job.createdAt)}</Typography>
                     <Chip size="small" color={job.status === 'completed' ? 'success' : job.status === 'failed' || job.status === 'completed_with_errors' ? 'warning' : 'info'} label={job.status} />
@@ -311,9 +311,9 @@ export default function ContentAutomation({ onReviewDraft }) {
                     {job.counts?.discovered || 0} discovered · {job.counts?.duplicatesSkipped || 0} duplicates · {job.counts?.draftsGenerated || 0} drafts · {job.counts?.errors || 0} errors
                     {(job.counts?.inputTokens || job.counts?.outputTokens) ? ` · ${job.counts.inputTokens} input / ${job.counts.outputTokens} output tokens` : ''}
                   </Typography>
-                  {job.errors?.slice(0, 2).map((item, index) => <Typography key={`${job.id}-error-${index}`} variant="body2" color="error.main">{item.message}</Typography>)}
+                  {job.errors?.slice(0, 2).map((item, index) => <Typography key={`${job.id}-error-${index}`} variant="body2" color="error.main" sx={{ overflowWrap: 'anywhere' }}>{item.message}</Typography>)}
                 </Box>
-                {['failed', 'completed_with_errors'].includes(job.status) && <Button onClick={() => retryJob(job.id)} disabled={busy === job.id}>{busy === job.id ? 'Retrying…' : 'Retry job'}</Button>}
+                {['failed', 'completed_with_errors'].includes(job.status) && <Button onClick={() => retryJob(job.id)} disabled={busy === job.id} sx={{ alignSelf: { xs: 'stretch', sm: 'center' }, flexShrink: 0 }}>{busy === job.id ? 'Retrying…' : 'Retry job'}</Button>}
               </Stack>
             </CardContent></Card>
           ))}

@@ -32,7 +32,7 @@ export default function Newsletter() {
   };
 
   return (
-    <Paper elevation={0} sx={{ background: 'linear-gradient(135deg, rgba(91,76,245,0.12), rgba(19,184,166,0.08))', p: { xs: 3, md: 5 }, borderRadius: 4 }}>
+    <Paper elevation={0} sx={{ background: 'linear-gradient(135deg, rgba(91,76,245,0.12), rgba(19,184,166,0.08))', p: { xs: 2, sm: 3, md: 5 }, borderRadius: 4 }}>
       <Stack spacing={2} alignItems="center" textAlign="center">
         <Typography variant="h3" fontWeight={800}>Get practical AI tool guides</Typography>
         <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 640 }}>
@@ -41,10 +41,10 @@ export default function Newsletter() {
         <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: '100%', maxWidth: 560 }} noValidate>
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
             <TextField fullWidth label="Email address" type="email" autoComplete="email" {...register('email', { required: 'Email is required', pattern: { value: /^\S+@\S+\.\S+$/, message: 'Enter a valid email address.' } })} error={Boolean(errors.email)} helperText={errors.email?.message} />
-            <Button type="submit" variant="contained" size="large" disabled={sending} sx={{ minWidth: 170 }}>{sending ? 'Subscribing…' : 'Subscribe'}</Button>
+            <Button type="submit" variant="contained" size="large" disabled={sending} sx={{ width: { xs: '100%', sm: 'auto' }, minWidth: { xs: 0, sm: 170 } }}>{sending ? 'Subscribing…' : 'Subscribe'}</Button>
           </Stack>
           {status && <FormStatus status={status.type} message={status.message} />}
-          {!siteConfig.newsletterEndpoint && <Alert severity="info" sx={{ mt: 2, textAlign: 'left' }}>Newsletter delivery is ready for a configured provider. No subscription data is stored by LokkeeVerse yet.</Alert>}
+          {!siteConfig.newsletterEndpoint }
           <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 2 }}>
             By subscribing, you agree to receive editorial updates. Unsubscribe at any time.
           </Typography>

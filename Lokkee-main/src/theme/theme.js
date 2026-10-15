@@ -48,11 +48,11 @@ export const getDesignTokens = (mode) => {
     },
     typography: {
       fontFamily: 'Inter, "Segoe UI", sans-serif',
-      h1: { fontWeight: 800, letterSpacing: '-0.06em' },
-      h2: { fontWeight: 700, letterSpacing: '-0.05em' },
-      h3: { fontWeight: 700, letterSpacing: '-0.04em' },
-      h4: { fontWeight: 700, letterSpacing: '-0.03em' },
-      h5: { fontWeight: 700, letterSpacing: '-0.02em' },
+      h1: { fontSize: '6rem', lineHeight: 1.167, fontWeight: 800, letterSpacing: '-0.06em', '@media (max-width:600px)': { fontSize: '2.25rem', lineHeight: 1.12 } },
+      h2: { fontSize: '3.75rem', lineHeight: 1.2, fontWeight: 700, letterSpacing: '-0.05em', '@media (max-width:600px)': { fontSize: '2rem', lineHeight: 1.15 } },
+      h3: { fontSize: '3rem', lineHeight: 1.167, fontWeight: 700, letterSpacing: '-0.04em', '@media (max-width:600px)': { fontSize: '1.75rem', lineHeight: 1.2 } },
+      h4: { fontSize: '2.125rem', lineHeight: 1.235, fontWeight: 700, letterSpacing: '-0.03em', '@media (max-width:600px)': { fontSize: '1.5rem', lineHeight: 1.25 } },
+      h5: { fontSize: '1.5rem', lineHeight: 1.334, fontWeight: 700, letterSpacing: '-0.02em', '@media (max-width:600px)': { fontSize: '1.25rem', lineHeight: 1.3 } },
       h6: { fontWeight: 700 },
       button: { textTransform: 'none', fontWeight: 700 },
     },
@@ -62,6 +62,7 @@ export const getDesignTokens = (mode) => {
           body: {
             background: isDark ? '#08111f' : '#f5f7ff',
             color: isDark ? '#edf5ff' : '#14213d',
+            minWidth: 0,
           },
           a: {
             color: 'inherit',
@@ -70,9 +71,29 @@ export const getDesignTokens = (mode) => {
           '*': {
             boxSizing: 'border-box',
           },
+          '#root': {
+            minHeight: '100vh',
+            minWidth: 0,
+          },
+          '.MuiAlert-message, .MuiListItemText-root': {
+            minWidth: 0,
+          },
+          'img, video, canvas, iframe': {
+            maxWidth: '100%',
+          },
           '@media (max-width: 600px)': {
             '.MuiPaper-root.MuiPaper-root, .MuiCard-root.MuiCard-root, .MuiButton-root.MuiButton-root, .MuiOutlinedInput-root.MuiOutlinedInput-root, .MuiChip-root.MuiChip-root': {
               borderRadius: '12px',
+            },
+            '.MuiTableCell-root': {
+              padding: '10px 8px',
+              overflowWrap: 'anywhere',
+            },
+          },
+          '@media (max-width: 360px)': {
+            '.MuiContainer-root': {
+              paddingLeft: '12px',
+              paddingRight: '12px',
             },
           },
         },

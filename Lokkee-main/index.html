@@ -15,21 +15,7 @@
 
   gtag('config', 'G-EX87YT857K');
 </script>
-<script>
-  // Admin pages are private editing screens; do not load advertising there.
-  const isAdminPath = () => /^\/admin(?:\/|$)/.test(window.location.pathname);
-  if (!isAdminPath()) {
-    const adScript = document.createElement('script');
-    adScript.id = 'aclib';
-    adScript.src = 'https://acscdn.com/script/aclib.js';
-    adScript.onload = () => {
-      if (!isAdminPath()) {
-        window.aclib?.runVideoSlider({ zoneId: '12307142' });
-      }
-    };
-    document.head.appendChild(adScript);
-  }
-</script>
+
     <title>LokkeeVerse</title>
   </head>
   <body>

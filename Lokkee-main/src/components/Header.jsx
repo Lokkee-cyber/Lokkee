@@ -165,7 +165,7 @@ export default function Header({ mode, onToggleMode }) {
         anchor="right"
         open={mobileOpen}
         onClose={() => setMobileOpen(false)}
-        PaperProps={{ sx: { width: 280 } }}
+        PaperProps={{ sx: { width: 'min(88vw, 360px)', maxWidth: '100vw' } }}
       >
         <Box sx={{ p: 2 }}>
           <Typography variant="h6" fontWeight={800} mb={1}>Menu</Typography>

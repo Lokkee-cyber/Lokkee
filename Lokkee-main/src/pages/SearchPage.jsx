@@ -104,7 +104,7 @@ export default function SearchPage() {
           </Select>
         </FormControl>
       </Stack>
-        <AdCashBanner zoneId="12304726" />
+        
       {results.length === 0 ? (
         <Alert severity="info">No results found. Try a different keyword or remove one of the filters.</Alert>
       ) : (
@@ -116,17 +116,23 @@ export default function SearchPage() {
               </Grid>
             ))}
           </Grid>
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4, maxWidth: '100%', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
             <Pagination
               count={Math.ceil(results.length / pageSize)}
               page={page}
               onChange={(event, value) => setPage(value)}
               color="primary"
+              sx={{
+                '& .MuiPagination-ul': { flexWrap: 'wrap', justifyContent: 'center' },
+                '& .MuiPaginationItem-root': {
+                  '@media (max-width:420px)': { minWidth: 30, height: 30, mx: '1px', fontSize: '0.8125rem' },
+                },
+              }}
             />
           </Box>
         </>
       )}
-      <AdCashBanner zoneId="12304726" />
+      
     </Container>
     </>
   );

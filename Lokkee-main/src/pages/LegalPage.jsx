@@ -78,8 +78,8 @@ export default function LegalPage({ type = 'privacy' }) {
   return (
     <Container maxWidth="md" sx={{ py: { xs: 4, md: 8 } }}>
       <SEO title={`${content.title} | LokkeeVerse`} description={content.description} canonical={path} />
-      <Typography variant="h1" fontWeight={800} sx={{ fontSize: { xs: '2.5rem', sm: '3.5rem', md: '6rem' } }}>{content.title}</Typography>
-      <Paper elevation={0} sx={{ p: { xs: 3, md: 5 }, mt: 4, borderRadius: 4 }}>
+      <Typography variant="h1" fontWeight={800} sx={{ fontSize: { xs: '2rem', sm: '3.5rem', md: '6rem' }, lineHeight: 1.1 }}>{content.title}</Typography>
+      <Paper elevation={0} sx={{ p: { xs: 2, sm: 3, md: 5 }, mt: 4, borderRadius: 4 }}>
         <Box component="article">
           {content.sections.map(([heading, body]) => (
             <Box key={heading} sx={{ mb: 4 }}>

@@ -111,6 +111,7 @@ export const publicRoutePaths = [
   "/articles/7-ai-tools-youtubers-use-for-automation-in-2026",
   "/articles/7-ai-websites-you-probably-haven-t-tried-yet-in-2026",
   "/articles/9-things-you-can-do-with-ai-that-used-to-take-hours",
+  "/articles/air-france-reportedly-adopts-israeli-crew-restrictions-for-31-countries",
   "/articles/before-you-pay-for-an-ai-tool-check-these-free-alternatives",
   "/articles/can-ai-really-save-you-money-7-tools-to-try-and-compare",
   "/articles/chatgpt-isn-t-the-only-option-7-ai-assistants-worth-exploring",
