@@ -51,7 +51,9 @@ export default function HomePage() {
             overflow: 'hidden',
             border: 1,
             borderColor: 'divider',
-            background: 'linear-gradient(125deg, rgba(91,76,245,0.12), rgba(19,184,166,0.08) 70%, rgba(255,255,255,0.9))',
+            background: (theme) => theme.palette.mode === 'dark'
+              ? 'linear-gradient(125deg, rgba(91,76,245,0.2), rgba(19,184,166,0.12) 70%, rgba(17,26,43,0.96))'
+              : 'linear-gradient(125deg, rgba(91,76,245,0.12), rgba(19,184,166,0.08) 70%, rgba(255,255,255,0.9))',
           }}
         >
           <Grid container alignItems="center" spacing={{ xs: 3, md: 5 }}>
@@ -141,27 +143,27 @@ export default function HomePage() {
         </Paper>
 
         <Box component="section" sx={{ mb: { xs: 5, md: 6 } }}>
-          <Stack direction="row" justifyContent="space-between" alignItems="flex-end" sx={{ mb: 3 }}>
+          <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'stretch', sm: 'flex-end' }} spacing={1.5} sx={{ mb: 3 }}>
             <Box>
               <Typography variant="overline" color="primary.main" fontWeight={800}>Make a confident choice</Typography>
               <Typography variant="h3" fontWeight={800}>Useful AI tools</Typography>
             </Box>
-            <Button component={Link} to="/ai-tools" variant="text">Browse all tools</Button>
+            <Button component={Link} to="/ai-tools" variant="text" sx={{ alignSelf: { xs: 'flex-start', sm: 'auto' } }}>Browse all tools</Button>
           </Stack>
           <Grid container spacing={{ xs: 2, md: 3 }}>
             {tools.slice(0, 3).map((tool) => (
-              <Grid size={{ xs: 12, md: 4 }} key={tool.slug}><ToolCard tool={tool} /></Grid>
+              <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={tool.slug}><ToolCard tool={tool} /></Grid>
             ))}
           </Grid>
         </Box>
 
         <Box component="section" sx={{ mb: { xs: 5, md: 6 } }}>
-          <Stack direction="row" justifyContent="space-between" alignItems="flex-end" sx={{ mb: 3 }}>
+          <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'stretch', sm: 'flex-end' }} spacing={1.5} sx={{ mb: 3 }}>
             <Box>
               <Typography variant="overline" color="primary.main" fontWeight={800}>Browse by workflow</Typography>
               <Typography variant="h3" fontWeight={800}>Explore topics</Typography>
             </Box>
-            <Button component={Link} to="/comparisons" variant="text">See comparisons</Button>
+            <Button component={Link} to="/comparisons" variant="text" sx={{ alignSelf: { xs: 'flex-start', sm: 'auto' } }}>See comparisons</Button>
           </Stack>
           <Grid container spacing={{ xs: 2, md: 3 }}>
             {categories.map((category) => (

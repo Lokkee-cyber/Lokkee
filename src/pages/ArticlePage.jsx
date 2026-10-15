@@ -88,18 +88,18 @@ export default function ArticlePage() {
   return (
     <>
       <SEO title={article.seoTitle || `${article.title} | LokkeeVerse`} description={article.metaDescription || article.excerpt} canonical={`/articles/${article.slug}`} />
-      <Container maxWidth="xl" sx={{ py: { xs: 4, md: 6 } }}>
+      <Container maxWidth="xl" sx={{ py: { xs: 3, sm: 4, md: 6 }, px: { xs: 2, sm: 3 } }}>
       <Breadcrumbs aria-label="Breadcrumb" sx={{ mb: 2 }}>
         <Link to="/">Home</Link>
         <Link to="/ai-tools">AI Tools</Link>
         <Typography color="text.primary">{article.title}</Typography>
       </Breadcrumbs>
 
-      <Grid container spacing={4}>
+      <Grid container spacing={{ xs: 3, lg: 4 }}>
         <Grid size={{ xs: 12, lg: 8 }}>
           <Stack spacing={2}>
             <Chip label={article.category} color="primary" sx={{ alignSelf: 'flex-start' }} />
-            <Typography variant="h2" sx={{ fontSize: { xs: '2.5rem', md: '4rem' } }}>{article.title}</Typography>
+            <Typography variant="h2" sx={{ maxWidth: 900, fontSize: 'clamp(2rem, 5vw, 3.75rem)', lineHeight: 1.05, overflowWrap: 'anywhere' }}>{article.title}</Typography>
             
             <Typography variant="h6" color="text.secondary">{article.excerpt}</Typography>
             <AdCashBanner zoneId="12304726" />
@@ -133,7 +133,7 @@ export default function ArticlePage() {
             
           )}
           
-          <Stack spacing={3} sx={{ mt: 3 }}>
+          <Stack spacing={3} sx={{ mt: 3, maxWidth: 800, '& .MuiTypography-root': { overflowWrap: 'anywhere' } }}>
             {article.content
               ? renderMarkdown(article.content)
               : content.paragraphs.map((paragraph) => (
@@ -176,9 +176,9 @@ export default function ArticlePage() {
           <Divider sx={{ my: 4 }} />
 
           <Typography variant="h4" fontWeight={800}>Related articles</Typography>
-          <Grid container spacing={3} sx={{ mt: 1 }}>
+          <Grid container spacing={{ xs: 2, md: 3 }} sx={{ mt: 1 }}>
             {publishedArticles.filter((item) => item.slug !== article.slug).slice(0, 3).map((item) => (
-              <Grid size={{ xs: 12, md: 4 }} key={item.slug}>
+              <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={item.slug}>
                 <ArticleCard article={item} />
               </Grid>
             ))}

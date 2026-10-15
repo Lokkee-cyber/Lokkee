@@ -61,7 +61,7 @@ export default function CategoryPage({ categorySlug }) {
           <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'stretch', sm: 'flex-end' }} spacing={1}>
             <Box>
               <Typography variant="h3" fontWeight={800}>Latest articles</Typography>
-              <Typography color="text.secondary" sx={{ mt: 0.5 }}>{categoryArticles.length} guides Â· newest first</Typography>
+              <Typography color="text.secondary" sx={{ mt: 0.5 }}>{categoryArticles.length} guides · newest first</Typography>
             </Box>
             <Button component={Link} to="/articles" variant="text" sx={{ alignSelf: { xs: 'flex-start', sm: 'auto' } }}>Browse all articles</Button>
           </Stack>
@@ -78,7 +78,7 @@ export default function CategoryPage({ categorySlug }) {
         {relatedTools.length > 0 && (
           <Stack spacing={3} sx={{ my: { xs: 4, md: 6 } }}>
             <Typography variant="h3" fontWeight={800}>Useful tools</Typography>
-            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'minmax(0, 1fr)', md: 'repeat(3, minmax(0, 1fr))' }, gap: { xs: 2, md: 3 }, alignItems: 'stretch' }}>
+            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'minmax(0, 1fr)', sm: 'repeat(2, minmax(0, 1fr))', lg: 'repeat(3, minmax(0, 1fr))' }, gap: { xs: 2, md: 3 }, alignItems: 'stretch' }}>
               {relatedTools.slice(0, 3).map((tool) => <ToolCard key={tool.slug} tool={tool} />)}
             </Box>
           </Stack>

@@ -1,4 +1,5 @@
 import { Box, Container, Divider, Grid, IconButton, Link as MuiLink, Stack, Typography } from '@mui/material';
+import { alpha } from '@mui/material/styles';
 import { FacebookRounded, LinkedIn, X, YouTube } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 
@@ -11,7 +12,7 @@ const footerLinks = {
     { label: 'AI Coding', to: '/ai-coding' },
   ],
   Resources: [
-    { label: 'Articles', to: '/search?type=Article' },
+    { label: 'Articles', to: '/articles' },
     { label: 'Comparisons', to: '/comparisons' },
     { label: 'AI Creators', to: '/ai-creators' },
     { label: 'AI Business', to: '/ai-business' },
@@ -40,9 +41,9 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <Box component="footer" sx={{ backgroundColor: 'background.paper', borderTop: '1px solid', borderColor: 'divider', mt: 8 }}>
-      <Container maxWidth="xl" sx={{ py: 6 }}>
-        <Grid container spacing={4}>
+    <Box component="footer" sx={{ backgroundColor: (theme) => alpha(theme.palette.background.paper, 0.82), backdropFilter: 'blur(16px)', borderTop: '1px solid', borderColor: 'divider', mt: { xs: 6, md: 8 } }}>
+      <Container maxWidth="xl" sx={{ py: { xs: 4, md: 6 }, px: { xs: 2, sm: 3 } }}>
+        <Grid container spacing={{ xs: 3, md: 4 }}>
           <Grid size={{ xs: 12, md: 4 }}>
             <Box component={Link} to="/" sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, color: 'inherit', textDecoration: 'none', mb: 1 }}>
               <Box component="img" src="/lokkeeverse-mark.svg" alt="" sx={{ width: 32, height: 32, objectFit: 'contain' }} />
@@ -60,7 +61,7 @@ export default function Footer() {
             </Stack>
           </Grid>
           {Object.entries(footerLinks).map(([heading, links]) => (
-            <Grid size={{ xs: 12, sm: 6, md: 2 }} key={heading}>
+            <Grid size={{ xs: 6, sm: 6, md: 2 }} key={heading}>
               <Typography variant="subtitle1" fontWeight={700} mb={1}>{heading}</Typography>
               <Stack spacing={1}>
                 {links.map((item) => (

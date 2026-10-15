@@ -35,7 +35,7 @@ export default function ToolPage() {
           </Typography>
         </Grid>
         {publishedArticles.slice(0, 3).map((article) => (
-          <Grid size={{ xs: 12, md: 4 }} key={article.slug}>
+          <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={article.slug}>
             <ArticleCard article={article} />
             
           </Grid>

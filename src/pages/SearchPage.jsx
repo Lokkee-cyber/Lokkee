@@ -6,6 +6,7 @@ import {
   Container,
   FormControl,
   Grid,
+  InputAdornment,
   InputLabel,
   MenuItem,
   Pagination,
@@ -14,6 +15,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import { SearchRounded } from '@mui/icons-material';
 import { categories, tools } from '../data/siteData.js';
 import { publishedArticles } from '../data/articles.js';
 import SEO from '../components/SEO.jsx';
@@ -73,14 +75,21 @@ export default function SearchPage() {
   return (
     <>
       <SEO title="Search | LokkeeVerse" description="Search articles, AI tools, and categories from LokkeeVerse." canonical="/search" noindex />
-      <Container maxWidth="xl" sx={{ py: { xs: 4, md: 6 } }}>
-      <Typography variant="h3" fontWeight={800} sx={{ mb: 3 }}>Search</Typography>
+      <Container maxWidth="xl" sx={{ py: { xs: 3, sm: 4, md: 6 }, px: { xs: 2, sm: 3 } }}>
+      <Box sx={{ mb: { xs: 3, md: 4 }, maxWidth: 760 }}>
+        <Typography variant="overline" color="primary.main" fontWeight={800} letterSpacing="0.1em">Explore the directory</Typography>
+        <Typography variant="h1" sx={{ mb: 1 }}>Search</Typography>
+        <Typography color="text.secondary">Find articles, AI tools, and topics for the work you want to do.</Typography>
+      </Box>
       <TextField
         fullWidth
         value={searchTerm}
         onChange={(event) => setSearchParams({ q: event.target.value })}
         placeholder="Search AI tools, articles, categories..."
         sx={{ mb: 3 }}
+        InputProps={{
+          startAdornment: <InputAdornment position="start"><SearchRounded color="action" /></InputAdornment>,
+        }}
       />
              
       <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ mb: 4 }}>
@@ -88,9 +97,9 @@ export default function SearchPage() {
           <InputLabel>Category</InputLabel>
           <Select label="Category" value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
             <MenuItem value="all">All</MenuItem>
-            <MenuItem value="AI Tools">AI Tools</MenuItem>
-            <MenuItem value="AI Video">AI Video</MenuItem>
-            <MenuItem value="AI Writing">AI Writing</MenuItem>
+            {categories.map((category) => (
+              <MenuItem key={category.slug} value={category.title}>{category.title}</MenuItem>
+            ))}
           </Select>
         </FormControl>
 
@@ -105,13 +114,16 @@ export default function SearchPage() {
         </FormControl>
       </Stack>
         <AdCashBanner zoneId="12304726" />
+      <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+        {results.length} {results.length === 1 ? 'result' : 'results'}
+      </Typography>
       {results.length === 0 ? (
         <Alert severity="info">No results found. Try a different keyword or remove one of the filters.</Alert>
       ) : (
         <>
-          <Grid container ref={resultsRef} spacing={3} sx={{ scrollMarginTop: { xs: 72, sm: 86 } }}>
+          <Grid container ref={resultsRef} spacing={{ xs: 2, md: 3 }} sx={{ scrollMarginTop: { xs: 72, sm: 86 } }}>
             {paginated.map((item) => (
-              <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={`${item.type}-${item.slug || item.title}`}>
+              <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={`${item.type}-${item.slug || item.title}`}>
                 {item.type === 'Article' ? <ArticleCard article={item} /> : item.type === 'Tool' ? <ToolCard tool={item} /> : <CategoryCard category={{ ...item, articleCount: 12 }} icon={categoryIcons[item.title] || (() => item.title.slice(0, 1))} />}
               </Grid>
             ))}
@@ -126,7 +138,6 @@ export default function SearchPage() {
           </Box>
         </>
       )}
-      <AdCashBanner zoneId="12304726" />
     </Container>
     </>
   );

@@ -45,11 +45,11 @@ export default function Header({ mode, onToggleMode }) {
 
   return (
     <AppBar position="sticky" elevation={0}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters sx={{ minHeight: { xs: 66, md: 76 }, gap: { xs: 1, md: 2 } }}>
+      <Container maxWidth="xl" sx={{ px: { xs: 1.5, sm: 3 } }}>
+        <Toolbar disableGutters sx={{ minHeight: { xs: 60, md: 72 }, gap: { xs: 0.5, md: 2 } }}>
           <Box component={Link} to="/" aria-label="LokkeeVerse home" sx={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit', flexShrink: 0 }}>
-            <Box component="img" src="/lokkeeverse-mark.svg" alt="" sx={{ width: { xs: 34, sm: 38 }, height: { xs: 34, sm: 38 }, objectFit: 'contain', mr: 1.25 }} />
-            <Typography variant="h6" sx={{ fontWeight: 900, fontSize: { xs: '1rem', sm: '1.2rem' }, letterSpacing: '-0.04em', color: '#0f2c8d', whiteSpace: 'nowrap' }}>
+            <Box component="img" src="/lokkeeverse-mark.svg" alt="" sx={{ width: { xs: 28, sm: 38 }, height: { xs: 28, sm: 38 }, objectFit: 'contain', mr: { xs: 0.5, sm: 1.25 } }} />
+            <Typography variant="h6" sx={{ fontWeight: 900, fontSize: { xs: '0.9rem', sm: '1.2rem' }, letterSpacing: '-0.04em', color: 'primary.main', whiteSpace: 'nowrap' }}>
               LokkeeVerse
             </Typography>
           </Box>
@@ -79,11 +79,11 @@ export default function Header({ mode, onToggleMode }) {
           </Box>
 
           <Stack direction="row" spacing={{ xs: 0, sm: 0.75 }} alignItems="center" sx={{ ml: { xs: 'auto', lg: 0 }, flexShrink: 0 }}>
-            <IconButton component={Link} to="/search" aria-label="Search LokkeeVerse" color="primary">
+            <IconButton component={Link} to="/search" aria-label="Search LokkeeVerse" color="primary" sx={{ width: { xs: 40, sm: 48 }, height: { xs: 40, sm: 48 } }}>
               <SearchRounded />
             </IconButton>
-            <ThemeToggle mode={mode} onToggle={onToggleMode} />
-            <IconButton aria-label="Open navigation menu" sx={{ display: { xs: 'inline-flex', lg: 'none' } }} onClick={() => setMobileOpen(true)}>
+            <ThemeToggle mode={mode} onToggle={onToggleMode} sx={{ width: { xs: 40, sm: 48 }, height: { xs: 40, sm: 48 } }} />
+            <IconButton aria-label="Open navigation menu" aria-expanded={mobileOpen} sx={{ display: { xs: 'inline-flex', lg: 'none' }, width: { xs: 40, sm: 48 }, height: { xs: 40, sm: 48 } }} onClick={() => setMobileOpen(true)}>
               <MenuRounded />
             </IconButton>
           </Stack>
@@ -109,9 +109,9 @@ export default function Header({ mode, onToggleMode }) {
         anchor="right"
         open={mobileOpen}
         onClose={closeMobile}
-        slotProps={{ paper: { sx: { width: 'min(88vw, 360px)', borderRadius: 0 } } }}
+        slotProps={{ paper: { sx: { width: 'min(90vw, 380px)', borderRadius: 0, bgcolor: 'background.paper' } } }}
       >
-        <Box sx={{ p: 2.5 }}>
+        <Box sx={{ p: { xs: 2, sm: 2.5 } }}>
           <Stack direction="row" spacing={1.25} alignItems="center" sx={{ mb: 2 }}>
             <Box component="img" src="/lokkeeverse-mark.svg" alt="" sx={{ width: 38, height: 38, objectFit: 'contain' }} />
             <Box>
