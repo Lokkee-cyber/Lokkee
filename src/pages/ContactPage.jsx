@@ -19,7 +19,7 @@ import {
 } from '@mui/material';
 
 import ContactSupportOutlinedIcon from '@mui/icons-material/ContactSupportOutlined';
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import MailOutlineOutlinedIcon from '@mui/icons-material/MailOutlineOutlined';
 import CloseIcon from '@mui/icons-material/Close';
 
 import SEO from '../components/SEO';
@@ -161,7 +161,7 @@ export default function ContactPage() {
               sx={{ height: '100%' }}
             >
               <CardContent sx={{ textAlign: 'center', py: 5, px: 3 }}>
-                <MailOutlineIcon
+                <MailOutlineOutlinedIcon
                   sx={{ fontSize: 42, color: 'primary.main', mb: 2 }}
                 />
 

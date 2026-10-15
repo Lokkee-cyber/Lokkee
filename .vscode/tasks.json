@@ -1,0 +1,208 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Validate sitemap production build",
+			"type": "shell",
+			"command": "npm.cmd",
+			"args": [
+				"run",
+				"build"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Build sitemap fixes",
+			"type": "shell",
+			"command": "npm.cmd",
+			"args": [
+				"run",
+				"build"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check sitemap output integrity",
+			"type": "shell",
+			"command": "py.exe",
+			"args": [
+				"-c",
+				"import json,pathlib,xml.etree.ElementTree as ET; root=ET.parse('public/sitemap.xml').getroot(); ns={'s':'http://www.sitemaps.org/schemas/sitemap/0.9'}; urls=[e.text for e in root.findall('s:url/s:loc',ns)]; robots=pathlib.Path('public/robots.txt').read_text(); config=json.loads(pathlib.Path('vercel.json').read_text()); assert urls and len(urls)==len(set(urls)); assert all(u.startswith('https://www.toolpillot.com/') for u in urls); assert not any('localhost' in u or '/api/' in u or '/search' in u or '/admin' in u for u in urls); assert 'Sitemap: https://www.toolpillot.com/sitemap.xml' in robots and 'Disallow: /api/' in robots; assert pathlib.Path('dist/sitemap.xml').read_bytes()==pathlib.Path('public/sitemap.xml').read_bytes(); assert pathlib.Path('dist/robots.txt').read_bytes()==pathlib.Path('public/robots.txt').read_bytes(); assert 'sitemap\\\\\\\\.xml$' in config['rewrites'][0]['source'] and 'robots\\\\\\\\.txt$' in config['rewrites'][0]['source']; headers={rule['source']: {h['key']:h['value'] for h in rule['headers']} for rule in config['headers']}; assert headers['/sitemap.xml']['Content-Type'].startswith('application/xml') and headers['/robots.txt']['Content-Type'].startswith('text/plain'); print('PASS: XML is well-formed; '+str(len(urls))+' unique canonical public URLs; robots and Vercel static responses are configured.')"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Final sitemap production build",
+			"type": "shell",
+			"command": "npm.cmd",
+			"args": [
+				"run",
+				"build"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Final production build",
+			"type": "shell",
+			"command": "npm.cmd",
+			"args": [
+				"run",
+				"build"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Install Vercel middleware helper",
+			"type": "shell",
+			"command": "npm.cmd",
+			"args": [
+				"install",
+				"@vercel/functions"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Build 404 routing changes",
+			"type": "shell",
+			"command": "npm.cmd",
+			"args": [
+				"run",
+				"build"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Test public route handling",
+			"type": "shell",
+			"command": "npm.cmd",
+			"args": [
+				"test"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Final build for HTTP 404",
+			"type": "shell",
+			"command": "npm.cmd",
+			"args": [
+				"run",
+				"build"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Review final routing changes",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--short"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Inspect HTTP 404 diff",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"diff",
+				"--color=never",
+				"--",
+				"package.json",
+				"package-lock.json",
+				"middleware.js",
+				"scripts/generate-sitemap.mjs",
+				"scripts/public-routing.test.mjs",
+				"src/data/articles.js",
+				"src/data/generatedPublicRoutes.js",
+				"src/pages/AuthorPage.jsx",
+				"src/pages/ComparisonPage.jsx",
+				"src/pages/NotFoundPage.jsx",
+				"src/pages/ToolPage.jsx"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check routing changes status",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--short"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Probe production not-found response",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-sS",
+				"-D",
+				"-",
+				"-o",
+				"NUL",
+				"-w",
+				"STATUS:%{http_code}\\n",
+				"https://www.toolpillot.com/this-page-should-not-exist-92841"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Read production HTTP response",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-sS",
+				"-D",
+				"-",
+				"https://www.toolpillot.com/this-page-should-not-exist-92841"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Test article sorting and guides",
+			"type": "shell",
+			"command": "npm.cmd",
+			"args": [
+				"test"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Rerun article ordering tests",
+			"type": "shell",
+			"command": "npm.cmd",
+			"args": [
+				"test"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Rerun article and route tests",
+			"type": "shell",
+			"command": "npm.cmd",
+			"args": [
+				"test"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		}
+	]
+}
