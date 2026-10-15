@@ -42,6 +42,7 @@ export const publicRoutes = [
   '/ai-business',
   '/ai-students',
   '/comparisons',
+  '/news',
   '/search',
   '/about',
   '/contact',

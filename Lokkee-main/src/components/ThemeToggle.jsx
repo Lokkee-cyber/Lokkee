@@ -1,7 +1,7 @@
 import { IconButton, Tooltip } from '@mui/material';
 import { DarkModeRounded, LightModeRounded } from '@mui/icons-material';
 
-export default function ThemeToggle({ mode, onToggle }) {
+export default function ThemeToggle({ mode, onToggle, sx }) {
   const isDark = mode === 'dark';
 
   return (
@@ -10,7 +10,7 @@ export default function ThemeToggle({ mode, onToggle }) {
         aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
         onClick={onToggle}
         color="primary"
-        sx={{ border: '1px solid', borderColor: 'divider', backgroundColor: 'background.paper' }}
+        sx={[{ border: '1px solid', borderColor: 'divider', backgroundColor: 'background.paper' }, ...(Array.isArray(sx) ? sx : [sx])].filter(Boolean)}
       >
         {isDark ? <LightModeRounded /> : <DarkModeRounded />}
       </IconButton>

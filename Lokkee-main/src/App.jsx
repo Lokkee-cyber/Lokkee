@@ -6,6 +6,7 @@ import ArticlePage from './pages/ArticlePage';
 import ToolPage from './pages/ToolPage';
 import ComparisonPage from './pages/ComparisonPage';
 import SearchPage from './pages/SearchPage';
+import NewsPage from './pages/NewsPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import LegalPage from './pages/LegalPage';
@@ -34,6 +35,7 @@ export default function App({ mode, setMode }) {
         <Route path="/ai-students" element={<CategoryPage categorySlug="ai-students" />} />
         <Route path="/comparisons" element={<ComparisonIndexPage />} />
         <Route path="/search" element={<SearchPage />} />
+        <Route path="/news" element={<NewsPage />} />
         <Route path="/articles/:slug" element={<ArticlePage />} />
         <Route path="/tools/:slug" element={<ToolPage />} />
         <Route path="/compare/:slug" element={<ComparisonPage />} />

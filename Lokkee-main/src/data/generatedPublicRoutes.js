@@ -10,6 +10,7 @@ export const publicRoutePaths = [
   "/ai-business",
   "/ai-students",
   "/comparisons",
+  "/news",
   "/about",
   "/contact",
   "/privacy-policy",
@@ -115,10 +116,13 @@ export const publicRoutePaths = [
   "/articles/before-you-pay-for-an-ai-tool-check-these-free-alternatives",
   "/articles/can-ai-really-save-you-money-7-tools-to-try-and-compare",
   "/articles/chatgpt-isn-t-the-only-option-7-ai-assistants-worth-exploring",
+  "/articles/decades-of-rewilding-on-bedfordshire-farmland-attracts-rare-bird-and-bat-populations",
   "/articles/how-content-creators-make-money-using-ai-in-2026",
   "/articles/how-to-make-500-10-000-month-using-ai-tools-2026-guide",
   "/articles/i-asked-ai-to-create-these-things-the-results-were-interesting",
   "/articles/i-tested-7-free-ai-tools-here-s-what-each-one-can-actually-do",
+  "/articles/international-news-roundup-rooney-book-distribution-and-political-scrutiny",
+  "/articles/report-houthis-seek-chinese-components-for-advanced-ballistic-missiles",
   "/articles/these-ai-tools-can-turn-simple-ideas-into-videos-images-and-more",
   "/search"
 ];

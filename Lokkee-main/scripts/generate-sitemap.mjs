@@ -39,7 +39,7 @@ for (const filename of contentFilenames.filter((name) => name.endsWith('.json'))
 const routes = [
   '/', '/ai-tools', '/ai-video', '/ai-image', '/ai-writing', '/ai-audio',
   '/ai-coding', '/ai-creators', '/ai-business', '/ai-students',
-  '/comparisons', '/about', '/contact', '/privacy-policy',
+  '/comparisons', '/news', '/about', '/contact', '/privacy-policy',
   '/terms', '/disclaimer', '/affiliate-disclosure', '/editorial-policy',
   '/authors/lokkeeverse-editorial',
 ];

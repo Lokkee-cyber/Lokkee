@@ -11,6 +11,7 @@ const footerLinks = {
     { label: 'AI Coding', to: '/ai-coding' },
   ],
   Resources: [
+    { label: 'News', to: '/news' },
     { label: 'Articles', to: '/search?type=Article' },
     { label: 'Comparisons', to: '/comparisons' },
     { label: 'AI Creators', to: '/ai-creators' },
