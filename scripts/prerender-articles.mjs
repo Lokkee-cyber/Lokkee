@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const contentDir = resolve(root, 'content/articles');
+const automationContentDir = resolve(root, 'Lokkee-main/content/articles');
 const distDir = resolve(root, 'dist');
 const siteUrl = 'https://www.toolpillot.com';
 
@@ -71,6 +72,7 @@ function markdownToHtml(markdown = '') {
 }
 
 const files = await readdir(contentDir);
+const automationFiles = await readdir(automationContentDir);
 
 const deleted = new Set(
   files
@@ -83,22 +85,32 @@ const drafts = new Set(
     .filter((file) => file.endsWith('.draft'))
     .map((file) => file.slice(0, -'.draft'.length))
 );
+const hiddenAutomationSlugs = new Set(automationFiles
+  .filter((file) => file.endsWith('.deleted') || file.endsWith('.draft'))
+  .map((file) => file.replace(/\.(deleted|draft)$/, '')));
 
 let count = 0;
 
-for (const filename of files.filter((file) => file.endsWith('.json'))) {
+const articleSources = [
+  ...files.filter((file) => file.endsWith('.json')).map((filename) => ({ directory: contentDir, filename, automationOnly: false })),
+  ...automationFiles.filter((file) => file.endsWith('.json')).map((filename) => ({ directory: automationContentDir, filename, automationOnly: true })),
+];
+
+for (const { directory, filename, automationOnly } of articleSources) {
   const article = JSON.parse(
-    await readFile(resolve(contentDir, filename), 'utf8')
+    await readFile(resolve(directory, filename), 'utf8')
   );
 
   const { slug, title, content, excerpt, image, author, readTime } = article;
 
   if (
     article.status !== 'published' ||
+    (automationOnly && article.automation?.generated !== true) ||
     !slug ||
     !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug) ||
     deleted.has(slug) ||
-    drafts.has(slug)
+    drafts.has(slug) ||
+    (automationOnly && hiddenAutomationSlugs.has(slug))
   ) {
     continue;
   }

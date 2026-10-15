@@ -10,6 +10,7 @@ export const publicRoutePaths = [
   "/ai-business",
   "/ai-students",
   "/comparisons",
+  "/news",
   "/about",
   "/contact",
   "/privacy-policy",
@@ -120,5 +121,9 @@ export const publicRoutePaths = [
   "/articles/i-asked-ai-to-create-these-things-the-results-were-interesting",
   "/articles/i-tested-7-free-ai-tools-here-s-what-each-one-can-actually-do",
   "/articles/these-ai-tools-can-turn-simple-ideas-into-videos-images-and-more",
+  "/articles/air-france-reportedly-adopts-israeli-crew-restrictions-for-31-countries",
+  "/articles/decades-of-rewilding-on-bedfordshire-farmland-attracts-rare-bird-and-bat-populations",
+  "/articles/international-news-roundup-rooney-book-distribution-and-political-scrutiny",
+  "/articles/report-houthis-seek-chinese-components-for-advanced-ballistic-missiles",
   "/search"
 ];

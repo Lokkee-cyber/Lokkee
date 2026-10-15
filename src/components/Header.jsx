@@ -19,7 +19,7 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
-import { ExpandMoreRounded, MenuRounded, SearchRounded } from '@mui/icons-material';
+import { ExpandMoreRounded, MenuRounded, NewspaperRounded, SearchRounded } from '@mui/icons-material';
 import ThemeToggle from './ThemeToggle';
 import { comparisons, navItems } from '../data/siteData';
 import { publishedArticles } from '../data/articles';
@@ -79,6 +79,28 @@ export default function Header({ mode, onToggleMode }) {
           </Box>
 
           <Stack direction="row" spacing={{ xs: 0, sm: 0.75 }} alignItems="center" sx={{ ml: { xs: 'auto', lg: 0 }, flexShrink: 0 }}>
+            <Button
+              component={NavLink}
+              to="/news"
+              aria-label="News"
+              variant="contained"
+              startIcon={<NewspaperRounded />}
+              sx={{
+                height: { xs: 36, sm: 40 },
+                width: { xs: 36, sm: 'auto' },
+                minWidth: { xs: 36, sm: 0 },
+                px: { xs: 0, sm: 1.75 },
+                borderRadius: 999,
+                background: 'linear-gradient(135deg, #5b4cf5 0%, #8a4ff5 58%, #13a89b 100%)',
+                boxShadow: '0 5px 14px rgba(91,76,245,0.24)',
+                '&:hover': { background: 'linear-gradient(135deg, #4638de 0%, #7440db 58%, #0e8c81 100%)', boxShadow: '0 7px 18px rgba(91,76,245,0.3)' },
+                '&.active': { boxShadow: '0 0 0 3px rgba(91,76,245,0.18)' },
+                '& .MuiButton-startIcon': { mr: { xs: 0, sm: 0.75 }, ml: 0 },
+                '& .MuiButton-startIcon svg': { fontSize: 20 },
+              }}
+            >
+              <Box component="span" sx={{ display: { xs: 'none', sm: 'inline' } }}>News</Box>
+            </Button>
             <IconButton component={Link} to="/search" aria-label="Search LokkeeVerse" color="primary" sx={{ width: { xs: 40, sm: 48 }, height: { xs: 40, sm: 48 } }}>
               <SearchRounded />
             </IconButton>
@@ -121,6 +143,11 @@ export default function Header({ mode, onToggleMode }) {
           </Stack>
           <Divider sx={{ mb: 1.5 }} />
           <List disablePadding>
+            <ListItem disablePadding>
+              <ListItemButton component={Link} to="/news" onClick={closeMobile} sx={{ borderRadius: 2, py: 1.25, color: 'primary.main' }}>
+                <ListItemText primary="News" primaryTypographyProps={{ fontWeight: 800 }} />
+              </ListItemButton>
+            </ListItem>
             {navItems.map((item) => item.label === 'Comparisons' ? (
               <Box key={item.path}>
                 <ListItem disablePadding>
