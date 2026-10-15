@@ -67,7 +67,7 @@ test('NewsAPI adapter sends its secret in a backend header and normalizes provid
     'World News', 5, 3000, { NEWSAPI_API_KEY: 'server-only-test-key' },
     { fetcher: async (_url, options) => { requestOptions = options; return fakeResponse({
       status: 'ok', articles: [{ title: 'A verified news headline', description: 'A source description long enough for review and an attributed summary.', url: 'https://publisher.example/story', publishedAt: '2026-10-14T07:00:00Z', source: { name: 'Publisher' } }],
-    }); } },
+    }); }, pageFetcher: async () => '' },
   );
   assert.equal(requestOptions.headers['X-Api-Key'], 'server-only-test-key');
   assert.equal(stories[0].publisher, 'Publisher');

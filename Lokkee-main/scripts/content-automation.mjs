@@ -251,6 +251,55 @@ export async function fetchSafeFeed(value, { resolver = lookup, timeoutMs = 1200
   });
 }
 
+async function fetchSafeArticlePage(value, { resolver = lookup, timeoutMs = 5000, maxBytes = 300_000, redirects = 3 } = {}) {
+  let pageUrl;
+  try {
+    pageUrl = new URL(value);
+    pageUrl.hash = '';
+  } catch { return ''; }
+  const { url, address } = await validatePublicHttpsUrl(pageUrl.href, resolver);
+  return new Promise((resolvePromise, rejectPromise) => {
+    const request = https.request(url, {
+      method: 'GET',
+      headers: { Accept: 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.2', 'Accept-Encoding': 'identity', 'User-Agent': 'ToolPillotContentAutomation/1.0' },
+      lookup: (_hostname, _options, callback) => callback(null, address.address, address.family),
+      servername: url.hostname.replace(/^\[|\]$/g, ''),
+    }, (response) => {
+      const status = response.statusCode || 0;
+      if ([301, 302, 303, 307, 308].includes(status)) {
+        const location = response.headers.location;
+        response.resume();
+        if (!location || redirects <= 0) { resolvePromise(''); return; }
+        let nextUrl;
+        try { nextUrl = new URL(location, url).href; } catch { resolvePromise(''); return; }
+        fetchSafeArticlePage(nextUrl, { resolver, timeoutMs, maxBytes, redirects: redirects - 1 })
+          .then(resolvePromise, () => resolvePromise(''));
+        return;
+      }
+      const contentType = String(response.headers['content-type'] || '').toLowerCase();
+      if (status < 200 || status >= 300 || !/(?:text\/html|application\/xhtml\+xml)/.test(contentType)) {
+        response.resume();
+        resolvePromise('');
+        return;
+      }
+      const declaredBytes = Number(response.headers['content-length'] || 0);
+      if (declaredBytes > maxBytes) { response.destroy(new Error('Article page exceeds the metadata size limit.')); return; }
+      const chunks = [];
+      let received = 0;
+      response.on('data', (chunk) => {
+        received += chunk.length;
+        if (received > maxBytes) response.destroy(new Error('Article page exceeds the metadata size limit.'));
+        else chunks.push(chunk);
+      });
+      response.on('end', () => resolvePromise(Buffer.concat(chunks).toString('utf8')));
+      response.on('error', () => resolvePromise(''));
+    });
+    request.setTimeout(timeoutMs, () => request.destroy(new Error('Article page request timed out.')));
+    request.on('error', () => resolvePromise(''));
+    request.end();
+  });
+}
+
 function decodeXml(value = '') {
   return value.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
     .replace(/<script\b[\s\S]*?<\/script>/gi, ' ').replace(/<style\b[\s\S]*?<\/style>/gi, ' ')
@@ -260,6 +309,78 @@ function decodeXml(value = '') {
     .replace(/&#(\d+);/g, (_match, code) => String.fromCodePoint(Math.min(Number(code), 0x10ffff)))
     .replace(/&#x([\da-f]+);/gi, (_match, code) => String.fromCodePoint(Math.min(parseInt(code, 16), 0x10ffff)))
     .replace(/\s+/g, ' ').trim();
+}
+
+function htmlAttribute(tag, name) {
+  const match = tag.match(new RegExp(`(?:^|\\s)${name}\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s"'=<>]+))`, 'i'));
+  return decodeXml(match?.[1] ?? match?.[2] ?? match?.[3] ?? '');
+}
+
+function usableImageUrl(value, baseUrl) {
+  if (!value || value.length > 4096) return '';
+  try {
+    const image = new URL(value, baseUrl);
+    if (image.protocol !== 'https:' || image.username || image.password) return '';
+    image.hash = '';
+    return image.href.length <= 2048 ? image.href : '';
+  } catch { return ''; }
+}
+
+function feedItemImageUrl(block, storyUrl) {
+  const tags = [...block.matchAll(/<(enclosure|media:content|media:thumbnail|img|image|link)\b[^>]*>/gi)].map(([tag]) => tag);
+  for (const tag of tags) {
+    const tagName = tag.match(/^<([^\s/>]+)/)?.[1]?.toLowerCase() || '';
+    const type = htmlAttribute(tag, 'type').toLowerCase();
+    const medium = htmlAttribute(tag, 'medium').toLowerCase();
+    const rel = htmlAttribute(tag, 'rel').toLowerCase();
+    const looksLikeImage = tagName === 'media:thumbnail'
+      || ((tagName === 'enclosure' || tagName === 'media:content') && (type.startsWith('image/') || medium === 'image'))
+      || (tagName === 'link' && rel === 'enclosure' && type.startsWith('image/'));
+    if (looksLikeImage) {
+      const candidate = htmlAttribute(tag, 'url') || htmlAttribute(tag, 'href');
+      const imageUrl = usableImageUrl(candidate, storyUrl);
+      if (imageUrl) return imageUrl;
+    }
+  }
+  const embeddedImage = block.match(/<img\b[^>]*>/i)?.[0];
+  if (embeddedImage) {
+    const candidate = htmlAttribute(embeddedImage, 'src') || htmlAttribute(embeddedImage, 'data-src');
+    return usableImageUrl(candidate, storyUrl);
+  }
+  return '';
+}
+
+export function extractArticleImageUrl(html, pageUrl) {
+  const metaTags = [...html.matchAll(/<meta\b[^>]*>/gi)].map(([tag]) => tag);
+  const values = metaTags.map((tag) => ({
+    key: (htmlAttribute(tag, 'property') || htmlAttribute(tag, 'name') || '').toLowerCase(),
+    value: htmlAttribute(tag, 'content'),
+  }));
+  const preferredKeys = ['og:image', 'og:image:secure_url', 'twitter:image', 'twitter:image:src', 'article:image'];
+  for (const key of preferredKeys) {
+    const value = values.find((meta) => meta.key === key)?.value;
+    const imageUrl = usableImageUrl(value, pageUrl);
+    if (imageUrl) return imageUrl;
+  }
+  return '';
+}
+
+async function addArticleImageMetadata(stories, timeoutMs, pageFetcher = fetchSafeArticlePage) {
+  const output = [...stories];
+  let nextIndex = 0;
+  const concurrency = Math.min(5, output.length);
+  await Promise.all(Array.from({ length: concurrency }, async () => {
+    while (nextIndex < output.length) {
+      const index = nextIndex++;
+      const story = output[index];
+      if (story.imageUrl || !story.url) continue;
+      try {
+        const html = await pageFetcher(story.url, { timeoutMs: Math.min(timeoutMs, 5000) });
+        output[index] = { ...story, imageUrl: extractArticleImageUrl(html || '', story.url) };
+      } catch { output[index] = { ...story, imageUrl: '' }; }
+    }
+  }));
+  return output;
 }
 
 function xmlTag(block, names) {
@@ -287,6 +408,7 @@ export function parseFeed(xml, source = {}) {
     return {
       id: `${source.id || 'rss'}:${idValue.slice(0, 500)}`,
       title: title.slice(0, 300), description: description.slice(0, 1200), url,
+      imageUrl: feedItemImageUrl(block, url),
       publisher: source.name || '', publishedAt: Number.isFinite(Date.parse(publishedAt)) ? new Date(publishedAt).toISOString() : null,
       provider: 'rss', sourceId: source.id || '', attribution: source.attribution || '',
     };
@@ -392,16 +514,18 @@ function normalizeApiStory(item, source, provider, index) {
     title: String(item.title || '').trim().slice(0, 300),
     description: String(item.description || item.content || item.summary || '').trim().slice(0, 1200),
     url: safeUrl,
+    imageUrl: usableImageUrl(item.image || item.urlToImage || item.imageUrl || item.thumbnail, safeUrl),
     publisher: String(item.source?.name || item.source?.title || item.source?.name || source.name).slice(0, 160),
     publishedAt: Number.isFinite(Date.parse(publishedAt)) ? new Date(publishedAt).toISOString() : null,
     provider, sourceId: source.id, attribution: source.attribution,
   };
 }
 
-export async function discoverFromSource(source, category, count, timeoutMs, env = process.env, { fetcher = fetch, feedFetcher = fetchSafeFeed } = {}) {
+export async function discoverFromSource(source, category, count, timeoutMs, env = process.env, { fetcher = fetch, feedFetcher = fetchSafeFeed, pageFetcher = fetchSafeArticlePage } = {}) {
   if (source.type === 'rss') {
     const xml = await feedFetcher(source.feedUrl, { timeoutMs });
-    return parseFeed(xml, source).map((story) => ({ ...story, category })).slice(0, count);
+    const stories = parseFeed(xml, source).map((story) => ({ ...story, category })).slice(0, count);
+    return addArticleImageMetadata(stories, timeoutMs, pageFetcher);
   }
   if (source.type === 'gnews') {
     if (!env.GNEWS_API_KEY) throw new Error('GNews is enabled as a source, but GNEWS_API_KEY is missing.');
@@ -412,7 +536,8 @@ export async function discoverFromSource(source, category, count, timeoutMs, env
     endpoint.searchParams.set('apikey', env.GNEWS_API_KEY);
     const payload = await fetchJson(endpoint, { timeoutMs, provider: 'GNews', fetcher });
     if (payload.errors?.length) throw new Error(`GNews: ${String(payload.errors[0]).slice(0, 160)}`);
-    return (payload.articles || []).map((item, index) => ({ ...normalizeApiStory(item, source, 'gnews', index), category }));
+    const stories = (payload.articles || []).map((item, index) => ({ ...normalizeApiStory(item, source, 'gnews', index), category }));
+    return addArticleImageMetadata(stories, timeoutMs, pageFetcher);
   }
   if (source.type === 'newsapi') {
     if (!env.NEWSAPI_API_KEY) throw new Error('NewsAPI is enabled as a source, but NEWSAPI_API_KEY is missing.');
@@ -423,7 +548,8 @@ export async function discoverFromSource(source, category, count, timeoutMs, env
     endpoint.searchParams.set('pageSize', String(Math.min(10, count)));
     const payload = await fetchJson(endpoint, { timeoutMs, headers: { 'X-Api-Key': env.NEWSAPI_API_KEY }, provider: 'NewsAPI', fetcher });
     if (payload.status !== 'ok') throw new Error(`NewsAPI: ${String(payload.message || payload.code || 'provider error').slice(0, 160)}`);
-    return (payload.articles || []).map((item, index) => ({ ...normalizeApiStory(item, source, 'newsapi', index), category }));
+    const stories = (payload.articles || []).map((item, index) => ({ ...normalizeApiStory(item, source, 'newsapi', index), category }));
+    return addArticleImageMetadata(stories, timeoutMs, pageFetcher);
   }
   throw new Error('Unsupported source provider.');
 }

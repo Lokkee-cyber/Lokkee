@@ -372,7 +372,15 @@ export default function ContentAutomation({ onReviewDraft }) {
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" sx={{ width: '100%', pr: 1 }} spacing={1}>
                   <Box sx={{ minWidth: 0 }}>
-                    <Typography fontWeight={700}>{story.title}</Typography>
+                    <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap" useFlexGap>
+                      <Typography fontWeight={700} sx={{ overflowWrap: 'anywhere' }}>{story.title}</Typography>
+                      {story.imageUrl && (
+                        <Stack component="span" role="img" aria-label="Image available" title="A source image URL was found for this story" direction="row" spacing={0.5} alignItems="center" sx={{ flexShrink: 0 }}>
+                          <Box component="span" aria-hidden="true" sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: 'success.main' }} />
+                          <Typography component="span" variant="caption" color="success.main" fontWeight={700}>Image available</Typography>
+                        </Stack>
+                      )}
+                    </Stack>
                     <Typography variant="body2" color="text.secondary">{story.publisher} · {story.category} · {dateLabel(story.publishedAt)}</Typography>
                   </Box>
                   <Chip size="small" label={story.status} color={story.status === 'failed' ? 'error' : story.status === 'needs-review' ? 'success' : 'default'} />

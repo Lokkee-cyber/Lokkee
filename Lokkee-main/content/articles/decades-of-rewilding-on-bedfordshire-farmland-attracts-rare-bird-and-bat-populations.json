@@ -1,0 +1,52 @@
+{
+  "title": "Decades of Rewilding on Bedfordshire Farmland Attracts Rare Bird and Bat Populations",
+  "slug": "decades-of-rewilding-on-bedfordshire-farmland-attracts-rare-bird-and-bat-populations",
+  "excerpt": "After agricultural activity ceased in the late 1980s, a 377-acre site in Bedfordshire transformed into a wildlife habitat supporting nightingales, turtle doves, and 11 bat species.",
+  "category": "World News",
+  "author": "LokkeeVerse Editorial",
+  "authorSlug": "lokkeeverse-editorial",
+  "image": "",
+  "content": "According to reporting from the Hindustan Times, a 377-acre English farm that was left to rewild starting in the late 1980s has grown into a notable wildlife refuge. Over a span of 35 years, agricultural operations ceased, allowing scrub and young woodland to naturally develop across the property. By 2024, the site in Bedfordshire accommodated significant wildlife populations, including turtle doves, 11 distinct bat species, and approximately half of the entire nightingale population in Bedfordshire.",
+  "seoTitle": "English Farm Rewilding Supports Nightingales and Bats",
+  "metaDescription": "A 377-acre former farm in Bedfordshire naturally regenerated over 35 years, becoming home to rare birds and 11 bat species.",
+  "status": "published",
+  "tags": [
+    "Rewilding",
+    "Bedfordshire",
+    "Wildlife Conservation",
+    "Biodiversity",
+    "Birds"
+  ],
+  "publishedAt": "2026-10-15T13:40:45.993Z",
+  "updatedAt": "2026-10-15T13:40:45.993Z",
+  "readTime": "1 min read",
+  "sourceReferences": [
+    {
+      "url": "https://www.hindustantimes.com/world-news/in-the-late-1980s-an-english-farm-was-left-to-rewild-35-years-later-the-377-acre-site-hosted-nightingales-turtle-doves-and-11-bat-species-101791196027645.html",
+      "publisher": "Hindustan Times",
+      "attribution": "Powered by GNews",
+      "eventDate": "",
+      "publishedAt": "2026-10-15T01:30:09.000Z",
+      "retrievedAt": "2026-10-15T13:35:39.978Z"
+    }
+  ],
+  "automation": {
+    "generated": true,
+    "storyId": "gnews:b4b7a89f5fdcc63ffb965481add6c4f2",
+    "jobId": "eaf422b3-95a3-49fa-a805-9326a3916334",
+    "sourceId": "f7cfd2e0-1022-42c0-913e-332ff687d0f4",
+    "providerArticleId": "gnews:b4b7a89f5fdcc63ffb965481add6c4f2",
+    "generatedAt": "2026-10-15T13:35:39.978Z",
+    "automationCategory": "World News",
+    "aiProvider": "gemini",
+    "reviewStatus": "approved",
+    "factCheckStatus": "human-reviewed",
+    "highImpactReviewRequired": false,
+    "tokenUsage": {
+      "inputTokens": 419,
+      "outputTokens": 296
+    },
+    "publishMode": "manual-review",
+    "publishedLocallyAt": "2026-10-15T13:40:45.993Z"
+  }
+}

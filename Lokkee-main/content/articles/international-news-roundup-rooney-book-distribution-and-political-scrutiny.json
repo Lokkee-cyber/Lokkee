@@ -1,0 +1,52 @@
+{
+  "title": "International News Roundup: Rooney Book Distribution and Political Scrutiny",
+  "slug": "international-news-roundup-rooney-book-distribution-and-political-scrutiny",
+  "excerpt": "A daily international news digest covers reported developments concerning novelist Sally Rooney's book sales in the UK and scrutiny facing a U.S. press secretary.",
+  "category": "World News",
+  "author": "LokkeeVerse Editorial",
+  "authorSlug": "lokkeeverse-editorial",
+  "image": "",
+  "content": "A news summary published by Firstpost noted several international developments. According to the report, Irish author Sally Rooney agreed with her publisher to withdraw her books from distribution in the United Kingdom. In United States political developments, the newly appointed press secretary for Donald Trump has reportedly faced scrutiny regarding her legal credentials; this political claim requires human verification. The report also mentioned that Israel was considering assistance to Saudi Arabia.",
+  "seoTitle": "World News Roundup: Sally Rooney UK Book Sales and Political Updates",
+  "metaDescription": "A summary of recent world news reports, including Sally Rooney withdrawing books from the UK and scrutiny over a U.S. press secretary's credentials.",
+  "status": "published",
+  "tags": [
+    "World News",
+    "Sally Rooney",
+    "United Kingdom",
+    "Donald Trump",
+    "Saudi Arabia"
+  ],
+  "publishedAt": "2026-10-15T13:41:09.518Z",
+  "updatedAt": "2026-10-15T13:41:09.518Z",
+  "readTime": "1 min read",
+  "sourceReferences": [
+    {
+      "url": "https://www.firstpost.com/world/globe-at-a-glance-from-israel-mulling-to-help-saudi-arabia-to-rooney-withdrawing-books-from-uk-14052920.html",
+      "publisher": "Firstpost",
+      "attribution": "Powered by GNews",
+      "eventDate": "",
+      "publishedAt": "2026-10-15T00:56:41.000Z",
+      "retrievedAt": "2026-10-15T13:23:00.200Z"
+    }
+  ],
+  "automation": {
+    "generated": true,
+    "storyId": "gnews:3a2dce14d76a85621c4f21e74bf4d0e5",
+    "jobId": "5d14842a-7759-4ffe-903f-3fb0075ad70c",
+    "sourceId": "f7cfd2e0-1022-42c0-913e-332ff687d0f4",
+    "providerArticleId": "gnews:3a2dce14d76a85621c4f21e74bf4d0e5",
+    "generatedAt": "2026-10-15T13:23:00.200Z",
+    "automationCategory": "World News",
+    "aiProvider": "gemini",
+    "reviewStatus": "approved",
+    "factCheckStatus": "human-reviewed",
+    "highImpactReviewRequired": false,
+    "tokenUsage": {
+      "inputTokens": 386,
+      "outputTokens": 207
+    },
+    "publishMode": "manual-review",
+    "publishedLocallyAt": "2026-10-15T13:41:09.518Z"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "title": "Report: Houthis Seek Chinese Components for Advanced Ballistic Missiles",
+  "slug": "report-houthis-seek-chinese-components-for-advanced-ballistic-missiles",
+  "excerpt": "According to a media report, Yemen's Houthi forces are seeking Chinese parts to build advanced ballistic missiles amid growing regional tensions.",
+  "category": "World News",
+  "author": "LokkeeVerse Editorial",
+  "authorSlug": "lokkeeverse-editorial",
+  "image": "",
+  "content": "According to a report published by Hindustan Times, Yemen's Houthis are seeking parts from China to construct advanced ballistic missiles. The reported acquisition efforts coincide with heightened tensions involving Saudi Arabia and Israel.\n\nThe development has prompted concerns over regional security dynamics and the expanding military capabilities of the Houthi group. Specific details regarding procurement mechanisms and transaction timelines were not detailed in the report, and the claims remain subject to independent verification.",
+  "seoTitle": "Houthis Seek Chinese Missile Parts Amid Regional Tensions",
+  "metaDescription": "Reports indicate Yemen's Houthis are seeking Chinese components for ballistic missiles amid tensions with Saudi Arabia and Israel.",
+  "status": "published",
+  "tags": [
+    "Yemen",
+    "Houthis",
+    "Ballistic Missiles",
+    "Middle East",
+    "Security"
+  ],
+  "publishedAt": "2026-10-15T13:42:14.381Z",
+  "updatedAt": "2026-10-15T13:42:14.381Z",
+  "readTime": "1 min read",
+  "sourceReferences": [
+    {
+      "url": "https://www.hindustantimes.com/world-news/yemens-houthis-seek-to-build-missiles-with-chinese-parts-amid-rising-tensions-with-saudi-israel-report-101792016647502.html",
+      "publisher": "Hindustan Times",
+      "attribution": "Powered by GNews",
+      "eventDate": "",
+      "publishedAt": "2026-10-14T22:35:15.000Z",
+      "retrievedAt": "2026-10-15T13:42:00.031Z"
+    }
+  ],
+  "automation": {
+    "generated": true,
+    "storyId": "gnews:209b1622efdae7b6e06a882fa69e53b7",
+    "jobId": "3292d374-4e7f-4df1-86b8-41c96005d3cd",
+    "sourceId": "f7cfd2e0-1022-42c0-913e-332ff687d0f4",
+    "providerArticleId": "gnews:209b1622efdae7b6e06a882fa69e53b7",
+    "generatedAt": "2026-10-15T13:42:00.031Z",
+    "automationCategory": "World News",
+    "aiProvider": "gemini",
+    "reviewStatus": "approved",
+    "factCheckStatus": "human-reviewed",
+    "highImpactReviewRequired": false,
+    "tokenUsage": {
+      "inputTokens": 375,
+      "outputTokens": 255
+    },
+    "publishMode": "manual-review",
+    "publishedLocallyAt": "2026-10-15T13:42:14.381Z"
+  }
+}
