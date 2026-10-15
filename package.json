@@ -19,6 +19,7 @@
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^9.5.0",
     "@mui/material": "^9.5.0",
+    "@vercel/functions": "^3.9.11",
     "dotenv": "^18.0.8",
     "openai": "^7.34.0",
     "react": "^19.3.1",
