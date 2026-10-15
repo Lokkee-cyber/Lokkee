@@ -111,7 +111,7 @@ export default function SearchPage() {
         <>
           <Grid container ref={resultsRef} spacing={3} sx={{ scrollMarginTop: { xs: 72, sm: 86 } }}>
             {paginated.map((item) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={`${item.type}-${item.slug || item.title}`}>
+              <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={`${item.type}-${item.slug || item.title}`}>
                 {item.type === 'Article' ? <ArticleCard article={item} /> : item.type === 'Tool' ? <ToolCard tool={item} /> : <CategoryCard category={{ ...item, articleCount: 12 }} icon={categoryIcons[item.title] || (() => item.title.slice(0, 1))} />}
               </Grid>
             ))}

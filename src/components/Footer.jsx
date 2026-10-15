@@ -43,7 +43,7 @@ export default function Footer() {
     <Box component="footer" sx={{ backgroundColor: 'background.paper', borderTop: '1px solid', borderColor: 'divider', mt: 8 }}>
       <Container maxWidth="xl" sx={{ py: 6 }}>
         <Grid container spacing={4}>
-          <Grid item xs={12} md={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <Box component={Link} to="/" sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, color: 'inherit', textDecoration: 'none', mb: 1 }}>
               <Box component="img" src="/lokkeeverse-mark.svg" alt="" sx={{ width: 32, height: 32, objectFit: 'contain' }} />
               <Typography variant="h6" fontWeight={800}>LokkeeVerse</Typography>
@@ -60,7 +60,7 @@ export default function Footer() {
             </Stack>
           </Grid>
           {Object.entries(footerLinks).map(([heading, links]) => (
-            <Grid item xs={12} sm={6} md={2} key={heading}>
+            <Grid size={{ xs: 12, sm: 6, md: 2 }} key={heading}>
               <Typography variant="subtitle1" fontWeight={700} mb={1}>{heading}</Typography>
               <Stack spacing={1}>
                 {links.map((item) => (

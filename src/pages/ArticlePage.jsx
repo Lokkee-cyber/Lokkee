@@ -16,7 +16,6 @@ import {
   Typography,
 } from '@mui/material';
 import { publishedArticles } from '../data/articles';
-import { popularGuides } from '../data/articles';
 import ArticleCard from '../components/ArticleCard';
 import Newsletter from '../components/Newsletter';
 import AdSlot from '../components/AdSlot';
@@ -97,7 +96,7 @@ export default function ArticlePage() {
       </Breadcrumbs>
 
       <Grid container spacing={4}>
-        <Grid item xs={12} lg={8}>
+        <Grid size={{ xs: 12, lg: 8 }}>
           <Stack spacing={2}>
             <Chip label={article.category} color="primary" sx={{ alignSelf: 'flex-start' }} />
             <Typography variant="h2" sx={{ fontSize: { xs: '2.5rem', md: '4rem' } }}>{article.title}</Typography>
@@ -179,7 +178,7 @@ export default function ArticlePage() {
           <Typography variant="h4" fontWeight={800}>Related articles</Typography>
           <Grid container spacing={3} sx={{ mt: 1 }}>
             {publishedArticles.filter((item) => item.slug !== article.slug).slice(0, 3).map((item) => (
-              <Grid item xs={12} md={4} key={item.slug}>
+              <Grid size={{ xs: 12, md: 4 }} key={item.slug}>
                 <ArticleCard article={item} />
               </Grid>
             ))}
@@ -190,7 +189,7 @@ export default function ArticlePage() {
           </Box>
         </Grid>
            
-        <Grid item xs={12} lg={4}>
+        <Grid size={{ xs: 12, lg: 4 }}>
           <Box sx={{ position: { lg: 'sticky' }, top: 90 }}>
             {!article.content && (
               <Paper elevation={0} sx={{ p: 3, borderRadius: 3, mb: 3 }}>
@@ -206,9 +205,9 @@ export default function ArticlePage() {
             )}
             
             <Paper elevation={0} sx={{ p: 3, borderRadius: 3, mb: 3 }}>
-              <Typography variant="h6" fontWeight={800}>Popular articles</Typography>
+              <Typography variant="h6" fontWeight={800}>Latest articles</Typography>
               <List>
-                {popularGuides.map((item) => (
+                {publishedArticles.filter((item) => item.slug !== article.slug).slice(0, 5).map((item) => (
                   <ListItemButton
                     key={item.slug}
                     component={Link}

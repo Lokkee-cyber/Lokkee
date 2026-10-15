@@ -24,13 +24,13 @@ export default function ComparisonPage() {
       </Box>
             <AdCashBanner zoneId="12304726" />
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Box sx={{ p: 3, borderRadius: 4, backgroundColor: 'rgba(91,76,245,0.07)' }}>
             <Typography variant="h5" fontWeight={800}>Winner</Typography>
             <Typography sx={{ mt: 1 }}>{comparison.left}</Typography>
           </Box>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Box sx={{ p: 3, borderRadius: 4, backgroundColor: 'rgba(19,184,166,0.08)' }}>
             <Typography variant="h5" fontWeight={800}>Verdict</Typography>
             <Typography sx={{ mt: 1 }}>{comparison.verdict}</Typography>

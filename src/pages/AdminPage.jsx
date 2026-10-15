@@ -313,7 +313,7 @@ export default function AdminPage() {
       {notice && <Alert severity="success" sx={{ mb: 2 }}>{notice}</Alert>}
 
       <Grid container spacing={3}>
-        <Grid item xs={12} lg={4}>
+        <Grid size={{ xs: 12, lg: 4 }}>
           <Card>
             <CardContent>
               <Stack direction="row" justifyContent="space-between" alignItems="center" flexWrap="wrap" gap={1} sx={{ mb: 2 }}>
@@ -366,7 +366,7 @@ export default function AdminPage() {
           </Card>
         </Grid>
 
-        <Grid item xs={12} lg={8}>
+        <Grid size={{ xs: 12, lg: 8 }}>
           <Card>
             <CardContent>
               <Typography variant="h4" fontWeight={800} sx={{ mb: 3 }}>
@@ -374,10 +374,10 @@ export default function AdminPage() {
               </Typography>
               <Box component="form" onSubmit={saveArticle}>
                 <Grid container spacing={2}>
-                  <Grid item xs={12} md={8}>
+                  <Grid size={{ xs: 12, md: 8 }}>
                     <TextField fullWidth required label="Title" value={article.title} onChange={updateField('title')} />
                   </Grid>
-                  <Grid item xs={12} md={4}>
+                  <Grid size={{ xs: 12, md: 4 }}>
                     <TextField
                       fullWidth
                       required
@@ -389,10 +389,10 @@ export default function AdminPage() {
                       inputProps={{ pattern: '[a-z0-9]+(-[a-z0-9]+)*' }}
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <TextField fullWidth required label="Excerpt" value={article.excerpt} onChange={updateField('excerpt')} inputProps={{ maxLength: 500 }} />
                   </Grid>
-                  <Grid item xs={12} md={6}>
+                  <Grid size={{ xs: 12, md: 6 }}>
                     <FormControl fullWidth>
                       <InputLabel id="article-category-label">Category</InputLabel>
                       <Select
@@ -409,13 +409,13 @@ export default function AdminPage() {
                       </Select>
                     </FormControl>
                   </Grid>
-                  <Grid item xs={12} md={6}>
+                  <Grid size={{ xs: 12, md: 6 }}>
                     <TextField fullWidth label="Author" value={article.author} onChange={updateField('author')} />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <TextField fullWidth label="Featured image URL (HTTPS or site-relative path)" value={article.image} onChange={updateField('image')} />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <FormControlLabel
                       control={<Checkbox checked={Boolean(article.comparison)} onChange={(event) => setComparisonEnabled(event.target.checked)} />}
                       label="This is a comparison article"
@@ -423,7 +423,7 @@ export default function AdminPage() {
                   </Grid>
                   {article.comparison && (
                     <>
-                      <Grid item xs={12}>
+                      <Grid size={{ xs: 12 }}>
                         <Stack spacing={2}>
                           <Typography variant="h6" fontWeight={800}>Compared objects (2–4)</Typography>
                           {article.comparison.objects.map((object, objectIndex) => (
@@ -450,7 +450,7 @@ export default function AdminPage() {
                           </Button>
                         </Stack>
                       </Grid>
-                      <Grid item xs={12}>
+                      <Grid size={{ xs: 12 }}>
                         <Stack spacing={2}>
                           <Typography variant="h6" fontWeight={800}>Comparison features</Typography>
                           {article.comparison.features.map((feature, featureIndex) => (
@@ -496,7 +496,7 @@ export default function AdminPage() {
                       </Grid>
                     </>
                   )}
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <TextField
                       fullWidth
                       required
@@ -508,10 +508,10 @@ export default function AdminPage() {
                       helperText="Use ## headings, ### subheadings, paragraphs, and lines beginning with - for lists. Review claims and sources before publishing."
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <TextField fullWidth label="SEO title (optional)" value={article.seoTitle} onChange={updateField('seoTitle')} inputProps={{ maxLength: 160 }} />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <TextField
                       fullWidth
                       label="Meta description (optional)"
@@ -520,7 +520,7 @@ export default function AdminPage() {
                       inputProps={{ maxLength: 320 }}
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
                       <Button type="submit" value="published" variant="contained" disabled={saving}>
                         {saving ? 'Saving…' : 'Publish locally'}

@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
 import HomePage from './pages/HomePage';
+import ArticlesPage from './pages/ArticlesPage';
 import CategoryPage from './pages/CategoryPage';
 import ArticlePage from './pages/ArticlePage';
 import ToolPage from './pages/ToolPage';
@@ -23,6 +24,7 @@ export default function App({ mode, setMode }) {
     <Routes>
       <Route element={<Layout mode={mode} onToggleMode={() => setMode((prev) => (prev === 'light' ? 'dark' : 'light'))} />}>
         <Route path="/" element={<HomePage />} />
+        <Route path="/articles" element={<ArticlesPage />} />
         <Route path="/ai-tools" element={<CategoryPage categorySlug="ai-tools" />} />
         <Route path="/ai-video" element={<CategoryPage categorySlug="ai-video" />} />
         <Route path="/ai-image" element={<CategoryPage categorySlug="ai-image" />} />

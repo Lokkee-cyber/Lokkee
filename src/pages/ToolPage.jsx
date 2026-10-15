@@ -25,7 +25,7 @@ export default function ToolPage() {
       
          <AdCashBanner zoneId="12304726" />
       <Grid container spacing={{ xs: 2, md: 3 }} sx={{ mt: { xs: 2, md: 4 } }}>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <Typography
             variant="h4"
             fontWeight={800}
@@ -35,7 +35,7 @@ export default function ToolPage() {
           </Typography>
         </Grid>
         {publishedArticles.slice(0, 3).map((article) => (
-          <Grid item xs={12} md={4} key={article.slug}>
+          <Grid size={{ xs: 12, md: 4 }} key={article.slug}>
             <ArticleCard article={article} />
             
           </Grid>

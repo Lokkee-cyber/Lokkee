@@ -24,84 +24,45 @@ import ThemeToggle from './ThemeToggle';
 import { comparisons, navItems } from '../data/siteData';
 import { publishedArticles } from '../data/articles';
 
-const featuredArticleSlugs = [
-  'best-ai-tools-to-try-in-2026',
-  'best-ai-video-generators-in-2026',
-  'best-ai-writing-tools',
-];
-const latestArticleCount = 8;
-
 export default function Header({ mode, onToggleMode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [mobileSections, setMobileSections] = useState({ explore: false, comparisons: false });
+  const [mobileComparisonsOpen, setMobileComparisonsOpen] = useState(false);
   const [menuAnchor, setMenuAnchor] = useState(null);
-  const [activeMenu, setActiveMenu] = useState('');
-  const featuredArticles = featuredArticleSlugs
-    .map((slug) => publishedArticles.find((article) => article.slug === slug))
-    .filter(Boolean);
-  const latestArticles = publishedArticles.slice(0, latestArticleCount);
-  const comparisonLinks = [
-    ...comparisons.map((comparison) => ({
-      title: comparison.title,
-      path: `/compare/${comparison.slug}`,
-    })),
+  const comparisonsOpen = Boolean(menuAnchor);
+
+  const comparisonLinks = Array.from(new Map([
+    ...comparisons.map((comparison) => [
+      `/compare/${comparison.slug}`,
+      { title: comparison.title, path: `/compare/${comparison.slug}` },
+    ]),
     ...publishedArticles
       .filter((article) => article.comparison)
-      .map((article) => ({ title: article.title, path: `/articles/${article.slug}` })),
-  ];
+      .map((article) => [`/articles/${article.slug}`, { title: article.title, path: `/articles/${article.slug}` }]),
+  ]).values());
 
-  const openMenu = (event, name) => {
-    setMenuAnchor(event.currentTarget);
-    setActiveMenu(name);
-  };
-
-  const closeMenu = () => {
-    setMenuAnchor(null);
-    setActiveMenu('');
-  };
-
-  const renderArticleLinks = (items) => items.map((article) => (
-    <MenuItem key={article.slug} component={Link} to={`/articles/${article.slug}`} onClick={closeMenu}>
-      {article.title}
-    </MenuItem>
-  ));
+  const closeMenu = () => setMenuAnchor(null);
+  const closeMobile = () => setMobileOpen(false);
 
   return (
     <AppBar position="sticky" elevation={0}>
       <Container maxWidth="xl">
-        <Toolbar disableGutters sx={{ minHeight: { xs: 64, sm: 78 }, gap: { xs: 1, sm: 2 }, minWidth: 0 }}>
-          <Box component={Link} to="/" sx={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit', minWidth: 0, flexShrink: 1 }}>
-            <Box
-              component="img"
-              src="/lokkeeverse-mark.svg"
-              alt=""
-              sx={{
-                width: { xs: 34, sm: 38 },
-                height: { xs: 34, sm: 38 },
-                flexShrink: 0,
-                objectFit: 'contain',
-                mr: { xs: 1, sm: 1.5 },
-              }}
-            />
-            <Typography variant="h6" sx={{ fontWeight: 800, fontSize: { xs: '1rem', sm: '1.25rem' }, letterSpacing: '-0.04em', color: '#0f2c8d', whiteSpace: 'nowrap' }}>
+        <Toolbar disableGutters sx={{ minHeight: { xs: 66, md: 76 }, gap: { xs: 1, md: 2 } }}>
+          <Box component={Link} to="/" aria-label="LokkeeVerse home" sx={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit', flexShrink: 0 }}>
+            <Box component="img" src="/lokkeeverse-mark.svg" alt="" sx={{ width: { xs: 34, sm: 38 }, height: { xs: 34, sm: 38 }, objectFit: 'contain', mr: 1.25 }} />
+            <Typography variant="h6" sx={{ fontWeight: 900, fontSize: { xs: '1rem', sm: '1.2rem' }, letterSpacing: '-0.04em', color: '#0f2c8d', whiteSpace: 'nowrap' }}>
               LokkeeVerse
             </Typography>
           </Box>
 
-          <Box sx={{ display: { xs: 'none', lg: 'flex' }, gap: 0.2, flexGrow: 1, justifyContent: 'center', flexWrap: 'wrap' }}>
-            {navItems.map((item) => item.label === 'Explore' || item.label === 'Comparisons' ? (
+          <Box component="nav" aria-label="Main navigation" sx={{ display: { xs: 'none', lg: 'flex' }, gap: 0.75, flexGrow: 1, justifyContent: 'center', alignItems: 'center' }}>
+            {navItems.map((item) => item.label === 'Comparisons' ? (
               <Button
                 key={item.path}
                 aria-haspopup="menu"
-                aria-expanded={activeMenu === item.label ? 'true' : undefined}
+                aria-expanded={comparisonsOpen ? 'true' : undefined}
                 endIcon={<ExpandMoreRounded />}
-                onClick={(event) => openMenu(event, item.label)}
-                sx={{
-                  color: 'text.primary',
-                  fontWeight: 700,
-                  borderRadius: 999,
-                  '&.active': { backgroundColor: 'rgba(91, 76, 245, 0.08)', color: 'primary.main' },
-                }}
+                onClick={(event) => setMenuAnchor(event.currentTarget)}
+                sx={{ color: comparisonsOpen ? 'primary.main' : 'text.primary', fontWeight: 750, borderRadius: 99, px: 2, py: 1, bgcolor: comparisonsOpen ? 'action.hover' : 'transparent' }}
               >
                 {item.label}
               </Button>
@@ -110,28 +71,19 @@ export default function Header({ mode, onToggleMode }) {
                 key={item.path}
                 component={NavLink}
                 to={item.path}
-                sx={{
-                  color: 'text.primary',
-                  fontWeight: 700,
-                  borderRadius: 999,
-                  '&.active': { backgroundColor: 'rgba(91, 76, 245, 0.08)', color: 'primary.main' },
-                }}
+                sx={{ color: 'text.primary', fontWeight: 750, borderRadius: 99, px: 2, py: 1, '&.active': { bgcolor: 'action.hover', color: 'primary.main' } }}
               >
                 {item.label}
               </Button>
             ))}
           </Box>
 
-          <Stack direction="row" spacing={{ xs: 0, sm: 1 }} alignItems="center" sx={{ ml: 'auto', flexShrink: 0 }}>
-            <IconButton component={Link} to="/search?q=" aria-label="Open search" color="primary">
+          <Stack direction="row" spacing={{ xs: 0, sm: 0.75 }} alignItems="center" sx={{ ml: { xs: 'auto', lg: 0 }, flexShrink: 0 }}>
+            <IconButton component={Link} to="/search" aria-label="Search LokkeeVerse" color="primary">
               <SearchRounded />
             </IconButton>
             <ThemeToggle mode={mode} onToggle={onToggleMode} />
-            <IconButton
-              aria-label="Open navigation menu"
-              sx={{ display: { xs: 'inline-flex', lg: 'none' } }}
-              onClick={() => setMobileOpen(true)}
-            >
+            <IconButton aria-label="Open navigation menu" sx={{ display: { xs: 'inline-flex', lg: 'none' } }} onClick={() => setMobileOpen(true)}>
               <MenuRounded />
             </IconButton>
           </Stack>
@@ -140,87 +92,59 @@ export default function Header({ mode, onToggleMode }) {
 
       <Menu
         anchorEl={menuAnchor}
-        open={Boolean(menuAnchor)}
+        open={comparisonsOpen}
         onClose={closeMenu}
-        PaperProps={{ sx: { maxHeight: '70vh', minWidth: 280, maxWidth: 420 } }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+        slotProps={{ paper: { sx: { mt: 1, p: 1, minWidth: 320, maxWidth: 480, maxHeight: '70vh', borderRadius: 3, boxShadow: '0 18px 50px rgba(15, 23, 42, 0.16)' } } }}
       >
-        {activeMenu === 'Explore' ? (
-          <>
-            <MenuItem disabled sx={{ opacity: '1 !important', fontWeight: 800 }}>Featured articles</MenuItem>
-            {renderArticleLinks(featuredArticles)}
-            <Divider />
-            <MenuItem disabled sx={{ opacity: '1 !important', fontWeight: 800 }}>Latest articles</MenuItem>
-            {renderArticleLinks(latestArticles)}
-          </>
-        ) : (
-          comparisonLinks.length
-            ? comparisonLinks.map((item) => (
-              <MenuItem key={item.path} component={Link} to={item.path} onClick={closeMenu}>{item.title}</MenuItem>
-            ))
-            : <MenuItem disabled>No comparisons published yet</MenuItem>
-        )}
+        {comparisonLinks.length ? comparisonLinks.map((item) => (
+          <MenuItem key={item.path} component={Link} to={item.path} onClick={closeMenu} sx={{ borderRadius: 1.5, py: 1.25, whiteSpace: 'normal' }}>
+            {item.title}
+          </MenuItem>
+        )) : <MenuItem disabled>No comparisons published yet</MenuItem>}
       </Menu>
 
       <Drawer
         anchor="right"
         open={mobileOpen}
-        onClose={() => setMobileOpen(false)}
-        PaperProps={{ sx: { width: 280 } }}
+        onClose={closeMobile}
+        slotProps={{ paper: { sx: { width: 'min(88vw, 360px)', borderRadius: 0 } } }}
       >
-        <Box sx={{ p: 2 }}>
-          <Typography variant="h6" fontWeight={800} mb={1}>Menu</Typography>
-          <Divider sx={{ mb: 1 }} />
-          <List>
-            {navItems.map((item) => item.label === 'Explore' || item.label === 'Comparisons' ? (
+        <Box sx={{ p: 2.5 }}>
+          <Stack direction="row" spacing={1.25} alignItems="center" sx={{ mb: 2 }}>
+            <Box component="img" src="/lokkeeverse-mark.svg" alt="" sx={{ width: 38, height: 38, objectFit: 'contain' }} />
+            <Box>
+              <Typography variant="h6" fontWeight={900} lineHeight={1.2}>LokkeeVerse</Typography>
+              <Typography variant="caption" color="text.secondary">Explore AI with confidence</Typography>
+            </Box>
+          </Stack>
+          <Divider sx={{ mb: 1.5 }} />
+          <List disablePadding>
+            {navItems.map((item) => item.label === 'Comparisons' ? (
               <Box key={item.path}>
                 <ListItem disablePadding>
-                  <ListItemButton
-                    onClick={() => setMobileSections((current) => ({
-                      ...current,
-                      [item.label === 'Explore' ? 'explore' : 'comparisons']: !current[item.label === 'Explore' ? 'explore' : 'comparisons'],
-                    }))}
-                  >
-                    <ListItemText primary={item.label} />
-                    <ExpandMoreRounded />
+                  <ListItemButton onClick={() => setMobileComparisonsOpen((open) => !open)} sx={{ borderRadius: 2, py: 1.25 }}>
+                    <ListItemText primary={item.label} primaryTypographyProps={{ fontWeight: 700 }} />
+                    <ExpandMoreRounded sx={{ transform: mobileComparisonsOpen ? 'rotate(180deg)' : 'none', transition: 'transform 160ms ease' }} />
                   </ListItemButton>
                 </ListItem>
-                <Collapse in={mobileSections[item.label === 'Explore' ? 'explore' : 'comparisons']} timeout="auto" unmountOnExit>
-                  <List disablePadding sx={{ pl: 2 }}>
-                    {item.label === 'Explore' ? (
-                      <>
-                        <ListItemText primary="Featured articles" sx={{ px: 2, pt: 1, fontWeight: 800 }} />
-                        {featuredArticles.map((article) => (
-                          <ListItem key={article.slug} disablePadding>
-                            <ListItemButton component={Link} to={`/articles/${article.slug}`} onClick={() => setMobileOpen(false)}>
-                              <ListItemText primary={article.title} />
-                            </ListItemButton>
-                          </ListItem>
-                        ))}
-                        <ListItemText primary="Latest articles" sx={{ px: 2, pt: 1, fontWeight: 800 }} />
-                        {latestArticles.map((article) => (
-                          <ListItem key={article.slug} disablePadding>
-                            <ListItemButton component={Link} to={`/articles/${article.slug}`} onClick={() => setMobileOpen(false)}>
-                              <ListItemText primary={article.title} />
-                            </ListItemButton>
-                          </ListItem>
-                        ))}
-                      </>
-                    ) : comparisonLinks.length ? comparisonLinks.map((comparison) => (
+                <Collapse in={mobileComparisonsOpen} timeout="auto" unmountOnExit>
+                  <List disablePadding sx={{ pl: 1.5, py: 0.5 }}>
+                    {comparisonLinks.length ? comparisonLinks.map((comparison) => (
                       <ListItem key={comparison.path} disablePadding>
-                        <ListItemButton component={Link} to={comparison.path} onClick={() => setMobileOpen(false)}>
-                          <ListItemText primary={comparison.title} />
+                        <ListItemButton component={Link} to={comparison.path} onClick={closeMobile} sx={{ borderRadius: 2, py: 1 }}>
+                          <ListItemText primary={comparison.title} primaryTypographyProps={{ variant: 'body2' }} />
                         </ListItemButton>
                       </ListItem>
-                    )) : (
-                      <ListItemText primary="No comparisons published yet" sx={{ px: 2, py: 1 }} />
-                    )}
+                    )) : <ListItemText primary="No comparisons published yet" sx={{ px: 2, py: 1 }} />}
                   </List>
                 </Collapse>
               </Box>
             ) : (
               <ListItem key={item.path} disablePadding>
-                <ListItemButton component={Link} to={item.path} onClick={() => setMobileOpen(false)}>
-                  <ListItemText primary={item.label} />
+                <ListItemButton component={Link} to={item.path} onClick={closeMobile} sx={{ borderRadius: 2, py: 1.25 }}>
+                  <ListItemText primary={item.label} primaryTypographyProps={{ fontWeight: 700 }} />
                 </ListItemButton>
               </ListItem>
             ))}

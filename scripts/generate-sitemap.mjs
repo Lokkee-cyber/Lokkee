@@ -41,7 +41,7 @@ const routes = [
   '/ai-coding', '/ai-creators', '/ai-business', '/ai-students',
   '/comparisons', '/about', '/contact', '/privacy-policy',
   '/terms', '/disclaimer', '/affiliate-disclosure', '/editorial-policy',
-  '/authors/lokkeeverse-editorial',
+  '/articles', '/authors/lokkeeverse-editorial',
 ];
 
 const urls = [

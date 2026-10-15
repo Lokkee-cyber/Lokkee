@@ -17,6 +17,7 @@ export const publicRoutePaths = [
   "/disclaimer",
   "/affiliate-disclosure",
   "/editorial-policy",
+  "/articles",
   "/authors/lokkeeverse-editorial",
   "/tools/chatgpt",
   "/tools/gemini",
