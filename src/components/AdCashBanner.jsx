@@ -1,7 +1,7 @@
 
 import { useEffect, useRef } from "react";
 
-export default function AdCashBanner() {
+export default function AdCashBanner({ zoneId = "12304726" }) {
   const bannerRef = useRef(null);
 
   useEffect(() => {
@@ -16,11 +16,7 @@ export default function AdCashBanner() {
 
     const script = document.createElement("script");
     script.type = "text/javascript";
-    script.text = `
-      aclib.runBanner({
-        zoneId: "12304726",
-      });
-    `;
+    script.text = `window.aclib?.runBanner?.({ zoneId: ${JSON.stringify(zoneId)} });`;
 
     container.appendChild(script);
 
@@ -36,8 +32,7 @@ export default function AdCashBanner() {
       style={{
         width: "100%",
         maxWidth: "300px",
-        minHeight: "250px",
-        margin: "24px auto",
+        margin: "12px auto",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
