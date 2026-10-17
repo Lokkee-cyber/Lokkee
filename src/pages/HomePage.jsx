@@ -20,7 +20,6 @@ import ArticleCard from '../components/ArticleCard.jsx';
 import CategoryCard from '../components/CategoryCard.jsx';
 import Newsletter from '../components/Newsletter.jsx';
 import SearchBar from '../components/SearchBar.jsx';
-import AdCashBanner from '../components/AdCashBanner.jsx';
 
 const categoryIcons = {
   'AI Tools': AutoAwesome,
@@ -130,7 +129,6 @@ export default function HomePage() {
           </Grid>
         </Box>
 
-        <AdCashBanner />
 
         <Paper elevation={0} sx={{ p: { xs: 2.5, md: 3 }, mb: { xs: 5, md: 6 }, border: 1, borderColor: 'divider', borderRadius: 3 }}>
           <Stack direction={{ xs: 'column', md: 'row' }} alignItems={{ xs: 'stretch', md: 'center' }} spacing={2}>

@@ -18,12 +18,10 @@ import {
 import { publishedArticles } from '../data/articles';
 import ArticleCard from '../components/ArticleCard';
 import Newsletter from '../components/Newsletter';
-import AdSlot from '../components/AdSlot';
 import SEO from '../components/SEO';
 import NotFoundPage from './NotFoundPage';
 import { getLegacyArticleContent } from '../data/legacyArticleContent';
 import ComparisonTable from '../components/ComparisonTable';
-import AdCashBanner from "../components/AdCashBanner";
 
 function renderMarkdown(markdown) {
   const lines = markdown.split(/\r?\n/);
@@ -102,7 +100,6 @@ export default function ArticlePage() {
             <Typography variant="h2" sx={{ maxWidth: 900, fontSize: 'clamp(2rem, 5vw, 3.75rem)', lineHeight: 1.05, overflowWrap: 'anywhere' }}>{article.title}</Typography>
             
             <Typography variant="h6" color="text.secondary">{article.excerpt}</Typography>
-            <AdCashBanner />
             <Stack direction="row" spacing={2} alignItems="center">
               <Avatar sx={{ bgcolor: 'primary.main' }}>{article.author.slice(0, 1)}</Avatar>
               <Box>
@@ -112,7 +109,9 @@ export default function ArticlePage() {
             </Stack>
           </Stack>
            
-          {/* <Box component="img" src={article.image} alt={article.title} sx={{ width: '100%', borderRadius: 4, mt: 4, height: 420, objectFit: 'cover' }} /> */}
+          {article.image && (
+            <Box component="img" src={article.image} alt={article.title} sx={{ width: '100%', borderRadius: 4, mt: 4, height: { xs: 240, md: 420 }, objectFit: 'cover' }} />
+          )}
 
           {article.comparison && (
             <Box sx={{ my: 4 }}>
@@ -123,7 +122,6 @@ export default function ArticlePage() {
           {!article.content && (
             <Paper elevation={0} sx={{ p: 3, my: 4, backgroundColor: '#5b4cf50a', borderRadius: 3 }}>
               <Typography variant="h6" fontWeight={700}>Table of contents</Typography>
-              <AdCashBanner />
               <List dense>
                 <ListItem disablePadding><ListItemText primary="Why the right AI tool matters" /></ListItem>
                 <ListItem disablePadding><ListItemText primary="How to pick the best option" /></ListItem>
@@ -140,14 +138,12 @@ export default function ArticlePage() {
               <Typography key={paragraph} variant="body1" color="text.secondary" lineHeight={1.8}>{paragraph}</Typography>
               ))}
           </Stack>
-          <AdCashBanner />
           <Paper elevation={0} sx={{ p: 3, my: 4, borderLeft: '4px solid', borderColor: 'primary.main', backgroundColor: 'background.paper', borderRadius: 3 }}>
             <Typography variant="h6" fontWeight={700}>Important note</Typography>
             <Typography color="text.secondary" sx={{ mt: 1 }}>
               AI can improve speed and output, but strong results still depend on responsible review, clear prompt design and fact-checking when facts matter.
             </Typography>
           </Paper>
-                  <AdCashBanner />
           {content && (
             <>
               <Divider sx={{ my: 4 }} />

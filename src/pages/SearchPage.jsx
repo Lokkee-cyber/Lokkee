@@ -23,7 +23,6 @@ import ArticleCard from '../components/ArticleCard.jsx';
 import ToolCard from '../components/ToolCard.jsx';
 import CategoryCard from '../components/CategoryCard.jsx';
 import { scrollToElement } from '../utils/scrollToElement.js';
-import AdCashBanner from "../components/AdCashBanner";
 
 const categoryIcons = {
   'AI Tools': () => 'A',
@@ -113,7 +112,6 @@ export default function SearchPage() {
           </Select>
         </FormControl>
       </Stack>
-        <AdCashBanner />
       <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
         {results.length} {results.length === 1 ? 'result' : 'results'}
       </Typography>

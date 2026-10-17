@@ -18,10 +18,11 @@ import { categories, tools } from '../data/siteData.js';
 import { publishedArticles } from '../data/articles.js';
 import SEO from '../components/SEO.jsx';
 import ArticleCard from '../components/ArticleCard.jsx';
+import NativeAds from '../components/NativeAds.jsx';
 import ToolCard from '../components/ToolCard.jsx';
 import CategoryCard from '../components/CategoryCard.jsx';
-import { scrollToElement } from '../utils/scrollToElement.js';
-import AdCashBanner from "../components/AdCashBanner";
+import { scrollToElement } from '../utils/scrollToElement.js'; 
+import AdCashBanner from '../components/AdCashBanner.jsx';
 
 const categoryIcons = {
   'AI Tools': () => 'A',
@@ -116,6 +117,7 @@ export default function SearchPage() {
               </Grid>
             ))}
           </Grid>
+          {paginated.length > 0 && <NativeAds />}
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4, maxWidth: '100%', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
             <Pagination
               count={Math.ceil(results.length / pageSize)}

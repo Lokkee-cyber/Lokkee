@@ -18,8 +18,6 @@ export const siteConfig = {
   siteUrl,
   contactEmail: 'toolpillot.support@gmail.com',
   gaMeasurementId: import.meta.env.VITE_GA_MEASUREMENT_ID || '',
-  adsenseClient: import.meta.env.VITE_ADSENSE_CLIENT || '',
-  adsEnabled: import.meta.env.VITE_ADS_ENABLED === 'true',
   contactEndpoint: import.meta.env.VITE_CONTACT_ENDPOINT || '',
   newsletterEndpoint: import.meta.env.VITE_NEWSLETTER_ENDPOINT || '',
   author: {

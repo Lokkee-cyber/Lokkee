@@ -4,7 +4,6 @@ import { comparisons } from '../data/siteData';
 import ComparisonTable from '../components/ComparisonTable';
 import SEO from '../components/SEO';
 import NotFoundPage from './NotFoundPage';
-import AdCashBanner from "../components/AdCashBanner";
 
 export default function ComparisonPage() {
   const { slug } = useParams();
@@ -18,7 +17,6 @@ export default function ComparisonPage() {
       <Typography variant="overline" color="primary.main" fontWeight={700}>AI Comparison</Typography>
       <Typography variant="h2" sx={{ mb: 2, fontSize: { xs: '2.25rem', sm: '3rem', md: '3.75rem' } }}>{comparison.title}</Typography>
       <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 760 }}>{comparison.summary}</Typography>
-       <AdCashBanner />
       <Box sx={{ my: 4 }}>
         <ComparisonTable comparison={comparison} />
       </Box>

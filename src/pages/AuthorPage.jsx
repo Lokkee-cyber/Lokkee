@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import SEO from '../components/SEO';
 import { siteConfig } from '../config/siteConfig';
 import NotFoundPage from './NotFoundPage';
-import AdCashBanner from "../components/AdCashBanner";
 
 export default function AuthorPage() {
   const { slug } = useParams();
@@ -17,7 +16,6 @@ export default function AuthorPage() {
       <Typography color="text.secondary" sx={{ display: 'block', mt: 2, maxWidth: 780 }}>
         {siteConfig.author.bio}
       </Typography>
-      <AdCashBanner />
       <Paper elevation={0} sx={{ p: { xs: 3, md: 5 }, mt: 4, borderRadius: 4 }}>
         <Stack spacing={3}>
           <Box>
