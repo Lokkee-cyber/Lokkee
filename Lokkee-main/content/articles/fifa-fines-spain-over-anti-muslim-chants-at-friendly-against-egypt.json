@@ -1,0 +1,52 @@
+{
+  "title": "FIFA Fines Spain Over Anti-Muslim Chants at Friendly Against Egypt",
+  "slug": "fifa-fines-spain-over-anti-muslim-chants-at-friendly-against-egypt",
+  "excerpt": "FIFA has imposed a $20,000 fine on Spain after fans directed an anti-Muslim chant during a friendly match against Egypt in Barcelona.",
+  "category": "World News",
+  "author": "LokkeeVerse Editorial",
+  "authorSlug": "lokkeeverse-editorial",
+  "image": "https://wtop.com/wp-content/uploads/2026/08/favicon-300x300.png",
+  "content": "FIFA has fined Spain $20,000 following an incident in which spectators directed an anti-Muslim slogan during an international friendly match against Egypt held in Barcelona. According to reports, the penalty was issued against the Spanish federation after the chants took place during the warmup match. The incident also drew public condemnation from Spanish player Lamine Yamal.",
+  "seoTitle": "FIFA Fines Spain $20,000 Over Chants at Egypt Friendly",
+  "metaDescription": "FIFA has levied a $20,000 fine against Spain after fans directed anti-Muslim chants during a friendly match against Egypt in Barcelona.",
+  "status": "published",
+  "tags": [
+    "FIFA",
+    "Spain",
+    "Egypt",
+    "Soccer",
+    "Lamine Yamal"
+  ],
+  "publishedAt": "2026-10-17T03:33:39.762Z",
+  "updatedAt": "2026-10-17T03:33:39.762Z",
+  "readTime": "1 min read",
+  "sourceReferences": [
+    {
+      "url": "https://wtop.com/world/2026/10/fifa-fines-spain-20000-for-anti-muslim-chants-at-egypt-game-condemned-by-lamine-yamal/",
+      "publisher": "WTOP",
+      "attribution": "Powered by GNews",
+      "eventDate": "",
+      "publishedAt": "2026-10-16T12:58:44.000Z",
+      "retrievedAt": "2026-10-17T03:33:21.643Z"
+    }
+  ],
+  "automation": {
+    "generated": true,
+    "storyId": "gnews:13d67da26b34dc788e626dcb252308ff",
+    "jobId": "ac1acc75-55b2-44a3-9c4f-b26385c8d637",
+    "sourceId": "f7cfd2e0-1022-42c0-913e-332ff687d0f4",
+    "providerArticleId": "gnews:13d67da26b34dc788e626dcb252308ff",
+    "generatedAt": "2026-10-17T03:33:21.643Z",
+    "automationCategory": "World News",
+    "aiProvider": "gemini",
+    "reviewStatus": "approved",
+    "factCheckStatus": "human-reviewed",
+    "highImpactReviewRequired": false,
+    "tokenUsage": {
+      "inputTokens": 375,
+      "outputTokens": 242
+    },
+    "publishMode": "manual-review",
+    "publishedLocallyAt": "2026-10-17T03:33:39.762Z"
+  }
+}

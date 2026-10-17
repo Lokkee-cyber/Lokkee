@@ -1,0 +1,52 @@
+{
+  "title": "Report: Attack in West Bank Village Leaves Journalist and Another Injured",
+  "slug": "report-attack-in-west-bank-village-leaves-journalist-and-another-injured",
+  "excerpt": "A reported attack by Israeli settlers in the West Bank village of Abu Falah left at least two people injured, including a journalist, and damaged olive trees.",
+  "category": "World News",
+  "author": "LokkeeVerse Editorial",
+  "authorSlug": "lokkeeverse-editorial",
+  "image": "https://images.timesnownews.com/thumb/msid-156352108,thumbsize-1974365,width-1280,height-720,resizemode-75/156352108.jpg",
+  "content": "According to reporting from Times Now, an incident involving militant Israeli settlers occurred in the West Bank village of Abu Falah during the annual olive harvest. \n\nThe report states that Palestinians were targeted in what was described as a coordinated attack. As a result, at least two individuals sustained injuries, including a journalist, while olive trees in the area were burned. Additional circumstances and official findings regarding the incident remain subject to further verification.",
+  "seoTitle": "Settler Attack Reported in Abu Falah During Olive Harvest",
+  "metaDescription": "A reported settler attack in the West Bank village of Abu Falah injured at least two people, including a journalist, and burned olive trees.",
+  "status": "published",
+  "tags": [
+    "West Bank",
+    "Abu Falah",
+    "Olive Harvest",
+    "Times Now",
+    "World News"
+  ],
+  "publishedAt": "2026-10-17T03:07:22.306Z",
+  "updatedAt": "2026-10-17T03:07:22.306Z",
+  "readTime": "1 min read",
+  "sourceReferences": [
+    {
+      "url": "https://www.timesnownews.com/world/israeli-settlers-burn-olive-trees-injure-journalist-in-west-bank-attack-article-156352112",
+      "publisher": "Times Now",
+      "attribution": "Powered by GNews",
+      "eventDate": "",
+      "publishedAt": "2026-10-16T14:00:46.000Z",
+      "retrievedAt": "2026-10-17T03:06:57.302Z"
+    }
+  ],
+  "automation": {
+    "generated": true,
+    "storyId": "gnews:1828da2c15eada8f86d510744ae5d54b",
+    "jobId": "0165292a-d56d-4dfb-be87-bd1fad3f9af5",
+    "sourceId": "f7cfd2e0-1022-42c0-913e-332ff687d0f4",
+    "providerArticleId": "gnews:1828da2c15eada8f86d510744ae5d54b",
+    "generatedAt": "2026-10-17T03:06:57.302Z",
+    "automationCategory": "World News",
+    "aiProvider": "gemini",
+    "reviewStatus": "approved",
+    "factCheckStatus": "human-reviewed",
+    "highImpactReviewRequired": false,
+    "tokenUsage": {
+      "inputTokens": 376,
+      "outputTokens": 252
+    },
+    "publishMode": "manual-review",
+    "publishedLocallyAt": "2026-10-17T03:07:22.306Z"
+  }
+}

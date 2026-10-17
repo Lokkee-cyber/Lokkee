@@ -44,7 +44,7 @@ export function defaultAutomationSettings() {
     maxAiGenerationsPerRun: 3,
     maxAiGenerationsPerDay: 10,
     maxGenerationRetries: 1,
-    requestTimeoutMs: 20000,
+    requestTimeoutMs: 60000,
     duplicateThreshold: 0.82,
     freshnessHours: 72,
     lastScheduleDate: '',
