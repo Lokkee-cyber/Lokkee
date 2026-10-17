@@ -1,0 +1,52 @@
+{
+  "title": "Report Details Continued Iranian Maritime Fuel Shipments Despite US Blockade",
+  "slug": "report-details-continued-iranian-maritime-fuel-shipments-despite-us-blockade",
+  "excerpt": "According to reporting by Times Now, Iran has maintained limited maritime deliveries of cooking gas and jet fuel since July despite a naval blockade by the United States.",
+  "category": "World News",
+  "author": "LokkeeVerse Editorial",
+  "authorSlug": "lokkeeverse-editorial",
+  "image": "https://images.timesnownews.com/thumb/msid-156353460,thumbsize-70783,width-1280,height-720,resizemode-75/156353460.jpg",
+  "content": "According to a report published by Times Now, Iran has continued dispatching maritime shipments of liquefied petroleum gas (cooking gas) and jet fuel despite an active United States naval blockade. These sea-based shipments, underway since July, represent a significant reduction in volume compared to historical export levels. The report states that the cargoes have managed to evade enforcement measures partly by being concealed alongside transfers from other Gulf fuel producers. Independent verification has not been established for the specific operational methods or cargo volumes described in the reporting.",
+  "seoTitle": "Iran Reportedly Continues LPG and Jet Fuel Shipments",
+  "metaDescription": "Iran has continued shipping cooking gas and jet fuel by sea since July despite a US naval blockade, according to a report by Times Now.",
+  "status": "published",
+  "tags": [
+    "Iran",
+    "Energy",
+    "Maritime Trade",
+    "Sanctions",
+    "Middle East"
+  ],
+  "publishedAt": "2026-10-17T09:54:31.904Z",
+  "updatedAt": "2026-10-17T09:54:31.904Z",
+  "readTime": "1 min read",
+  "sourceReferences": [
+    {
+      "url": "https://www.timesnownews.com/world/iran-shipping-lpg-and-jet-fuel-despite-us-blockade-says-report-article-156353341",
+      "publisher": "Times Now",
+      "attribution": "Powered by GNews",
+      "eventDate": "",
+      "publishedAt": "2026-10-16T19:52:03.000Z",
+      "retrievedAt": "2026-10-17T09:54:04.901Z"
+    }
+  ],
+  "automation": {
+    "generated": true,
+    "storyId": "gnews:5b1eedf004ce22487636da7a7b21343d",
+    "jobId": "c1a5dd3f-acba-48a6-a44e-7fd5b00a40e1",
+    "sourceId": "f7cfd2e0-1022-42c0-913e-332ff687d0f4",
+    "providerArticleId": "gnews:5b1eedf004ce22487636da7a7b21343d",
+    "generatedAt": "2026-10-17T09:54:04.901Z",
+    "automationCategory": "World News",
+    "aiProvider": "gemini",
+    "reviewStatus": "approved",
+    "factCheckStatus": "human-reviewed",
+    "highImpactReviewRequired": false,
+    "tokenUsage": {
+      "inputTokens": 391,
+      "outputTokens": 260
+    },
+    "publishMode": "manual-review",
+    "publishedLocallyAt": "2026-10-17T09:54:31.904Z"
+  }
+}

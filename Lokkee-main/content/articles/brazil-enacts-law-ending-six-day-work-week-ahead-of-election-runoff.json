@@ -1,0 +1,52 @@
+{
+  "title": "Brazil Enacts Law Ending Six-Day Work Week Ahead of Election Runoff",
+  "slug": "brazil-enacts-law-ending-six-day-work-week-ahead-of-election-runoff",
+  "excerpt": "A new law ending the six-day work week in Brazil has reportedly bolstered President Lula's standing ahead of an upcoming October 25 runoff.",
+  "category": "World News",
+  "author": "LokkeeVerse Editorial",
+  "authorSlug": "lokkeeverse-editorial",
+  "image": "https://images.timesnownews.com/thumb/msid-156353645,thumbsize-226189,width-1280,height-720,resizemode-75/156353645.jpg",
+  "content": "According to reporting by Times Now, Brazil has introduced a new law ending the six-day work week. The development arrives as President Luiz Inácio Lula da Silva campaigns ahead of an election runoff scheduled for October 25. The report notes that the policy change, combined with an updated social media strategy, is providing momentum to his campaign efforts. As these claims concern political developments and labor regulations, the specific legal provisions and campaign effects require independent human verification.",
+  "seoTitle": "Brazil Ends Six-Day Work Week Ahead of Runoff Election",
+  "metaDescription": "Brazil enacts legislation ending the six-day work week ahead of an October 25 runoff election involving President Lula.",
+  "status": "published",
+  "tags": [
+    "Brazil",
+    "Lula",
+    "Labor Law",
+    "Elections",
+    "World News"
+  ],
+  "publishedAt": "2026-10-17T09:54:55.761Z",
+  "updatedAt": "2026-10-17T09:54:55.761Z",
+  "readTime": "1 min read",
+  "sourceReferences": [
+    {
+      "url": "https://www.timesnownews.com/world/brazil-ends-six-day-work-week-giving-lula-a-boost-days-before-runoff-article-156353591",
+      "publisher": "Times Now",
+      "attribution": "Powered by GNews",
+      "eventDate": "",
+      "publishedAt": "2026-10-16T20:47:10.000Z",
+      "retrievedAt": "2026-10-17T09:53:52.478Z"
+    }
+  ],
+  "automation": {
+    "generated": true,
+    "storyId": "gnews:8cd485e1890db20279bd37d918132008",
+    "jobId": "c1a5dd3f-acba-48a6-a44e-7fd5b00a40e1",
+    "sourceId": "f7cfd2e0-1022-42c0-913e-332ff687d0f4",
+    "providerArticleId": "gnews:8cd485e1890db20279bd37d918132008",
+    "generatedAt": "2026-10-17T09:53:52.478Z",
+    "automationCategory": "World News",
+    "aiProvider": "gemini",
+    "reviewStatus": "approved",
+    "factCheckStatus": "human-reviewed",
+    "highImpactReviewRequired": false,
+    "tokenUsage": {
+      "inputTokens": 379,
+      "outputTokens": 215
+    },
+    "publishMode": "manual-review",
+    "publishedLocallyAt": "2026-10-17T09:54:55.761Z"
+  }
+}
