@@ -115,7 +115,7 @@ export default function ArticlePage() {
             </Stack>
           </Stack>
            
-          {/* <Box component="img" src={article.image} alt={article.title} sx={{ width: '100%', borderRadius: 4, mt: 4, height: 420, objectFit: 'cover' }} /> */}
+          <Box component="img" src={article.image} alt={article.title} sx={{ width: '100%', borderRadius: 4, mt: 4, height: 420, objectFit: 'cover' }} />
 
           {article.comparison && (
             <Box sx={{ my: 4 }}>

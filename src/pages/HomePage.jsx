@@ -130,7 +130,7 @@ export default function HomePage() {
           </Grid>
         </Box>
 
-        <AdCashBanner zoneId="12304726" />
+        <AdCashBanner />
 
         <Paper elevation={0} sx={{ p: { xs: 2.5, md: 3 }, mb: { xs: 5, md: 6 }, border: 1, borderColor: 'divider', borderRadius: 3 }}>
           <Stack direction={{ xs: 'column', md: 'row' }} alignItems={{ xs: 'stretch', md: 'center' }} spacing={2}>

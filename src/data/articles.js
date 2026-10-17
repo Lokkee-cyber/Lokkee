@@ -53,7 +53,6 @@ export const localArticles = localArticleValues
 const automationArticles = Object.values(automationArticleModules)
   .filter((article) => (
     article.status === 'published'
-    && article.automation?.generated === true
     && !automationHiddenSlugs.has(article.slug)
   ))
   .map((article) => ({

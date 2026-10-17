@@ -37,6 +37,9 @@ for (const filename of contentFilenames.filter((name) => name.endsWith('.json'))
     contentArticles.push(article);
   }
 }
+const rootSlugs = new Set(contentFilenames
+  .filter((filename) => filename.endsWith('.json'))
+  .map((filename) => filename.slice(0, -'.json'.length)));
 const hiddenAutomationSlugs = new Set(automationContentFilenames
   .filter((filename) => filename.endsWith('.deleted') || filename.endsWith('.draft'))
   .map((filename) => filename.replace(/\.(deleted|draft)$/, '')));
@@ -44,7 +47,7 @@ for (const filename of automationContentFilenames.filter((name) => name.endsWith
   const article = JSON.parse(await readFile(resolve(automationContentDirectory, filename), 'utf8'));
   if (
     article.status === 'published'
-    && article.automation?.generated === true
+    && !rootSlugs.has(article.slug)
     && !hiddenAutomationSlugs.has(article.slug)
     && !deletedSlugs.has(article.slug)
     && !unpublishedSlugs.has(article.slug)

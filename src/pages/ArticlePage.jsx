@@ -102,7 +102,7 @@ export default function ArticlePage() {
             <Typography variant="h2" sx={{ maxWidth: 900, fontSize: 'clamp(2rem, 5vw, 3.75rem)', lineHeight: 1.05, overflowWrap: 'anywhere' }}>{article.title}</Typography>
             
             <Typography variant="h6" color="text.secondary">{article.excerpt}</Typography>
-            <AdCashBanner zoneId="12304726" />
+            <AdCashBanner />
             <Stack direction="row" spacing={2} alignItems="center">
               <Avatar sx={{ bgcolor: 'primary.main' }}>{article.author.slice(0, 1)}</Avatar>
               <Box>
@@ -123,7 +123,7 @@ export default function ArticlePage() {
           {!article.content && (
             <Paper elevation={0} sx={{ p: 3, my: 4, backgroundColor: '#5b4cf50a', borderRadius: 3 }}>
               <Typography variant="h6" fontWeight={700}>Table of contents</Typography>
-              <AdCashBanner zoneId="12304726" />
+              <AdCashBanner />
               <List dense>
                 <ListItem disablePadding><ListItemText primary="Why the right AI tool matters" /></ListItem>
                 <ListItem disablePadding><ListItemText primary="How to pick the best option" /></ListItem>
@@ -140,14 +140,14 @@ export default function ArticlePage() {
               <Typography key={paragraph} variant="body1" color="text.secondary" lineHeight={1.8}>{paragraph}</Typography>
               ))}
           </Stack>
-          <AdCashBanner zoneId="12304726" />
+          <AdCashBanner />
           <Paper elevation={0} sx={{ p: 3, my: 4, borderLeft: '4px solid', borderColor: 'primary.main', backgroundColor: 'background.paper', borderRadius: 3 }}>
             <Typography variant="h6" fontWeight={700}>Important note</Typography>
             <Typography color="text.secondary" sx={{ mt: 1 }}>
               AI can improve speed and output, but strong results still depend on responsible review, clear prompt design and fact-checking when facts matter.
             </Typography>
           </Paper>
-                  <AdCashBanner zoneId="12304726" />
+                  <AdCashBanner />
           {content && (
             <>
               <Divider sx={{ my: 4 }} />

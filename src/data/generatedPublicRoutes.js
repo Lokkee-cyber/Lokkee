@@ -122,8 +122,16 @@ export const publicRoutePaths = [
   "/articles/i-tested-7-free-ai-tools-here-s-what-each-one-can-actually-do",
   "/articles/these-ai-tools-can-turn-simple-ideas-into-videos-images-and-more",
   "/articles/air-france-reportedly-adopts-israeli-crew-restrictions-for-31-countries",
+  "/articles/brazil-enacts-law-ending-six-day-work-week-ahead-of-election-runoff",
+  "/articles/can-ai-run-a-small-nigerian-business-for-7-days-without-a-human-assistant",
   "/articles/decades-of-rewilding-on-bedfordshire-farmland-attracts-rare-bird-and-bat-populations",
+  "/articles/fifa-fines-spain-over-anti-muslim-chants-at-friendly-against-egypt",
+  "/articles/i-tried-building-an-ai-content-business-with-5-000-what-can-actually-be-done",
   "/articles/international-news-roundup-rooney-book-distribution-and-political-scrutiny",
+  "/articles/report-attack-in-west-bank-village-leaves-journalist-and-another-injured",
+  "/articles/report-details-continued-iranian-maritime-fuel-shipments-despite-us-blockade",
   "/articles/report-houthis-seek-chinese-components-for-advanced-ballistic-missiles",
+  "/articles/we-gave-five-ai-video-generators-the-same-prompt-which-produced-the-most-usable-video",
+  "/articles/which-ai-understands-nigerian-pidgin-best-a-30-prompt-accuracy-test",
   "/search"
 ];

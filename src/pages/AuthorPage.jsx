@@ -17,7 +17,7 @@ export default function AuthorPage() {
       <Typography color="text.secondary" sx={{ display: 'block', mt: 2, maxWidth: 780 }}>
         {siteConfig.author.bio}
       </Typography>
-      <AdCashBanner zoneId="12304726" />
+      <AdCashBanner />
       <Paper elevation={0} sx={{ p: { xs: 3, md: 5 }, mt: 4, borderRadius: 4 }}>
         <Stack spacing={3}>
           <Box>
@@ -48,7 +48,7 @@ export default function AuthorPage() {
             This profile represents the site’s editorial publishing identity. It does not claim individual credentials, personal testing outcomes, or a team history that has not been published.
           </Typography>
         </Stack>
-         <AdCashBanner zoneId="12304726" />
+        
       </Paper>
     </Container>
   );

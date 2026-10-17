@@ -89,6 +89,10 @@ const hiddenAutomationSlugs = new Set(automationFiles
   .filter((file) => file.endsWith('.deleted') || file.endsWith('.draft'))
   .map((file) => file.replace(/\.(deleted|draft)$/, '')));
 
+const rootSlugs = new Set(
+  files.filter((file) => file.endsWith('.json')).map((file) => file.slice(0, -'.json'.length))
+);
+
 let count = 0;
 
 const articleSources = [
@@ -105,7 +109,7 @@ for (const { directory, filename, automationOnly } of articleSources) {
 
   if (
     article.status !== 'published' ||
-    (automationOnly && article.automation?.generated !== true) ||
+    (automationOnly && rootSlugs.has(slug)) ||
     !slug ||
     !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug) ||
     deleted.has(slug) ||

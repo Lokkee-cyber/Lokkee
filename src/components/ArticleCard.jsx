@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Button, Card, CardContent, CardMedia, Chip, Stack, Typography } from '@mui/material';
 
+
 export default function ArticleCard({ article }) {
   return (
     <Card

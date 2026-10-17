@@ -113,7 +113,7 @@ export default function SearchPage() {
           </Select>
         </FormControl>
       </Stack>
-        <AdCashBanner zoneId="12304726" />
+        <AdCashBanner />
       <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
         {results.length} {results.length === 1 ? 'result' : 'results'}
       </Typography>

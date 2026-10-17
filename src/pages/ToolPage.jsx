@@ -16,14 +16,14 @@ export default function ToolPage() {
   return (
     <>
       <SEO title={`${tool.name} overview | LokkeeVerse`} description={tool.description} canonical={`/tools/${tool.slug}`} />
-      <AdCashBanner zoneId="12304726" />
+      <AdCashBanner />
       <Container maxWidth="xl" sx={{ py: { xs: 3, md: 6 }, px: { xs: 2, sm: 3, md: 4 } }}>
       <Paper elevation={0} sx={{ p: { xs: 2.25, sm: 3, md: 5 }, borderRadius: 4 }}>
         
         <ToolReview tool={tool} />
       </Paper>
       
-         <AdCashBanner zoneId="12304726" />
+         
       <Grid container spacing={{ xs: 2, md: 3 }} sx={{ mt: { xs: 2, md: 4 } }}>
         <Grid size={{ xs: 12 }}>
           <Typography
@@ -41,7 +41,7 @@ export default function ToolPage() {
           </Grid>
         ))}
       </Grid>
-      <AdCashBanner zoneId="12304726" />
+     
     </Container>
     </>
   );
