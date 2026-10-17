@@ -336,9 +336,15 @@ export default function AdminPage() {
 
       setArticle(result.article);
       setSlugWasEdited(true);
-      setNotice(status === 'published'
-        ? `Published locally. The page will be included in the next production build at /articles/${result.article.slug}.`
-        : 'Draft saved locally. Drafts are excluded from the public site and sitemap.');
+      setNotice(
+  status === 'published'
+    ? (
+        result.deploymentTriggered
+          ? `Pushed to GitHub. The live page will update after Vercel deploys /articles/${result.article.slug}.`
+          : `Published locally at /articles/${result.article.slug}; no new Git changes were needed.`
+      )
+    : `Draft saved locally: ${result.article.slug}`
+);
       await loadArticles();
     } catch (saveError) {
       setError(saveError.message);
