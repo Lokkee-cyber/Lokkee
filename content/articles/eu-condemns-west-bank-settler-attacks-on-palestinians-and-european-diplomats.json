@@ -1,0 +1,52 @@
+{
+  "title": "EU Condemns West Bank Settler Attacks on Palestinians and European Diplomats",
+  "slug": "eu-condemns-west-bank-settler-attacks-on-palestinians-and-european-diplomats",
+  "excerpt": "The European Union has strongly condemned attacks by Israeli settlers in the West Bank targeting Palestinian civilians and European diplomats.",
+  "category": "World News",
+  "author": "LokkeeVerse Editorial",
+  "authorSlug": "lokkeeverse-editorial",
+  "image": "https://www.hindustantimes.com/ht-img/img/2026/10/18/1600x900/logo/westbank_1792322639526_83Mp_1792322639696_COZ1_9f0d15ee-e0d9-4c48-86b5-6e9005bb887a_mmBS.jpg",
+  "content": "The European Union has issued a strong condemnation regarding attacks by Israeli settlers against Palestinian civilians and European diplomats in the West Bank.\n\nBelgian Foreign Minister Maxime Prevot reported that Israeli settlers had targeted both Palestinian civilians and European diplomatic representatives during the incidents.",
+  "seoTitle": "EU Condemns Settler Attacks on Palestinians and Diplomats",
+  "metaDescription": "The European Union has condemned attacks by Israeli settlers on Palestinian civilians and European diplomats in the West Bank.",
+  "status": "published",
+  "tags": [
+    "European Union",
+    "West Bank",
+    "Maxime Prevot",
+    "Belgium",
+    "Diplomacy"
+  ],
+  "publishedAt": "2026-10-18T23:54:55.308Z",
+  "updatedAt": "2026-10-18T23:54:55.308Z",
+  "readTime": "1 min read",
+  "sourceReferences": [
+    {
+      "url": "https://www.hindustantimes.com/world-news/eu-strongly-condemns-west-bank-settler-attacks-on-palestinians-european-diplomats-101792322231781.html",
+      "publisher": "Hindustan Times",
+      "attribution": "Powered by GNews",
+      "eventDate": "",
+      "publishedAt": "2026-10-18T11:26:05.000Z",
+      "retrievedAt": "2026-10-18T23:53:17.560Z"
+    }
+  ],
+  "automation": {
+    "generated": true,
+    "storyId": "gnews:01b9a40225527a13d0880e7cd3d3dc72",
+    "jobId": "3ac0749a-ab19-448c-b84d-a48244186f90",
+    "sourceId": "f7cfd2e0-1022-42c0-913e-332ff687d0f4",
+    "providerArticleId": "gnews:01b9a40225527a13d0880e7cd3d3dc72",
+    "generatedAt": "2026-10-18T23:53:17.560Z",
+    "automationCategory": "World News",
+    "aiProvider": "gemini",
+    "reviewStatus": "approved",
+    "factCheckStatus": "human-reviewed",
+    "highImpactReviewRequired": false,
+    "tokenUsage": {
+      "inputTokens": 353,
+      "outputTokens": 217
+    },
+    "publishMode": "manual-review",
+    "publishedLocallyAt": "2026-10-18T23:54:55.308Z"
+  }
+}

@@ -6,6 +6,7 @@ import {
   Card,
   CardContent,
   Checkbox,
+  CircularProgress,
   Container,
   Dialog,
   DialogActions,
@@ -20,10 +21,14 @@ import {
   Select,
   Stack,
   TextField,
+  Tabs,
+  Tab,
   Typography,
 } from '@mui/material';
 import SEO from '../components/SEO';
 import { categories } from '../data/siteData';
+import { automationCategories } from '../data/automationCategories.js';
+import ContentAutomation from '../components/ContentAutomation.jsx';
 
 const apiPath = '/__local-content/articles';
 const defaultImage = 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=1200&q=80';
@@ -64,6 +69,13 @@ function toSlug(value) {
 }
 
 export default function AdminPage() {
+  const [section, setSection] = useState('editor');
+  const [sessionLoading, setSessionLoading] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
+  const [passwordConfigured, setPasswordConfigured] = useState(false);
+  const [loginPassword, setLoginPassword] = useState('');
+  const [authError, setAuthError] = useState('');
+  const [authSubmitting, setAuthSubmitting] = useState(false);
   const [articles, setArticles] = useState([]);
   const [article, setArticle] = useState(emptyArticle);
   const [slugWasEdited, setSlugWasEdited] = useState(false);
@@ -73,6 +85,46 @@ export default function AdminPage() {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
+
+  useEffect(() => {
+    fetch('/__local-content/session')
+      .then((response) => response.json())
+      .then((result) => {
+        setAuthenticated(Boolean(result.authenticated));
+        setPasswordConfigured(Boolean(result.passwordConfigured));
+      })
+      .catch(() => setAuthError('The local admin API is unavailable. Start it with npm run dev:admin-api.'))
+      .finally(() => setSessionLoading(false));
+  }, []);
+
+  const signIn = async (event) => {
+    event.preventDefault();
+    setAuthSubmitting(true);
+    setAuthError('');
+    try {
+      const response = await fetch('/__local-content/session', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: loginPassword }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || 'Sign in failed.');
+      setAuthenticated(true);
+      setLoginPassword('');
+      setSection('editor');
+    } catch (error) {
+      setAuthError(error.message);
+    } finally {
+      setAuthSubmitting(false);
+    }
+  };
+
+  const signOut = async () => {
+    await fetch('/__local-content/session/logout', { method: 'POST' }).catch(() => {});
+    setAuthenticated(false);
+    setArticles([]);
+    setArticle(emptyArticle());
+    setSection('editor');
+  };
 
   const loadArticles = useCallback(async () => {
     setLoading(true);
@@ -92,8 +144,8 @@ export default function AdminPage() {
   }, []);
 
   useEffect(() => {
-    loadArticles();
-  }, [loadArticles]);
+    if (authenticated) loadArticles();
+  }, [authenticated, loadArticles]);
 
   const startNewArticle = () => {
     setArticle(emptyArticle());
@@ -284,9 +336,15 @@ export default function AdminPage() {
 
       setArticle(result.article);
       setSlugWasEdited(true);
-      setNotice(status === 'published'
-        ? `Published locally. The page will be included in the next production build at /articles/${result.article.slug}.`
-        : 'Draft saved locally. Drafts are excluded from the public site and sitemap.');
+      setNotice(
+  status === 'published'
+    ? (
+        result.deploymentTriggered
+          ? `Pushed to GitHub. The live page will update after Vercel deploys /articles/${result.article.slug}.`
+          : `Published locally at /articles/${result.article.slug}; no new Git changes were needed.`
+      )
+    : `Draft saved locally: ${result.article.slug}`
+);
       await loadArticles();
     } catch (saveError) {
       setError(saveError.message);
@@ -294,6 +352,36 @@ export default function AdminPage() {
       setSaving(false);
     }
   };
+
+  if (sessionLoading) {
+    return <Container maxWidth="sm" sx={{ py: 10, textAlign: 'center' }}><CircularProgress /><Typography sx={{ mt: 2 }}>Checking local admin session…</Typography></Container>;
+  }
+
+  if (!authenticated) {
+    return (
+      <Container maxWidth="sm" sx={{ py: { xs: 6, md: 12 } }}>
+        <SEO title="Admin sign in | ToolPillot" canonical="/admin" noindex />
+        <Card><CardContent>
+          <Typography variant="h4" fontWeight={800} sx={{ mb: 1 }}>ToolPillot admin</Typography>
+          <Typography color="text.secondary" sx={{ mb: 3 }}>Sign in to the local article editor and content automation dashboard.</Typography>
+          {authError && <Alert severity="error" sx={{ mb: 2 }}>{authError}</Alert>}
+          {!passwordConfigured ? (
+            <Alert severity="warning">
+              Set a private password of at least 16 characters as LOCAL_CONTENT_ADMIN_PASSWORD in your ignored .env file, then restart npm run dev:admin-api.
+            </Alert>
+          ) : (
+            <Box component="form" onSubmit={signIn}>
+              <Stack spacing={2}>
+                <TextField autoFocus fullWidth required type="password" label="Admin password" value={loginPassword} onChange={(event) => setLoginPassword(event.target.value)} />
+                <Button type="submit" variant="contained" disabled={authSubmitting}>{authSubmitting ? 'Signing in…' : 'Sign in'}</Button>
+              </Stack>
+            </Box>
+          )}
+          {!authError && !passwordConfigured && <Button sx={{ mt: 2 }} onClick={() => window.location.reload()}>Check configuration again</Button>}
+        </CardContent></Card>
+      </Container>
+    );
+  }
 
   return (
     <Container maxWidth="xl" sx={{ py: { xs: 4, md: 8 } }}>
@@ -303,21 +391,32 @@ export default function AdminPage() {
         canonical="/admin"
         noindex
       />
-      <Typography variant="h2" fontWeight={800}>Local article editor</Typography>
+      <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'flex-start', sm: 'center' }} spacing={2}>
+        <Typography variant="h2" fontWeight={800}>ToolPillot admin</Typography>
+        <Button variant="outlined" onClick={signOut}>Sign out</Button>
+      </Stack>
       <Alert severity="warning" sx={{ my: 3 }}>
-        This editor writes JSON files into this checkout. Publishing here does not deploy the website; build, review, commit, push, and deploy the resulting content.
+        This local dashboard writes content into this checkout. Published articles enter the next static build; review, build, commit, push, and deploy to put them on the public site.
       </Alert>
+      <Tabs value={section} onChange={(_event, value) => setSection(value)} aria-label="Admin sections" sx={{ mb: 3 }}>
+        <Tab value="editor" label="Article Editor" />
+        <Tab value="automation" label="Content Automation" />
+      </Tabs>
+      {section === 'automation' ? (
+        <ContentAutomation onReviewDraft={(draft) => { editArticle({ ...draft, source: 'automation' }); setSection('editor'); }} />
+      ) : (
+      <>
       {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
       {notice && <Alert severity="success" sx={{ mb: 2 }}>{notice}</Alert>}
 
       <Grid container spacing={3}>
-        <Grid size={{ xs: 12, lg: 4 }}>
+        <Grid item xs={12} lg={4}>
           <Card>
             <CardContent>
               <Stack direction="row" justifyContent="space-between" alignItems="center" flexWrap="wrap" gap={1} sx={{ mb: 2 }}>
                 <Typography variant="h5" fontWeight={800}>Local articles</Typography>
-                <Stack direction="row" alignItems="center" spacing={0.5}>
-                  <FormControl size="small" sx={{ minWidth: 145, maxWidth: 210 }}>
+                <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="stretch" spacing={{ xs: 1, sm: 0.5 }} sx={{ width: { xs: '100%', sm: 'auto' }, minWidth: 0 }}>
+                  <FormControl size="small" sx={{ width: { xs: '100%', sm: 'auto' }, minWidth: { xs: 0, sm: 145 }, maxWidth: { xs: '100%', sm: 210 } }}>
                     <InputLabel id="select-article-label">Select article</InputLabel>
                     <Select
                       labelId="select-article-label"
@@ -343,39 +442,24 @@ export default function AdminPage() {
                 <Typography color="text.secondary">Loading article files…</Typography>
               ) : articles.length === 0 ? (
                 <Typography color="text.secondary">No published or locally authored articles found.</Typography>
-              ) : (
-                <Stack spacing={1}>
-                  {articles.map((item) => (
-                    <Button
-                      key={item.slug}
-                      variant={article.slug === item.slug ? 'contained' : 'outlined'}
-                      onClick={() => editArticle(item)}
-                      sx={{ justifyContent: 'flex-start', textAlign: 'left', display: 'block' }}
-                    >
-                      {item.title}
-                      <Typography component="span" variant="caption" sx={{ display: 'block' }}>
-                        {item.status} · {item.source === 'code' ? 'code article' : item.source === 'override' ? 'code article · local edit' : 'local article'} · {item.slug}
-                      </Typography>
-                    </Button>
-                  ))}
-                </Stack>
-              )}
+              ) : null}
             </CardContent>
           </Card>
         </Grid>
 
-        <Grid size={{ xs: 12, lg: 8 }}>
+        <Grid item xs={12} lg={8}>
           <Card>
             <CardContent>
               <Typography variant="h4" fontWeight={800} sx={{ mb: 3 }}>
                 {article.slug ? 'Edit article' : 'Create article'}
               </Typography>
+              {article.automation?.generated && <Alert severity="info" sx={{ mb: 2 }}>Review and edit these fields here, save the draft, then use Content Automation to approve and publish it with its source history.</Alert>}
               <Box component="form" onSubmit={saveArticle}>
                 <Grid container spacing={2}>
-                  <Grid size={{ xs: 12, md: 8 }}>
+                  <Grid item xs={12} md={8}>
                     <TextField fullWidth required label="Title" value={article.title} onChange={updateField('title')} />
                   </Grid>
-                  <Grid size={{ xs: 12, md: 4 }}>
+                  <Grid item xs={12} md={4}>
                     <TextField
                       fullWidth
                       required
@@ -387,10 +471,10 @@ export default function AdminPage() {
                       inputProps={{ pattern: '[a-z0-9]+(-[a-z0-9]+)*' }}
                     />
                   </Grid>
-                  <Grid size={{ xs: 12 }}>
+                  <Grid item xs={12}>
                     <TextField fullWidth required label="Excerpt" value={article.excerpt} onChange={updateField('excerpt')} inputProps={{ maxLength: 500 }} />
                   </Grid>
-                  <Grid size={{ xs: 12, md: 6 }}>
+                  <Grid item xs={12} md={6}>
                     <FormControl fullWidth>
                       <InputLabel id="article-category-label">Category</InputLabel>
                       <Select
@@ -404,16 +488,19 @@ export default function AdminPage() {
                         )).map((category) => (
                           <MenuItem key={category.slug} value={category.title}>{category.title}</MenuItem>
                         ))}
+                        {!article.comparison && automationCategories.filter((category) => !category.articleCategory).map((category) => (
+                          <MenuItem key={category.title} value={category.title}>{category.title}</MenuItem>
+                        ))}
                       </Select>
                     </FormControl>
                   </Grid>
-                  <Grid size={{ xs: 12, md: 6 }}>
+                  <Grid item xs={12} md={6}>
                     <TextField fullWidth label="Author" value={article.author} onChange={updateField('author')} />
                   </Grid>
-                  <Grid size={{ xs: 12 }}>
+                  <Grid item xs={12}>
                     <TextField fullWidth label="Featured image URL (HTTPS or site-relative path)" value={article.image} onChange={updateField('image')} />
                   </Grid>
-                  <Grid size={{ xs: 12 }}>
+                  <Grid item xs={12}>
                     <FormControlLabel
                       control={<Checkbox checked={Boolean(article.comparison)} onChange={(event) => setComparisonEnabled(event.target.checked)} />}
                       label="This is a comparison article"
@@ -421,7 +508,7 @@ export default function AdminPage() {
                   </Grid>
                   {article.comparison && (
                     <>
-                      <Grid size={{ xs: 12 }}>
+                      <Grid item xs={12}>
                         <Stack spacing={2}>
                           <Typography variant="h6" fontWeight={800}>Compared objects (2–4)</Typography>
                           {article.comparison.objects.map((object, objectIndex) => (
@@ -448,7 +535,7 @@ export default function AdminPage() {
                           </Button>
                         </Stack>
                       </Grid>
-                      <Grid size={{ xs: 12 }}>
+                      <Grid item xs={12}>
                         <Stack spacing={2}>
                           <Typography variant="h6" fontWeight={800}>Comparison features</Typography>
                           {article.comparison.features.map((feature, featureIndex) => (
@@ -494,7 +581,7 @@ export default function AdminPage() {
                       </Grid>
                     </>
                   )}
-                  <Grid size={{ xs: 12 }}>
+                  <Grid item xs={12}>
                     <TextField
                       fullWidth
                       required
@@ -506,10 +593,10 @@ export default function AdminPage() {
                       helperText="Use ## headings, ### subheadings, paragraphs, and lines beginning with - for lists. Review claims and sources before publishing."
                     />
                   </Grid>
-                  <Grid size={{ xs: 12 }}>
+                  <Grid item xs={12}>
                     <TextField fullWidth label="SEO title (optional)" value={article.seoTitle} onChange={updateField('seoTitle')} inputProps={{ maxLength: 160 }} />
                   </Grid>
-                  <Grid size={{ xs: 12 }}>
+                  <Grid item xs={12}>
                     <TextField
                       fullWidth
                       label="Meta description (optional)"
@@ -518,10 +605,10 @@ export default function AdminPage() {
                       inputProps={{ maxLength: 320 }}
                     />
                   </Grid>
-                  <Grid size={{ xs: 12 }}>
+                  <Grid item xs={12}>
                     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-                      <Button type="submit" value="published" variant="contained" disabled={saving}>
-                        {saving ? 'Saving…' : 'Publish locally'}
+                      <Button type="submit" value="published" variant="contained" disabled={saving || Boolean(article.automation?.generated)}>
+                        {article.automation?.generated ? 'Approve in Content Automation' : saving ? 'Saving…' : 'Publish locally'}
                       </Button>
                       <Button type="submit" value="draft" variant="outlined" disabled={saving}>
                         Save draft
@@ -551,6 +638,8 @@ export default function AdminPage() {
           </Button>
         </DialogActions>
       </Dialog>
+      </>
+      )}
     </Container>
   );
 }

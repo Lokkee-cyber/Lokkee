@@ -1,0 +1,52 @@
+{
+  "title": "Protests in France Over Living Costs Result in Clashes and Reported Arrests",
+  "slug": "protests-in-france-over-living-costs-result-in-clashes-and-reported-arrests",
+  "excerpt": "Demonstrations against the rising cost of living in France led to police clashes, street damage, and approximately 1,800 reported arrests.",
+  "category": "World News",
+  "author": "LokkeeVerse Editorial",
+  "authorSlug": "lokkeeverse-editorial",
+  "image": "https://www.hindustantimes.com/ht-img/img/2026/10/18/1600x900/logo/FRANCE-SOCIAL-DEMO-154_1792320749390_z0n5_1792320760564_i3bX_a2736587-7448-4b01-abce-565877b8c16c_FTnZ.jpg",
+  "content": "According to reporting from the Hindustan Times, demonstrations in France concerning the rising cost of living escalated into clashes between police and protesters, leaving streets damaged on a Sunday. Initial accounts indicate that the unrest involved violence, looting, and a torched town hall, with approximately 1,800 arrests reported. Because these political developments involve severe disruptions and large-scale detentions, these claims require independent human verification.",
+  "seoTitle": "Cost of Living Protests in France Lead to Clashes",
+  "metaDescription": "Protests over rising costs of living in France resulted in clashes with police, property damage, and 1,800 arrests, according to reports.",
+  "status": "published",
+  "tags": [
+    "France",
+    "Protests",
+    "Cost of Living",
+    "Police",
+    "World News"
+  ],
+  "publishedAt": "2026-10-18T23:54:30.290Z",
+  "updatedAt": "2026-10-18T23:54:30.290Z",
+  "readTime": "1 min read",
+  "sourceReferences": [
+    {
+      "url": "https://www.hindustantimes.com/world-news/france-protests-over-inflation-violence-looting-arrests-town-hall-torched-whats-happening-in-paris-marseille-101792317518835.html",
+      "publisher": "Hindustan Times",
+      "attribution": "Powered by GNews",
+      "eventDate": "",
+      "publishedAt": "2026-10-18T11:20:04.000Z",
+      "retrievedAt": "2026-10-18T23:53:42.980Z"
+    }
+  ],
+  "automation": {
+    "generated": true,
+    "storyId": "gnews:c9cc77b31128ff76a16ebb258c0e8825",
+    "jobId": "3ac0749a-ab19-448c-b84d-a48244186f90",
+    "sourceId": "f7cfd2e0-1022-42c0-913e-332ff687d0f4",
+    "providerArticleId": "gnews:c9cc77b31128ff76a16ebb258c0e8825",
+    "generatedAt": "2026-10-18T23:53:42.980Z",
+    "automationCategory": "World News",
+    "aiProvider": "gemini",
+    "reviewStatus": "approved",
+    "factCheckStatus": "human-reviewed",
+    "highImpactReviewRequired": false,
+    "tokenUsage": {
+      "inputTokens": 373,
+      "outputTokens": 213
+    },
+    "publishMode": "manual-review",
+    "publishedLocallyAt": "2026-10-18T23:54:30.290Z"
+  }
+}
