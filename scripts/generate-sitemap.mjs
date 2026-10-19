@@ -19,9 +19,7 @@ if (configuredSiteUrl) {
   }
 }
 const contentDirectory = resolve(root, 'content', 'articles');
-const automationContentDirectory = resolve(root, 'Lokkee-main', 'content', 'articles');
 const contentFilenames = await readdir(contentDirectory);
-const automationContentFilenames = await readdir(automationContentDirectory);
 const deletedSlugs = new Set(contentFilenames
   .filter((filename) => filename.endsWith('.deleted'))
   .map((filename) => filename.slice(0, -'.deleted'.length)));
@@ -34,25 +32,6 @@ for (const filename of contentFilenames.filter((name) => name.endsWith('.json'))
   const article = JSON.parse(await readFile(resolve(contentDirectory, filename), 'utf8'));
   if (article.slug && article.status !== 'published') unpublishedSlugs.add(article.slug);
   if (article.status === 'published' && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(article.slug || '')) {
-    contentArticles.push(article);
-  }
-}
-const rootSlugs = new Set(contentFilenames
-  .filter((filename) => filename.endsWith('.json'))
-  .map((filename) => filename.slice(0, -'.json'.length)));
-const hiddenAutomationSlugs = new Set(automationContentFilenames
-  .filter((filename) => filename.endsWith('.deleted') || filename.endsWith('.draft'))
-  .map((filename) => filename.replace(/\.(deleted|draft)$/, '')));
-for (const filename of automationContentFilenames.filter((name) => name.endsWith('.json'))) {
-  const article = JSON.parse(await readFile(resolve(automationContentDirectory, filename), 'utf8'));
-  if (
-    article.status === 'published'
-    && !rootSlugs.has(article.slug)
-    && !hiddenAutomationSlugs.has(article.slug)
-    && !deletedSlugs.has(article.slug)
-    && !unpublishedSlugs.has(article.slug)
-    && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(article.slug || '')
-  ) {
     contentArticles.push(article);
   }
 }
