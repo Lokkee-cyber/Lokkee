@@ -2,9 +2,8 @@ import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Alert, Box, Button, Container, Pagination, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import ArticleCard from '../components/ArticleCard.jsx';
-import ToolCard from '../components/ToolCard.jsx';
 import Newsletter from '../components/Newsletter.jsx';
-import { categories, tools } from '../data/siteData.js';
+import { categories } from '../data/siteData.js';
 import { publishedArticles } from '../data/articles.js';
 import SEO from '../components/SEO.jsx';
 import { scrollToElement } from '../utils/scrollToElement.js';
@@ -32,10 +31,6 @@ export default function CategoryPage({ categorySlug }) {
 
   const categoryArticles = useMemo(
     () => publishedArticles.filter((article) => article.category.toLowerCase().includes(category.title.toLowerCase().split(' ')[0]) || article.category === category.title),
-    [category.title],
-  );
-  const relatedTools = useMemo(
-    () => tools.filter((tool) => tool.category.toLowerCase().includes(category.title.toLowerCase().split(' ')[0]) || category.title === 'AI Tools'),
     [category.title],
   );
   const visibleArticles = categoryArticles.slice((page - 1) * pageSize, page * pageSize);
@@ -75,14 +70,6 @@ export default function CategoryPage({ categorySlug }) {
           </Stack>
         </Stack>
 
-        {relatedTools.length > 0 && (
-          <Stack spacing={3} sx={{ my: { xs: 4, md: 6 } }}>
-            <Typography variant="h3" fontWeight={800}>Useful tools</Typography>
-            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'minmax(0, 1fr)', sm: 'repeat(2, minmax(0, 1fr))', lg: 'repeat(3, minmax(0, 1fr))' }, gap: { xs: 2, md: 3 }, alignItems: 'stretch' }}>
-              {relatedTools.slice(0, 3).map((tool) => <ToolCard key={tool.slug} tool={tool} />)}
-            </Box>
-          </Stack>
-        )}
         <Newsletter />
       </Container>
     </>

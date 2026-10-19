@@ -16,11 +16,10 @@ import {
   Typography,
 } from '@mui/material';
 import { SearchRounded } from '@mui/icons-material';
-import { categories, tools } from '../data/siteData.js';
+import { categories } from '../data/siteData.js';
 import { publishedArticles } from '../data/articles.js';
 import SEO from '../components/SEO.jsx';
 import ArticleCard from '../components/ArticleCard.jsx';
-import ToolCard from '../components/ToolCard.jsx';
 import CategoryCard from '../components/CategoryCard.jsx';
 import { scrollToElement } from '../utils/scrollToElement.js';
 
@@ -33,7 +32,6 @@ const categoryIcons = {
 
 const searchItems = [
   ...categories.map((item) => ({ type: 'Category', ...item })),
-  ...tools.map((tool) => ({ type: 'Tool', ...tool })),
   ...publishedArticles.map((article) => ({ type: 'Article', ...article })),
 ];
 
@@ -63,7 +61,9 @@ export default function SearchPage() {
       const matchesText = !searchTerm || [item.title, item.name, item.label, item.slug, item.description, item.excerpt].filter(Boolean).join(' ').toLowerCase().includes(searchTerm);
       const matchesCategory = categoryFilter === 'all' || item.category === categoryFilter || item.title === categoryFilter;
       const matchesType = typeFilter === 'all' || item.type === typeFilter;
-      return matchesText && matchesCategory && matchesType;
+      // Without a query or filters, only the categories are listed rather than every article.
+      const browsingDefault = !searchTerm && categoryFilter === 'all' && typeFilter === 'all';
+      return matchesText && matchesCategory && matchesType && (!browsingDefault || item.type === 'Category');
     });
     return items;
   }, [searchTerm, categoryFilter, typeFilter]);
@@ -107,7 +107,6 @@ export default function SearchPage() {
           <Select label="Content type" value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
             <MenuItem value="all">All</MenuItem>
             <MenuItem value="Article">Articles</MenuItem>
-            <MenuItem value="Tool">AI tools</MenuItem>
             <MenuItem value="Category">Categories</MenuItem>
           </Select>
         </FormControl>
@@ -122,7 +121,7 @@ export default function SearchPage() {
           <Grid container ref={resultsRef} spacing={{ xs: 2, md: 3 }} sx={{ scrollMarginTop: { xs: 72, sm: 86 } }}>
             {paginated.map((item) => (
               <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={`${item.type}-${item.slug || item.title}`}>
-                {item.type === 'Article' ? <ArticleCard article={item} /> : item.type === 'Tool' ? <ToolCard tool={item} /> : <CategoryCard category={{ ...item, articleCount: 12 }} icon={categoryIcons[item.title] || (() => item.title.slice(0, 1))} />}
+                {item.type === 'Article' ? <ArticleCard article={item} /> : <CategoryCard category={{ ...item, articleCount: 12 }} icon={categoryIcons[item.title] || (() => item.title.slice(0, 1))} />}
               </Grid>
             ))}
           </Grid>

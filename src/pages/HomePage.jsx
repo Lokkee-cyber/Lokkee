@@ -35,7 +35,7 @@ const categoryIcons = {
 };
 
 export default function HomePage() {
-  const latestArticles = publishedArticles.slice(0, 6);
+  const latestArticles = publishedArticles.slice(0, 30);
 
   return (
     <>
@@ -127,6 +127,13 @@ export default function HomePage() {
               </Grid>
             ))}
           </Grid>
+          {publishedArticles.length > latestArticles.length && (
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+              <Button component={Link} to="/articles" variant="contained" size="large" disableElevation>
+                View more articles
+              </Button>
+            </Box>
+          )}
         </Box>
 
 
@@ -149,7 +156,7 @@ export default function HomePage() {
             <Button component={Link} to="/ai-tools" variant="text" sx={{ alignSelf: { xs: 'flex-start', sm: 'auto' } }}>Browse all tools</Button>
           </Stack>
           <Grid container spacing={{ xs: 2, md: 3 }}>
-            {tools.slice(0, 3).map((tool) => (
+            {tools.map((tool) => (
               <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={tool.slug}><ToolCard tool={tool} /></Grid>
             ))}
           </Grid>
