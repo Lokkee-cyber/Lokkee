@@ -23,8 +23,11 @@ import { ExpandMoreRounded, MenuRounded, NewspaperRounded, SearchRounded } from 
 import ThemeToggle from './ThemeToggle';
 import { comparisons, navItems } from '../data/siteData';
 import { publishedArticles } from '../data/articles';
+import useNewNewsCount from '../utils/useNewNewsCount';
 
 export default function Header({ mode, onToggleMode }) {
+  const newNewsCount = useNewNewsCount();
+  const newNewsLabel = newNewsCount > 99 ? '99+' : newNewsCount;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileComparisonsOpen, setMobileComparisonsOpen] = useState(false);
   const [menuAnchor, setMenuAnchor] = useState(null);
@@ -82,7 +85,7 @@ export default function Header({ mode, onToggleMode }) {
             <Button
               component={NavLink}
               to="/news"
-              aria-label="News"
+              aria-label={newNewsCount ? `News, ${newNewsCount} new` : 'News'}
               variant="contained"
               startIcon={<NewspaperRounded />}
               sx={{
@@ -100,6 +103,30 @@ export default function Header({ mode, onToggleMode }) {
               }}
             >
               <Box component="span" sx={{ display: { xs: 'none', sm: 'inline' } }}>News</Box>
+              {newNewsCount > 0 && (
+                <Box
+                  component="span"
+                  aria-hidden="true"
+                  sx={{
+                    position: { xs: 'absolute', sm: 'static' },
+                    top: { xs: -4, sm: 'auto' },
+                    right: { xs: -4, sm: 'auto' },
+                    ml: { xs: 0, sm: 1 },
+                    minWidth: 20,
+                    height: 20,
+                    px: 0.6,
+                    borderRadius: 10,
+                    bgcolor: '#ef4444',
+                    color: '#fff',
+                    fontSize: '0.7rem',
+                    fontWeight: 800,
+                    lineHeight: '20px',
+                    textAlign: 'center',
+                  }}
+                >
+                  {newNewsLabel}
+                </Box>
+              )}
             </Button>
             <IconButton component={Link} to="/search" aria-label="Search LokkeeVerse" color="primary" sx={{ width: { xs: 40, sm: 48 }, height: { xs: 40, sm: 48 } }}>
               <SearchRounded />
@@ -146,6 +173,11 @@ export default function Header({ mode, onToggleMode }) {
             <ListItem disablePadding>
               <ListItemButton component={Link} to="/news" onClick={closeMobile} sx={{ borderRadius: 2, py: 1.25, color: 'primary.main' }}>
                 <ListItemText primary="News" primaryTypographyProps={{ fontWeight: 800 }} />
+                {newNewsCount > 0 && (
+                  <Box component="span" sx={{ minWidth: 22, height: 22, px: 0.75, borderRadius: 11, bgcolor: '#ef4444', color: '#fff', fontSize: '0.75rem', fontWeight: 800, lineHeight: '22px', textAlign: 'center' }}>
+                    {newNewsLabel} new
+                  </Box>
+                )}
               </ListItemButton>
             </ListItem>
             {navItems.map((item) => item.label === 'Comparisons' ? (
