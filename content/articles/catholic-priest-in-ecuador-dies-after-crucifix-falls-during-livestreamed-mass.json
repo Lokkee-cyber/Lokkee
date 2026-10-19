@@ -1,0 +1,50 @@
+{
+  "title": "Catholic Priest in Ecuador Dies After Crucifix Falls During Livestreamed Mass",
+  "slug": "catholic-priest-in-ecuador-dies-after-crucifix-falls-during-livestreamed-mass",
+  "excerpt": "A Catholic priest in Ecuador died on a Saturday after a large crucifix collapsed onto him while he was conducting a Mass broadcast live online.",
+  "category": "World News",
+  "author": "LokkeeVerse Editorial",
+  "authorSlug": "lokkeeverse-editorial",
+  "image": "https://www.hindustantimes.com/ht-img/img/2026/10/19/1600x900/logo/photo-1561448817-bb90ab1327b5_1792368438229_xZqR_1792368438343_EIej_01468936-922a-4059-ae1a-cabf438ed9bd_BLZH.jpg",
+  "content": "A Catholic priest in Ecuador has died following an incident during a religious service, according to a report from the Hindustan Times.\n\nThe priest was leading a Mass that was being broadcast live online on a Saturday when a large crucifix fell on him, resulting in his death. Further details regarding the incident were not immediately available in the initial report.",
+  "seoTitle": "Priest in Ecuador Dies After Crucifix Falls During Mass",
+  "metaDescription": "A Catholic priest in Ecuador has died after a large crucifix fell on him during a livestreamed Mass, according to reports.",
+  "status": "published",
+  "tags": [
+    "Ecuador",
+    "Catholic Church",
+    "World News"
+  ],
+  "publishedAt": "2026-10-19T13:39:39.427Z",
+  "updatedAt": "2026-10-19T13:39:39.427Z",
+  "readTime": "1 min read",
+  "sourceReferences": [
+    {
+      "url": "https://www.hindustantimes.com/world-news/scary-moment-catholic-priest-dies-in-ecuador-after-crucifix-falls-on-him-while-preaching-video-101792366705978.html",
+      "publisher": "Hindustan Times",
+      "attribution": "Powered by GNews",
+      "eventDate": "",
+      "publishedAt": "2026-10-19T00:26:14.000Z",
+      "retrievedAt": "2026-10-19T13:38:56.745Z"
+    }
+  ],
+  "automation": {
+    "generated": true,
+    "storyId": "gnews:a789f41a427ad35baeb5afaa0eafbc6f",
+    "jobId": "deb2aa63-0348-4d87-99d2-0d69a384dc2f",
+    "sourceId": "f7cfd2e0-1022-42c0-913e-332ff687d0f4",
+    "providerArticleId": "gnews:a789f41a427ad35baeb5afaa0eafbc6f",
+    "generatedAt": "2026-10-19T13:38:56.745Z",
+    "automationCategory": "World News",
+    "aiProvider": "gemini",
+    "reviewStatus": "approved",
+    "factCheckStatus": "human-reviewed",
+    "highImpactReviewRequired": false,
+    "tokenUsage": {
+      "inputTokens": 368,
+      "outputTokens": 227
+    },
+    "publishMode": "manual-review",
+    "publishedLocallyAt": "2026-10-19T13:39:39.427Z"
+  }
+}

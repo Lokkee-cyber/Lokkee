@@ -1,0 +1,52 @@
+{
+  "title": "Clashes and Looting Reported in Milan Amid Cost-of-Living Protests",
+  "slug": "clashes-and-looting-reported-in-milan-amid-cost-of-living-protests",
+  "excerpt": "Police in Milan deployed tear gas and water cannons following clashes and looting during a second day of protests over living costs and public services.",
+  "category": "World News",
+  "author": "LokkeeVerse Editorial",
+  "authorSlug": "lokkeeverse-editorial",
+  "image": "https://images.timesnownews.com/thumb/msid-156364251,thumbsize-183572,width-1280,height-720,resizemode-75/156364251.jpg",
+  "content": "Police in Milan utilized tear gas and water cannons on Sunday during a second day of public unrest. According to reports, demonstrators threw stones and looted shops during demonstrations driven by dissatisfaction with rising living costs and poor public services. Reports also noted that bins were set on fire as the unrest unfolded in the city.",
+  "seoTitle": "Milan Protests: Police Deploy Tear Gas and Water Cannons",
+  "metaDescription": "Milan police used tear gas and water cannons as protesters threw stones and looted shops during unrest over living costs.",
+  "status": "published",
+  "tags": [
+    "Milan",
+    "Italy",
+    "Protests",
+    "Cost of Living",
+    "Demonstrations"
+  ],
+  "publishedAt": "2026-10-19T13:39:24.856Z",
+  "updatedAt": "2026-10-19T13:39:24.856Z",
+  "readTime": "1 min read",
+  "sourceReferences": [
+    {
+      "url": "https://www.timesnownews.com/world/protests-in-italy-echo-france-as-shops-looted-and-bins-set-on-fire-in-milan-article-156364219",
+      "publisher": "Times Now",
+      "attribution": "Powered by GNews",
+      "eventDate": "",
+      "publishedAt": "2026-10-19T00:51:08.000Z",
+      "retrievedAt": "2026-10-19T13:38:34.173Z"
+    }
+  ],
+  "automation": {
+    "generated": true,
+    "storyId": "gnews:5770aa3797c61e0ff221948a2e2cd9a2",
+    "jobId": "deb2aa63-0348-4d87-99d2-0d69a384dc2f",
+    "sourceId": "f7cfd2e0-1022-42c0-913e-332ff687d0f4",
+    "providerArticleId": "gnews:5770aa3797c61e0ff221948a2e2cd9a2",
+    "generatedAt": "2026-10-19T13:38:34.173Z",
+    "automationCategory": "World News",
+    "aiProvider": "gemini",
+    "reviewStatus": "approved",
+    "factCheckStatus": "human-reviewed",
+    "highImpactReviewRequired": false,
+    "tokenUsage": {
+      "inputTokens": 375,
+      "outputTokens": 217
+    },
+    "publishMode": "manual-review",
+    "publishedLocallyAt": "2026-10-19T13:39:24.856Z"
+  }
+}
