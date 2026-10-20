@@ -1,0 +1,51 @@
+{
+  "title": "Xbox executive claims widespread AI use in gaming despite user skepticism",
+  "slug": "xbox-executive-claims-widespread-ai-use-in-gaming-despite-user-skepticism",
+  "excerpt": "A Hindustan Times summary attributes claims about extensive AI use in gaming to Xbox executive Brandon Stirrup.",
+  "category": "World News",
+  "author": "LokkeeVerse Editorial",
+  "authorSlug": "lokkeeverse-editorial",
+  "image": "https://www.hindustantimes.com/ht-img/img/2026/10/19/1600x900/logo/brandon_stirrup_xbox_1792427559217_kQqm_1792427559333_HN6U_74295eda-e8bc-4e55-a02d-b94678861de1_dbfw.jpg",
+  "content": "Xbox executive Brandon Stirrup claimed gaming companies use AI extensively despite negative sentiment among users, according to the supplied Hindustan Times summary.\n\nStirrup also said he built a mini-game in three hours. The metadata provides no further details about the development process or evidence establishing the scale of AI adoption across gaming companies.\n\nThe available information supports reporting these statements as attributed claims, rather than confirmed findings about the industry.",
+  "seoTitle": "Xbox Executive Claims Extensive AI Use in Gaming",
+  "metaDescription": "Brandon Stirrup claimed gaming companies use AI extensively despite negative user sentiment, according to a Hindustan Times summary.",
+  "status": "published",
+  "tags": [
+    "Xbox",
+    "Brandon Stirrup",
+    "Artificial intelligence",
+    "Gaming"
+  ],
+  "publishedAt": "2026-10-20T08:15:06.539Z",
+  "updatedAt": "2026-10-20T08:15:06.539Z",
+  "readTime": "1 min read",
+  "sourceReferences": [
+    {
+      "url": "https://www.hindustantimes.com/world-news/xbox-exec-brandon-stirrup-admits-widespread-ai-use-in-gaming-industry-despite-negative-sentiment-i-could-be-fired-101792427563572.html",
+      "publisher": "Hindustan Times",
+      "attribution": "Powered by GNews",
+      "eventDate": "",
+      "publishedAt": "2026-10-19T17:07:28.000Z",
+      "retrievedAt": "2026-10-20T08:11:15.246Z"
+    }
+  ],
+  "automation": {
+    "generated": true,
+    "storyId": "gnews:a727c0171d8082a3b4479fbec0774713",
+    "jobId": "bcaf2d58-53b5-4908-b787-b778fe51ad9b",
+    "sourceId": "f7cfd2e0-1022-42c0-913e-332ff687d0f4",
+    "providerArticleId": "gnews:a727c0171d8082a3b4479fbec0774713",
+    "generatedAt": "2026-10-20T08:11:15.246Z",
+    "automationCategory": "World News",
+    "aiProvider": "openai",
+    "reviewStatus": "approved",
+    "factCheckStatus": "human-reviewed",
+    "highImpactReviewRequired": false,
+    "tokenUsage": {
+      "inputTokens": 450,
+      "outputTokens": 427
+    },
+    "publishMode": "manual-review",
+    "publishedLocallyAt": "2026-10-20T08:15:06.539Z"
+  }
+}

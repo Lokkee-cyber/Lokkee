@@ -1,0 +1,51 @@
+{
+  "title": "France weighs emergency measures after protests, Times Now reports",
+  "slug": "france-weighs-emergency-measures-after-protests-times-now-reports",
+  "excerpt": "Times Now reports that French Prime Minister Sebastien Lecornu raised the possibility of a state of emergency and supported localised curfews.",
+  "category": "World News",
+  "author": "LokkeeVerse Editorial",
+  "authorSlug": "lokkeeverse-editorial",
+  "image": "https://images.timesnownews.com/thumb/msid-156369152,thumbsize-1735426,width-1280,height-720,resizemode-75/156369152.jpg",
+  "content": "French Prime Minister Sebastien Lecornu warned that a state of emergency was possible and backed localised curfews following violent protests, according to metadata supplied for a Times Now report.\n\nThe source description says protests and looting affected thousands of businesses. The headline also reports that 2,500 people were held, but the supplied material gives no further details about those detentions.\n\nThe metadata describes a possible emergency declaration, not a confirmed decision to impose one.\n\n**Human verification required:** Confirm the official’s identity and position, the reported remarks, the detention figure and the scale of the impact on businesses before publication.",
+  "seoTitle": "France considers emergency measures, Times Now reports",
+  "metaDescription": "Times Now reports possible emergency measures and support for localised curfews in France after protests. Key claims require verification.",
+  "status": "published",
+  "tags": [
+    "France",
+    "Protests",
+    "State of emergency",
+    "Curfews"
+  ],
+  "publishedAt": "2026-10-20T08:14:53.074Z",
+  "updatedAt": "2026-10-20T08:14:53.074Z",
+  "readTime": "1 min read",
+  "sourceReferences": [
+    {
+      "url": "https://www.timesnownews.com/world/if-needed-will-do-it-france-pm-considers-declaring-state-of-emergency-2500-held-amid-violent-protests-article-156369135",
+      "publisher": "Times Now",
+      "attribution": "Powered by GNews",
+      "eventDate": "",
+      "publishedAt": "2026-10-19T16:19:42.000Z",
+      "retrievedAt": "2026-10-20T08:13:19.722Z"
+    }
+  ],
+  "automation": {
+    "generated": true,
+    "storyId": "gnews:22a7a8e4d7b95d9b2748c0385e1160c4",
+    "jobId": "59cce7e8-d039-4a91-9e12-e340a97655fa",
+    "sourceId": "f7cfd2e0-1022-42c0-913e-332ff687d0f4",
+    "providerArticleId": "gnews:22a7a8e4d7b95d9b2748c0385e1160c4",
+    "generatedAt": "2026-10-20T08:13:19.722Z",
+    "automationCategory": "World News",
+    "aiProvider": "openai",
+    "reviewStatus": "approved",
+    "factCheckStatus": "human-reviewed",
+    "highImpactReviewRequired": false,
+    "tokenUsage": {
+      "inputTokens": 461,
+      "outputTokens": 449
+    },
+    "publishMode": "manual-review",
+    "publishedLocallyAt": "2026-10-20T08:14:53.074Z"
+  }
+}

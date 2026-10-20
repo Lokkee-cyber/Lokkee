@@ -1,0 +1,51 @@
+{
+  "title": "Vicky Pattison Announces Venture Into Wellness Podcasting",
+  "slug": "vicky-pattison-announces-venture-into-wellness-podcasting",
+  "excerpt": "Reality TV personality Vicky Pattison has announced an upcoming venture into wellness podcasting.",
+  "category": "World News",
+  "author": "LokkeeVerse Editorial",
+  "authorSlug": "lokkeeverse-editorial",
+  "image": "https://i2-prod.dailystar.co.uk/article37788669.ece/ALTERNATES/s1200d/0_Vicky-Pattison-3.jpg",
+  "content": "Reality television personality Vicky Pattison has announced a new project in the wellness podcast space. \n\nAccording to reports, the 38-year-old's move into wellness podcasting follows her recent disclosure that she is trying for a baby. Further details regarding the podcast's title, co-hosts, or release schedule were not immediately provided.",
+  "seoTitle": "Vicky Pattison Announces New Wellness Podcast Venture",
+  "metaDescription": "Reality television star Vicky Pattison has announced plans to launch a new wellness podcast.",
+  "status": "published",
+  "tags": [
+    "Vicky Pattison",
+    "Wellness",
+    "Podcasting",
+    "Entertainment"
+  ],
+  "publishedAt": "2026-10-20T08:06:54.420Z",
+  "updatedAt": "2026-10-20T08:06:54.420Z",
+  "readTime": "1 min read",
+  "sourceReferences": [
+    {
+      "url": "https://www.dailystar.co.uk/showbiz/vicky-pattison-38-looks-fit-37788869",
+      "publisher": "The daily Star",
+      "attribution": "Powered by GNews",
+      "eventDate": "",
+      "publishedAt": "2026-10-19T18:49:23.000Z",
+      "retrievedAt": "2026-10-20T07:54:56.123Z"
+    }
+  ],
+  "automation": {
+    "generated": true,
+    "storyId": "gnews:4fda24fa4875044a9de275bf345d19d0",
+    "jobId": "d1251f2c-704d-4ad9-8449-9efadf41f3f8",
+    "sourceId": "f7cfd2e0-1022-42c0-913e-332ff687d0f4",
+    "providerArticleId": "gnews:4fda24fa4875044a9de275bf345d19d0",
+    "generatedAt": "2026-10-20T07:54:56.123Z",
+    "automationCategory": "World News",
+    "aiProvider": "gemini",
+    "reviewStatus": "approved",
+    "factCheckStatus": "human-reviewed",
+    "highImpactReviewRequired": false,
+    "tokenUsage": {
+      "inputTokens": 367,
+      "outputTokens": 214
+    },
+    "publishMode": "manual-review",
+    "publishedLocallyAt": "2026-10-20T08:06:54.420Z"
+  }
+}

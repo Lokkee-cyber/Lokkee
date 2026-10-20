@@ -1,0 +1,51 @@
+{
+  "title": "Times Now reports Jantar Mantar trespassing case transferred to Crime Branch",
+  "slug": "times-now-reports-jantar-mantar-trespassing-case-transferred-to-crime-branch",
+  "excerpt": "A Times Now headline reports the transfer of a trespassing case against Saurav Das and Ashutosh Ranka.",
+  "category": "World News",
+  "author": "LokkeeVerse Editorial",
+  "authorSlug": "lokkeeverse-editorial",
+  "image": "https://images.timesnownews.com/thumb/msid-156367532,thumbsize-462681,width-1280,height-720,resizemode-75/156367532.jpg",
+  "content": "According to a Times Now headline, a Jantar Mantar trespassing case against Saurav Das and Ashutosh Ranka has been transferred to the Crime Branch.\n\nThe supplied metadata does not identify the date of the transfer or provide further case details. The reported allegations and transfer require human verification before publication.",
+  "seoTitle": "Jantar Mantar case transferred to Crime Branch, Times Now reports",
+  "metaDescription": "Times Now reports that a Jantar Mantar trespassing case against Saurav Das and Ashutosh Ranka was transferred to the Crime Branch.",
+  "status": "published",
+  "tags": [
+    "Jantar Mantar",
+    "Saurav Das",
+    "Ashutosh Ranka",
+    "Crime Branch"
+  ],
+  "publishedAt": "2026-10-20T08:15:20.303Z",
+  "updatedAt": "2026-10-20T08:15:20.303Z",
+  "readTime": "1 min read",
+  "sourceReferences": [
+    {
+      "url": "https://www.timesnownews.com/india/jantar-mantar-trespassing-case-against-cjps-saurav-das-ashutosh-ranka-transferred-to-crime-branch-article-156367516",
+      "publisher": "Times Now",
+      "attribution": "Powered by GNews",
+      "eventDate": "",
+      "publishedAt": "2026-10-19T17:17:33.000Z",
+      "retrievedAt": "2026-10-20T08:10:52.996Z"
+    }
+  ],
+  "automation": {
+    "generated": true,
+    "storyId": "gnews:ba9c541179b8c2226d8fd4c7d64d01d5",
+    "jobId": "e192dce1-9db3-410e-b875-098d3da7b79f",
+    "sourceId": "f7cfd2e0-1022-42c0-913e-332ff687d0f4",
+    "providerArticleId": "gnews:ba9c541179b8c2226d8fd4c7d64d01d5",
+    "generatedAt": "2026-10-20T08:10:52.996Z",
+    "automationCategory": "World News",
+    "aiProvider": "openai",
+    "reviewStatus": "approved",
+    "factCheckStatus": "human-reviewed",
+    "highImpactReviewRequired": false,
+    "tokenUsage": {
+      "inputTokens": 442,
+      "outputTokens": 444
+    },
+    "publishMode": "manual-review",
+    "publishedLocallyAt": "2026-10-20T08:15:20.303Z"
+  }
+}
