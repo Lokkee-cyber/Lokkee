@@ -203,6 +203,10 @@ export default function ContentAutomation({ onReviewDraft }) {
   const activeProgress = activeJob?.progress?.total
     ? Math.min(100, Math.round(100 * activeJob.progress.current / activeJob.progress.total)) : 0;
   const settingsField = (field, value) => setEditSettings((current) => ({ ...current, [field]: value }));
+  const selectedProvider = dashboard.settings?.aiProvider === 'openai' ? 'openai' : 'gemini';
+  const activeProvider = dashboard.providerStatus[selectedProvider] || { configured: false, model: '' };
+  const providerLabel = selectedProvider === 'openai' ? 'OpenAI' : 'Gemini';
+  const providerKeyName = selectedProvider === 'openai' ? 'OPENAI_API_KEY' : 'GEMINI_API_KEY';
 
   return (
     <Stack spacing={3}>
@@ -232,7 +236,7 @@ export default function ContentAutomation({ onReviewDraft }) {
             <Grid item xs={12} md={4}>
               <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
                 <Chip label={`${enabledCount} enabled source${enabledCount === 1 ? '' : 's'}`} />
-                <Chip color={dashboard.providerStatus.gemini.configured ? 'success' : 'warning'} label={dashboard.providerStatus.gemini.configured ? 'Gemini configured' : 'Gemini key missing'} />
+                <Chip color={activeProvider.configured ? 'success' : 'warning'} label={activeProvider.configured ? `${providerLabel} configured` : `${providerLabel} key missing`} />
               </Stack>
             </Grid>
           </Grid>
@@ -280,8 +284,8 @@ export default function ContentAutomation({ onReviewDraft }) {
       {tab === 'overview' && (
         <Stack spacing={2}>
           <Typography variant="h5" fontWeight={800}>Provider setup</Typography>
-          <Alert severity={dashboard.providerStatus.gemini.configured ? 'success' : 'warning'}>
-            Gemini article generation: {dashboard.providerStatus.gemini.configured ? `configured (${dashboard.providerStatus.gemini.model})` : 'not configured'}. Add GEMINI_API_KEY to the ignored backend .env file. The key is never sent to this page.
+          <Alert severity={activeProvider.configured ? 'success' : 'warning'}>
+            {providerLabel} article generation: {activeProvider.configured ? `configured (${activeProvider.model})` : 'not configured'}. Add {providerKeyName} to the ignored backend .env file. The key is never sent to this page.
           </Alert>
           <Grid container spacing={2}>
             {[
@@ -317,7 +321,7 @@ export default function ContentAutomation({ onReviewDraft }) {
               </Stack>
             </CardContent></Card>
           ))}
-          <Alert severity="info">Token counts appear when Gemini returns usage data. The dashboard does not estimate API cost. All articles require review and a local production build before deployment.</Alert>
+          <Alert severity="info">Token counts appear when {providerLabel} returns usage data. The dashboard does not estimate API cost. All articles require review and a local production build before deployment.</Alert>
         </Stack>
       )}
 
@@ -466,6 +470,15 @@ export default function ContentAutomation({ onReviewDraft }) {
                 ['requestTimeoutMs', 'Request timeout (ms)'], ['freshnessHours', 'Maximum story age (hours)'],
               ].map(([field, label]) => <Grid item xs={12} sm={6} md={4} key={field}><TextField fullWidth type="number" label={label} value={editSettings[field]} onChange={(event) => settingsField(field, event.target.value)} /></Grid>)}
               <Grid item xs={12} sm={6} md={4}><TextField fullWidth type="number" inputProps={{ min: 0.55, max: 1, step: 0.01 }} label="Headline duplicate threshold" value={editSettings.duplicateThreshold} onChange={(event) => settingsField('duplicateThreshold', event.target.value)} /></Grid>
+              <Grid item xs={12} sm={6} md={4}>
+                <FormControl fullWidth>
+                  <InputLabel id="ai-provider-label">AI provider</InputLabel>
+                  <Select labelId="ai-provider-label" label="AI provider" value={editSettings.aiProvider || 'gemini'} onChange={(event) => settingsField('aiProvider', event.target.value)}>
+                    <MenuItem value="gemini">Gemini{dashboard.providerStatus.gemini.configured ? '' : ' (key missing)'}</MenuItem>
+                    <MenuItem value="openai">OpenAI{dashboard.providerStatus.openai?.configured ? '' : ' (key missing)'}</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
               <Grid item xs={12}><FormControlLabel control={<Switch checked={editSettings.aiEnabled} onChange={(event) => settingsField('aiEnabled', event.target.checked)} />} label="Allow AI draft generation" /></Grid>
               <Grid item xs={12}>
                 <FormControlLabel control={<Switch checked={editSettings.autoPublish} onChange={(event) => settingsField('autoPublish', event.target.checked)} />} label="Allow automatic local publication" />
