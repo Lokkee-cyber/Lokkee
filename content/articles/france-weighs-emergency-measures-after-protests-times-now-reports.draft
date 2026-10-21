@@ -4,20 +4,21 @@
   "excerpt": "Times Now reports that French Prime Minister Sebastien Lecornu raised the possibility of a state of emergency and supported localised curfews.",
   "category": "World News",
   "author": "LokkeeVerse Editorial",
-  "authorSlug": "lokkeeverse-editorial",
   "image": "https://images.timesnownews.com/thumb/msid-156369152,thumbsize-1735426,width-1280,height-720,resizemode-75/156369152.jpg",
-  "content": "French Prime Minister Sebastien Lecornu warned that a state of emergency was possible and backed localised curfews following violent protests, according to metadata supplied for a Times Now report.\n\nThe source description says protests and looting affected thousands of businesses. The headline also reports that 2,500 people were held, but the supplied material gives no further details about those detentions.\n\nThe metadata describes a possible emergency declaration, not a confirmed decision to impose one.\n\n**Human verification required:** Confirm the official’s identity and position, the reported remarks, the detention figure and the scale of the impact on businesses before publication.",
+  "content": "French Prime Minister Sebastien Lecornu warned that a state of emergency was possible and backed localised curfews following violent protests, according to metadata supplied for a Times Now report.\n\nThe source description says protests and looting affected thousands of businesses. The headline also reports that 2,500 people were held, but the supplied material gives no further details about those detentions.\n\nThe metadata describes a possible emergency declaration, not a confirmed decision to impose one.\n\n",
   "seoTitle": "France considers emergency measures, Times Now reports",
   "metaDescription": "Times Now reports possible emergency measures and support for localised curfews in France after protests. Key claims require verification.",
-  "status": "published",
+  "status": "draft",
+  "publishedAt": "2026-10-20T08:14:53.074Z",
+  "updatedAt": "2026-10-21T00:47:12.231Z",
+  "comparison": null,
+  "authorSlug": "lokkeeverse-editorial",
   "tags": [
     "France",
     "Protests",
     "State of emergency",
     "Curfews"
   ],
-  "publishedAt": "2026-10-20T08:14:53.074Z",
-  "updatedAt": "2026-10-20T08:14:53.074Z",
   "readTime": "1 min read",
   "sourceReferences": [
     {
