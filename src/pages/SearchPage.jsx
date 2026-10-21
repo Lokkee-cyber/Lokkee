@@ -73,7 +73,7 @@ export default function SearchPage() {
 
   return (
     <>
-      <SEO title="Search | LokkeeVerse" description="Search articles, AI tools, and categories from LokkeeVerse." canonical="/search" noindex />
+      <SEO title="Search | LokkeeVerse" description="Search articles, AI tools, and categories from LokkeeVerse." canonical="/search" />
       <Container maxWidth="xl" sx={{ py: { xs: 3, sm: 4, md: 6 }, px: { xs: 2, sm: 3 } }}>
       <Box sx={{ mb: { xs: 3, md: 4 }, maxWidth: 760 }}>
         <Typography variant="overline" color="primary.main" fontWeight={800} letterSpacing="0.1em">Explore the directory</Typography>
