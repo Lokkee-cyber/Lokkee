@@ -22,6 +22,7 @@ import SEO from '../components/SEO';
 import NotFoundPage from './NotFoundPage';
 import { getLegacyArticleContent } from '../data/legacyArticleContent';
 import ComparisonTable from '../components/ComparisonTable';
+import AdSlot from '../components/AdSlot';
 
 function renderMarkdown(markdown) {
   const lines = markdown.split(/\r?\n/);
@@ -108,6 +109,11 @@ export default function ArticlePage() {
               </Box>
             </Stack>
           </Stack>
+
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="center" alignItems="center" sx={{ mt: 4 }}>
+            <AdSlot key={`top-a-${article.slug}`} name="squareBannerA" />
+            <AdSlot key={`top-b-${article.slug}`} name="squareBannerB" />
+          </Stack>
            
           {article.image && (
             <Box component="img" src={article.image} alt={article.title} sx={{ width: '100%', borderRadius: 4, mt: 4, height: { xs: 240, md: 420 }, objectFit: 'cover' }} />
@@ -171,6 +177,8 @@ export default function ArticlePage() {
            
           <Divider sx={{ my: 4 }} />
 
+          <AdSlot key={`native-${article.slug}`} name="native" sx={{ mb: 4 }} />
+
           <Typography variant="h4" fontWeight={800}>Related articles</Typography>
           <Grid container spacing={{ xs: 2, md: 3 }} sx={{ mt: 1 }}>
             {publishedArticles.filter((item) => item.slug !== article.slug).slice(0, 3).map((item) => (
@@ -225,7 +233,6 @@ export default function ArticlePage() {
                 ))}
               </List>
             </Paper>
-            
           </Box>
         </Grid>
       </Grid>

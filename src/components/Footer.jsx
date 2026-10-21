@@ -2,6 +2,7 @@ import { Box, Container, Divider, Grid, IconButton, Link as MuiLink, Stack, Typo
 import { alpha } from '@mui/material/styles';
 import { FacebookRounded, LinkedIn, X, YouTube } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
+import { reopenConsent } from '../utils/consent';
 
 const footerLinks = {
   Explore: [
@@ -68,6 +69,9 @@ export default function Footer() {
                 {links.map((item) => (
                   <MuiLink component={Link} key={item.to} to={item.to} underline="hover" color="text.secondary">{item.label}</MuiLink>
                 ))}
+                {heading === 'Legal' && (
+                  <MuiLink component="button" type="button" onClick={reopenConsent} underline="hover" color="text.secondary" sx={{ textAlign: 'left', font: 'inherit' }}>Cookie Settings</MuiLink>
+                )}
               </Stack>
             </Grid>
           ))}

@@ -20,6 +20,7 @@ import ArticleCard from '../components/ArticleCard.jsx';
 import CategoryCard from '../components/CategoryCard.jsx';
 import Newsletter from '../components/Newsletter.jsx';
 import SearchBar from '../components/SearchBar.jsx';
+import AdSlot from '../components/AdSlot.jsx';
 
 const categoryIcons = {
   'AI Tools': AutoAwesome,
@@ -109,6 +110,8 @@ export default function HomePage() {
           </Grid>
         </Paper>
 
+        <AdSlot name="banner320" sx={{ mb: { xs: 5, md: 6 } }} />
+
         <Box component="section" aria-labelledby="latest-articles-heading" sx={{ mb: { xs: 5, md: 6 } }}>
           <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'stretch', sm: 'flex-end' }} spacing={1.5} sx={{ mb: 3 }}>
             <Box>
@@ -136,6 +139,7 @@ export default function HomePage() {
           )}
         </Box>
 
+        <AdSlot name="banner300" sx={{ mb: { xs: 5, md: 6 } }} />
 
         <Paper elevation={0} sx={{ p: { xs: 2.5, md: 3 }, mb: { xs: 5, md: 6 }, border: 1, borderColor: 'divider', borderRadius: 3 }}>
           <Stack direction={{ xs: 'column', md: 'row' }} alignItems={{ xs: 'stretch', md: 'center' }} spacing={2}>
@@ -146,6 +150,8 @@ export default function HomePage() {
             <Box sx={{ width: { xs: '100%', md: 460 } }}><SearchBar compact /></Box>
           </Stack>
         </Paper>
+
+        <AdSlot name="native" sx={{ mb: { xs: 5, md: 6 } }} />
 
         <Box component="section" sx={{ mb: { xs: 5, md: 6 } }}>
           <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'stretch', sm: 'flex-end' }} spacing={1.5} sx={{ mb: 3 }}>
@@ -161,6 +167,8 @@ export default function HomePage() {
             ))}
           </Grid>
         </Box>
+
+        <AdSlot name="banner320" sx={{ mb: { xs: 5, md: 6 } }} />
 
         <Box component="section" sx={{ mb: { xs: 5, md: 6 } }}>
           <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'stretch', sm: 'flex-end' }} spacing={1.5} sx={{ mb: 3 }}>
@@ -178,6 +186,8 @@ export default function HomePage() {
             ))}
           </Grid>
         </Box>
+
+        <AdSlot name="banner300" sx={{ mb: { xs: 5, md: 6 } }} />
 
         <Box sx={{ py: { xs: 3, md: 5 } }}><Newsletter /></Box>
       </Container>

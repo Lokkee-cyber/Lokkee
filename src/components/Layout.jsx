@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { useLayoutEffect } from 'react';
 import Header from './Header';
 import Footer from './Footer';
+import CookieConsent from './CookieConsent';
 
 export default function Layout({ mode, onToggleMode }) {
   const { pathname } = useLocation();
@@ -18,6 +19,7 @@ export default function Layout({ mode, onToggleMode }) {
         <Outlet />
       </Box>
       <Footer />
+      <CookieConsent />
     </>
   );
 }
