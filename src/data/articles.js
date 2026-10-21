@@ -23,7 +23,7 @@ export const localArticles = localArticleValues
   .filter((article) => article.status === 'published')
   .map((article) => ({
     ...article,
-    author: article.author || 'LokkeeVerse Editorial',
+    author: article.author || 'LokkeeVerse',
     authorSlug: article.authorSlug || 'lokkeeverse-editorial',
     image: article.image || fallbackImage,
     date: article.publishedAt?.slice(0, 10) || article.date,
@@ -57,7 +57,11 @@ const siteArticles = [
   ...localArticles.filter((article) => !legacySlugs.has(article.slug) && !deletedSlugs.has(article.slug)),
 ];
 
-export const publishedArticles = sortArticlesByPublishedDate(siteArticles);
+const displayAuthor = (author) => (!author || author === 'LokkeeVerse Editorial' ? 'LokkeeVerse' : author);
+
+export const publishedArticles = sortArticlesByPublishedDate(
+  siteArticles.map((article) => ({ ...article, author: displayAuthor(article.author) })),
+);
 
 export const popularGuides = popularGuideSlugs
   .map((slug) => publishedArticles.find((article) => article.slug === slug))

@@ -846,7 +846,7 @@ export async function writeDraft(story, generated, jobId, storyId) {
   const wordCount = generated.content.split(/\s+/).filter(Boolean).length;
   const article = {
     title: generated.title, slug, excerpt: generated.excerpt, category: articleCategoryForAutomationCategory(story.category),
-    author: 'LokkeeVerse Editorial', authorSlug: 'lokkeeverse-editorial', image: story.imageUrl || '',
+    author: 'LokkeeVerse', authorSlug: 'lokkeeverse-editorial', image: story.imageUrl || '',
     content: generated.content, seoTitle: generated.seoTitle, metaDescription: generated.metaDescription,
     status: 'draft', tags: generated.tags, publishedAt: '', updatedAt: retrievedAt,
     readTime: `${Math.max(1, Math.ceil(wordCount / 200))} min read`,
@@ -1323,7 +1323,7 @@ function articleDashboardSummary(article, includeContent = false) {
     slug: article.slug, title: article.title, excerpt: article.excerpt, category: article.category,
     updatedAt: article.updatedAt, status: article.status, sourceReferences: article.sourceReferences || [],
     automation: article.automation, tags: article.tags || [], seoTitle: article.seoTitle || '',
-    metaDescription: article.metaDescription || '', author: article.author || 'LokkeeVerse Editorial',
+    metaDescription: article.metaDescription || '', author: article.author || 'LokkeeVerse',
   };
   if (includeContent) base.content = article.content || '';
   return base;

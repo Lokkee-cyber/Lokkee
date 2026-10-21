@@ -116,7 +116,7 @@ for (const filename of files.filter((file) => file.endsWith('.json'))) {
       </nav>
       <h1>${escapeHtml(title)}</h1>
       <p>${escapeHtml(excerpt || '')}</p>
-      <p>By ${escapeHtml(author || 'LokkeeVerse Editorial')}
+      <p>By ${escapeHtml(!author || author === 'LokkeeVerse Editorial' ? 'LokkeeVerse' : author)}
         ${readTime ? ` · ${escapeHtml(readTime)}` : ''}
       </p>
       ${image ? `<img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" style="max-width:100%;height:auto">` : ''}

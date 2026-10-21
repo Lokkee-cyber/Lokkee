@@ -39,7 +39,7 @@ function emptyArticle() {
     slug: '',
     excerpt: '',
     category: categories[0].title,
-    author: 'LokkeeVerse Editorial',
+    author: 'LokkeeVerse',
     image: defaultImage,
     content: '',
     seoTitle: '',

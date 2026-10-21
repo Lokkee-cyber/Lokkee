@@ -21,9 +21,9 @@ export const siteConfig = {
   contactEndpoint: import.meta.env.VITE_CONTACT_ENDPOINT || '',
   newsletterEndpoint: import.meta.env.VITE_NEWSLETTER_ENDPOINT || '',
   author: {
-    name: 'LokkeeVerse Editorial',
+    name: 'LokkeeVerse',
     slug: 'lokkeeverse-editorial',
-    bio: 'LokkeeVerse Editorial creates source-aware, practical guidance for evaluating AI tools and improving everyday digital workflows.',
+    bio: 'LokkeeVerse creates source-aware, practical guidance for evaluating AI tools and improving everyday digital workflows.',
     areas: ['AI tools', 'workflow guidance', 'product research', 'editorial quality'],
   },
 };

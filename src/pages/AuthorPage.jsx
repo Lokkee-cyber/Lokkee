@@ -11,8 +11,8 @@ export default function AuthorPage() {
 
   return (
     <Container maxWidth="md" sx={{ py: { xs: 4, md: 8 } }}>
-      <SEO title="LokkeeVerse Editorial — Authors" description="Learn about the LokkeeVerse editorial approach to research, verification, and publishing." canonical={`/authors/${slug}`} />
-      <Typography variant="h1" fontWeight={800}>LokkeeVerse Editorial</Typography>
+      <SEO title="LokkeeVerse — Authors" description="Learn about the LokkeeVerse editorial approach to research, verification, and publishing." canonical={`/authors/${slug}`} />
+      <Typography variant="h1"       fontWeight={800}>LokkeeVerse</Typography>
       <Typography color="text.secondary" sx={{ display: 'block', mt: 2, maxWidth: 780 }}>
         {siteConfig.author.bio}
       </Typography>
@@ -27,7 +27,7 @@ export default function AuthorPage() {
           <Box>
             <Typography variant="h2" fontWeight={800}>Editorial approach</Typography>
             <Typography color="text.secondary">
-              LokkeeVerse Editorial is the publishing identity used for site guides and tool coverage. Articles are intended to answer a defined reader question, explain the scope of the guidance, and make relevant trade-offs visible. Product information is checked against public documentation where available, but providers can change features, prices, and access without notice.
+              LokkeeVerse is the publishing identity used for site guides and tool coverage. Articles are intended to answer a defined reader question, explain the scope of the guidance, and make relevant trade-offs visible. Product information is checked against public documentation where available, but providers can change features, prices, and access without notice.
             </Typography>
           </Box>
           <Box>
