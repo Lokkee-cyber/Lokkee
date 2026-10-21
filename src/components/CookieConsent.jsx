@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button, Paper, Stack, Typography } from '@mui/material';
 import { setConsent, useConsent } from '../utils/consent';
 
@@ -7,15 +7,24 @@ const SOCIAL_BAR_SRC = 'https://bauval.org/14/4c9f2d1f4f7527ed9052c310b71bde79';
 
 export default function CookieConsent() {
   const { adsAllowed, showBanner } = useConsent();
+  const { pathname } = useLocation();
+  const onArticle = /^\/articles\/[^/]+/.test(pathname);
 
   useEffect(() => {
-    if (!adsAllowed) return undefined;
+    if (!adsAllowed || !onArticle) return undefined;
+    const before = new Set(document.body.children);
     const script = document.createElement('script');
     script.setAttribute('data-cfasync', 'false');
     script.src = SOCIAL_BAR_SRC;
     document.body.appendChild(script);
-    return () => script.remove();
-  }, [adsAllowed]);
+    return () => {
+      script.remove();
+      // Remove elements the ad script injected so it doesn't linger on other pages.
+      Array.from(document.body.children).forEach((node) => {
+        if (!before.has(node) && node.id !== 'root') node.remove();
+      });
+    };
+  }, [adsAllowed, onArticle]);
 
   if (!showBanner) return null;
 

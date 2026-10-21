@@ -76,6 +76,32 @@ function renderMarkdown(markdown) {
   return blocks;
 }
 
+const INLINE_ADS = ['banner300', 'banner320'];
+
+// Places up to two ads inside the article text, never directly after a heading.
+function withInlineAds(blocks, slug) {
+  const total = blocks.length;
+  if (total < 3) return blocks;
+  const targets = total >= 6 ? [Math.round(total / 3), Math.round((total * 2) / 3)] : [Math.round(total / 2)];
+  const positions = new Set();
+  targets.forEach((target) => {
+    let position = Math.min(Math.max(target, 1), total - 1);
+    while (position < total - 1 && ['h4', 'h5'].includes(blocks[position - 1]?.props?.variant)) position += 1;
+    if (position < total) positions.add(position);
+  });
+
+  const result = [];
+  let adIndex = 0;
+  blocks.forEach((block, index) => {
+    if (positions.has(index)) {
+      result.push(<AdSlot key={`inline-ad-${slug}-${index}`} name={INLINE_ADS[adIndex % INLINE_ADS.length]} sx={{ my: 1 }} />);
+      adIndex += 1;
+    }
+    result.push(block);
+  });
+  return result;
+}
+
 export default function ArticlePage() {
   const { slug } = useParams();
   const article = publishedArticles.find((item) => item.slug === slug);
@@ -110,11 +136,6 @@ export default function ArticlePage() {
             </Stack>
           </Stack>
 
-          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="center" alignItems="center" sx={{ mt: 4 }}>
-            <AdSlot key={`top-a-${article.slug}`} name="squareBannerA" />
-            <AdSlot key={`top-b-${article.slug}`} name="squareBannerB" />
-          </Stack>
-           
           {article.image && (
             <Box component="img" src={article.image} alt={article.title} sx={{ width: '100%', borderRadius: 4, mt: 4, height: { xs: 240, md: 420 }, objectFit: 'cover' }} />
           )}
@@ -139,10 +160,10 @@ export default function ArticlePage() {
           
           <Stack spacing={3} sx={{ mt: 3, maxWidth: 800, '& .MuiTypography-root': { overflowWrap: 'anywhere' } }}>
             {article.content
-              ? renderMarkdown(article.content)
-              : content.paragraphs.map((paragraph) => (
+              ? withInlineAds(renderMarkdown(article.content), article.slug)
+              : withInlineAds(content.paragraphs.map((paragraph) => (
               <Typography key={paragraph} variant="body1" color="text.secondary" lineHeight={1.8}>{paragraph}</Typography>
-              ))}
+              )), article.slug)}
           </Stack>
           <Paper elevation={0} sx={{ p: 3, my: 4, borderLeft: '4px solid', borderColor: 'primary.main', backgroundColor: 'background.paper', borderRadius: 3 }}>
             <Typography variant="h6" fontWeight={700}>Important note</Typography>
