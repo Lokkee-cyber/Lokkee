@@ -1,0 +1,52 @@
+{
+  "title": "Rubio praises India’s energy diversification, Times Now reports",
+  "slug": "rubio-praises-india-s-energy-diversification-times-now-reports",
+  "excerpt": "Times Now reports that Marco Rubio praised India’s energy diversification efforts and identified Venezuela as a potential oil source.",
+  "category": "World News",
+  "author": "LokkeeVerse Editorial",
+  "image": "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=1200&q=80",
+  "content": "US Secretary of State Marco Rubio praised India’s efforts to diversify its energy sources while addressing concerns about its continued purchases of Russian oil, according to a Times Now report summary.\n\nThe report’s headline also identifies Venezuela as a potential oil source raised by Rubio. The supplied metadata does not provide details about any proposed supply arrangement or changes to India’s oil purchases.\n",
+  "seoTitle": "Rubio on India’s Energy Diversification and Russian Oil",
+  "metaDescription": "Times Now reports Rubio praised India’s energy diversification while addressing Russian oil purchases and naming Venezuela as a potential source.",
+  "status": "published",
+  "publishedAt": "2026-10-21T00:46:18.350Z",
+  "updatedAt": "2026-10-21T00:46:18.350Z",
+  "comparison": null,
+  "sourceReferences": [
+    {
+      "url": "https://www.timesnownews.com/world/smart-thing-to-do-rubio-on-indias-shift-from-russian-oil-flags-venezuela-as-potential-oil-source-article-156373107",
+      "publisher": "Times Now",
+      "attribution": "Powered by GNews",
+      "eventDate": "",
+      "publishedAt": "2026-10-20T12:08:16.000Z",
+      "retrievedAt": "2026-10-21T00:42:12.745Z"
+    }
+  ],
+  "automation": {
+    "generated": true,
+    "storyId": "gnews:e387eef5a69e5b557865e4276e79df22",
+    "jobId": "8c219a07-ea3d-4456-bdeb-6b462b6e0251",
+    "sourceId": "f7cfd2e0-1022-42c0-913e-332ff687d0f4",
+    "providerArticleId": "gnews:e387eef5a69e5b557865e4276e79df22",
+    "generatedAt": "2026-10-21T00:42:12.745Z",
+    "automationCategory": "World News",
+    "aiProvider": "openai",
+    "reviewStatus": "approved",
+    "factCheckStatus": "human-reviewed",
+    "highImpactReviewRequired": false,
+    "tokenUsage": {
+      "inputTokens": 446,
+      "outputTokens": 436
+    },
+    "publishMode": "manual-review",
+    "publishedLocallyAt": "2026-10-21T00:46:18.350Z"
+  },
+  "tags": [
+    "Marco Rubio",
+    "India",
+    "Russian oil",
+    "Venezuela",
+    "Energy"
+  ],
+  "readTime": "1 min read"
+}

@@ -8,9 +8,9 @@
   "content": "French Prime Minister Sebastien Lecornu warned that a state of emergency was possible and backed localised curfews following violent protests, according to metadata supplied for a Times Now report.\n\nThe source description says protests and looting affected thousands of businesses. The headline also reports that 2,500 people were held, but the supplied material gives no further details about those detentions.\n\nThe metadata describes a possible emergency declaration, not a confirmed decision to impose one.\n\n",
   "seoTitle": "France considers emergency measures, Times Now reports",
   "metaDescription": "Times Now reports possible emergency measures and support for localised curfews in France after protests. Key claims require verification.",
-  "status": "draft",
-  "publishedAt": "2026-10-20T08:14:53.074Z",
-  "updatedAt": "2026-10-21T00:47:12.231Z",
+  "status": "published",
+  "publishedAt": "2026-10-21T00:47:49.206Z",
+  "updatedAt": "2026-10-21T00:47:49.206Z",
   "comparison": null,
   "authorSlug": "lokkeeverse-editorial",
   "tags": [
@@ -47,6 +47,6 @@
       "outputTokens": 449
     },
     "publishMode": "manual-review",
-    "publishedLocallyAt": "2026-10-20T08:14:53.074Z"
+    "publishedLocallyAt": "2026-10-21T00:47:49.206Z"
   }
 }
