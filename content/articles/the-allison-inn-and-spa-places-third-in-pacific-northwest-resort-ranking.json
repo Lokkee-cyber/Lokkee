@@ -1,0 +1,52 @@
+{
+  "title": "The Allison Inn and Spa places third in Pacific Northwest resort ranking",
+  "slug": "the-allison-inn-and-spa-places-third-in-pacific-northwest-resort-ranking",
+  "excerpt": "The Newberg resort ranks third in a 2026 Pacific Northwest list, according to The Oregonian’s headline.",
+  "category": "World News",
+  "author": "LokkeeVerse",
+  "authorSlug": "lokkeeverse-editorial",
+  "image": "https://www.oregonlive.com/resizer/v2/OD4A4ZX5PRCH5BGNTGY245F32U.jpeg?auth=8b331b1cc0aa124a26221ac4349450392f444f2f88a652335cdb1e6e961c60c6&width=1280&smart=true",
+  "content": "The Allison Inn and Spa in Newberg, Oregon, ranks third in a 2026 ranking of Pacific Northwest resorts, according to the supplied headline from The Oregonian.\n\nThe accompanying description says the resort has received multiple honors in 2026, including the No. 1 hotel and resort ranking in Oregon from U.S. News & World Report. The supplied metadata does not identify the organization behind the Pacific Northwest ranking or explain its criteria.",
+  "seoTitle": "The Allison Inn and Spa ranks third in Pacific Northwest",
+  "metaDescription": "The Oregonian’s headline places Newberg’s The Allison Inn and Spa third in a 2026 Pacific Northwest resort ranking.",
+  "status": "published",
+  "tags": [
+    "The Allison Inn and Spa",
+    "Newberg",
+    "Oregon",
+    "Pacific Northwest",
+    "Resort rankings"
+  ],
+  "publishedAt": "2026-10-21T02:28:55.105Z",
+  "updatedAt": "2026-10-21T02:28:55.105Z",
+  "readTime": "1 min read",
+  "sourceReferences": [
+    {
+      "url": "https://www.oregonlive.com/travel/2026/10/this-stunning-willamette-valley-resort-just-earned-one-of-the-highest-rankings-in-the-entire-pacific-northwest.html",
+      "publisher": "The Oregonian",
+      "attribution": "Powered by GNews",
+      "eventDate": "",
+      "publishedAt": "2026-10-20T13:30:00.000Z",
+      "retrievedAt": "2026-10-21T02:28:27.557Z"
+    }
+  ],
+  "automation": {
+    "generated": true,
+    "storyId": "gnews:4cfdca9980971b682d8302914c04eccd",
+    "jobId": "775e480e-bfd5-487a-b7d8-80d7da6ac431",
+    "sourceId": "f7cfd2e0-1022-42c0-913e-332ff687d0f4",
+    "providerArticleId": "gnews:4cfdca9980971b682d8302914c04eccd",
+    "generatedAt": "2026-10-21T02:28:27.557Z",
+    "automationCategory": "World News",
+    "aiProvider": "openai",
+    "reviewStatus": "approved",
+    "factCheckStatus": "human-reviewed",
+    "highImpactReviewRequired": false,
+    "tokenUsage": {
+      "inputTokens": 447,
+      "outputTokens": 379
+    },
+    "publishMode": "manual-review",
+    "publishedLocallyAt": "2026-10-21T02:28:55.105Z"
+  }
+}
