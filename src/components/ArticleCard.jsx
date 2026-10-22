@@ -35,7 +35,7 @@ export default function ArticleCard({ article }) {
         </Typography>
         <Stack direction="row" justifyContent="space-between" flexWrap="wrap" columnGap={1} rowGap={0.5} color="text.secondary" sx={{ mt: 'auto', fontSize: 12, minWidth: 0, '& > *': { overflowWrap: 'anywhere' } }}>
           <span>{article.date || article.publishedAt?.slice(0, 10)}</span>
-          <span>{article.readTime}</span>
+          <span> | {article.readTime}</span>
         </Stack>
         <Button component={Link} to={`/articles/${article.slug}`} variant="contained" disableElevation sx={{ mt: 0.5, whiteSpace: 'normal', justifyContent: 'center' }}>
           Read article
