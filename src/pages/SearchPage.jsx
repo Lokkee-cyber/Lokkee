@@ -59,7 +59,7 @@ export default function SearchPage() {
   const results = useMemo(() => {
     const items = searchItems.filter((item) => {
       const matchesText = !searchTerm || [item.title, item.name, item.label, item.slug, item.description, item.excerpt].filter(Boolean).join(' ').toLowerCase().includes(searchTerm);
-      const matchesCategory = categoryFilter === 'all' || item.category === categoryFilter || item.title === categoryFilter;
+      const matchesCategory = categoryFilter === 'all' || (item.type === 'Article' && item.category === categoryFilter);
       const matchesType = typeFilter === 'all' || item.type === typeFilter;
       // Without a query or filters, only the categories are listed rather than every article.
       const browsingDefault = !searchTerm && categoryFilter === 'all' && typeFilter === 'all';

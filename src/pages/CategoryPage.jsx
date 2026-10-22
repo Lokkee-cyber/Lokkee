@@ -30,7 +30,7 @@ export default function CategoryPage({ categorySlug }) {
   const previousPage = useRef(page);
 
   const categoryArticles = useMemo(
-    () => publishedArticles.filter((article) => article.category.toLowerCase().includes(category.title.toLowerCase().split(' ')[0]) || article.category === category.title),
+    () => publishedArticles.filter((article) => article.category === category.title),
     [category.title],
   );
   const visibleArticles = categoryArticles.slice((page - 1) * pageSize, page * pageSize);

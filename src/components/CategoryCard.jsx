@@ -14,7 +14,7 @@ export default function CategoryCard({ category, icon: Icon }) {
           {category.description}
         </Typography>
         <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mt: 'auto', width: '100%' }}>
-          <Typography variant="caption" color="text.secondary">Browse articles</Typography>
+          <Typography variant="caption" color="text.secondary">Category</Typography>
           <Button component={Link} to={category.path} size="small" variant="text" endIcon={<ArrowForwardRounded />}>
             Explore
           </Button>
