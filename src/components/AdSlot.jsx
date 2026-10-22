@@ -31,6 +31,13 @@ const ADS = {
     width: 160,
     height: 300,
   },
+  banner468: {
+    type: 'banner',
+    key: '7294d7e010a7fa5ed9029448512634e6',
+    src: 'https://bauval.org/22/7294d7e010a7fa5ed9029448512634e6',
+    width: 468,
+    height: 60,
+  },
   native: {
     type: 'native',
     id: '3ca20e8f3a108df3474660e176bf3542',

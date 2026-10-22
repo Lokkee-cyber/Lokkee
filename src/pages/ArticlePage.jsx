@@ -76,13 +76,14 @@ function renderMarkdown(markdown) {
   return blocks;
 }
 
-const INLINE_ADS = ['banner300', 'banner320'];
+const INLINE_ADS = ['banner300', 'banner468', 'banner320'];
 
-// Places up to two ads inside the article text, never directly after a heading.
+// Places up to three ads inside the article text, never directly after a heading.
 function withInlineAds(blocks, slug) {
   const total = blocks.length;
   if (total < 3) return blocks;
-  const targets = total >= 6 ? [Math.round(total / 3), Math.round((total * 2) / 3)] : [Math.round(total / 2)];
+  const adCount = total >= 9 ? 3 : total >= 6 ? 2 : 1;
+  const targets = Array.from({ length: adCount }, (_, i) => Math.round((total * (i + 1)) / (adCount + 1)));
   const positions = new Set();
   targets.forEach((target) => {
     let position = Math.min(Math.max(target, 1), total - 1);

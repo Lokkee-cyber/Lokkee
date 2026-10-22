@@ -115,7 +115,7 @@ test('AI generation rejects missing keys and invalid structured responses', asyn
 });
 
 test('Gemini generation requests schema-constrained JSON and records actual token usage', async () => {
-  const content = `## What the source reports\n\n${'The source description confirms a limited set of facts and the draft explains what remains unverified. '.repeat(5)}`;
+  const content = `## What the source reports\n\n${'The source description confirms a limited set of facts and the draft explains what remains unverified. '.repeat(10)}`;
   let requestBody;
   let requestUrl;
   let requestOptions;
