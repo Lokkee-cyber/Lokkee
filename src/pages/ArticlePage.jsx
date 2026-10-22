@@ -166,12 +166,14 @@ export default function ArticlePage() {
               <Typography key={paragraph} variant="body1" color="text.secondary" lineHeight={1.8}>{paragraph}</Typography>
               )), article.slug)}
           </Stack>
-          <Paper elevation={0} sx={{ p: 3, my: 4, borderLeft: '4px solid', borderColor: 'primary.main', backgroundColor: 'background.paper', borderRadius: 3 }}>
-            <Typography variant="h6" fontWeight={700}>Important note</Typography>
-            <Typography color="text.secondary" sx={{ mt: 1 }}>
-              AI can improve speed and output, but strong results still depend on responsible review, clear prompt design and fact-checking when facts matter.
-            </Typography>
-          </Paper>
+          {!article.automation?.generated && (
+            <Paper elevation={0} sx={{ p: 3, my: 4, borderLeft: '4px solid', borderColor: 'primary.main', backgroundColor: 'background.paper', borderRadius: 3 }}>
+              <Typography variant="h6" fontWeight={700}>Important note</Typography>
+              <Typography color="text.secondary" sx={{ mt: 1 }}>
+                AI can improve speed and output, but strong results still depend on responsible review, clear prompt design and fact-checking when facts matter.
+              </Typography>
+            </Paper>
+          )}
           {content && (
             <>
               <Divider sx={{ my: 4 }} />
