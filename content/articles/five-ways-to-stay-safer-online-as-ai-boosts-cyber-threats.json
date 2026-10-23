@@ -1,0 +1,52 @@
+{
+  "title": "Five Ways to Stay Safer Online as AI Boosts Cyber Threats",
+  "slug": "five-ways-to-stay-safer-online-as-ai-boosts-cyber-threats",
+  "excerpt": "AI can make scams more convincing, but familiar security habits still offer protection. Here are five steps to reduce your exposure.",
+  "category": "World News",
+  "author": "LokkeeVerse",
+  "image": "https://www.reuters.com/resizer/v2/SYVHV6FHQVJIJA2WKQFN6GQRL4.jpg?auth=87538e5053bc0ba01d205c33a257512f2e75a8f90f92a9cd91115fc5b47ffccc&height=1005&width=1920&quality=80&smart=true",
+  "content": "A vulnerability in PHP, a programming language widely used to power websites, sent businesses and governments scrambling to apply fixes, according to Reuters. The report highlights a broader concern: as artificial intelligence helps attackers work faster and craft more convincing deception, people need practical defenses that protect both their accounts and their everyday browsing.\n\n## Why AI changes the threat\n\nAI can help criminals produce polished phishing messages, translate scams into multiple languages and generate code. That makes poor spelling a less dependable warning sign. A message that sounds professional, familiar or urgent still needs checking, especially if it requests money, login details or an unexpected download.\n\nSoftware vulnerabilities present a different problem. A flaw in technology used by a website can expose visitors or their information even when they have done nothing wrong. Fixing server-side software such as PHP is generally the responsibility of website operators and hosting providers, not individual visitors.\n\n## Five habits that reduce your risk\n\nThe strongest personal defenses combine account protection, prompt updates and a pause before acting on unexpected requests. No single tool can prevent every attack, but several simple measures can make account takeover harder and reduce the damage if a device or service is compromised.\n\nIt also helps to distinguish between a genuine security notice and a scam exploiting the headlines. Attackers may impersonate technical support or claim that an urgent patch is required. Reach services through their official apps or a known address rather than following links in unsolicited messages.\n\n- **Update your software.** Enable automatic updates for operating systems, browsers and apps. Website administrators should follow vendor guidance and promptly install applicable security fixes.\n- **Strengthen your logins.** Use unique passwords stored in a password manager, and enable passkeys or multifactor authentication wherever available.\n- **Verify unusual requests.** Confirm payment demands or requests for sensitive information through a separate, trusted channel, even when the sender sounds familiar.\n- **Protect recovery options.** Keep account recovery details current, store backup codes securely and never share one-time authentication codes with someone who contacts you.\n- **Back up important files.** Maintain backups separate from your main device, and check that you can restore them if ransomware or another incident strikes.\n\n",
+  "seoTitle": "Five Online Safety Tips for AI-Powered Cyber Threats",
+  "metaDescription": "Learn five practical ways to protect accounts and devices as AI strengthens phishing and hacking, plus what website vulnerabilities mean for users.",
+  "status": "published",
+  "publishedAt": "2026-10-23T14:48:22.805Z",
+  "updatedAt": "2026-10-23T14:48:22.805Z",
+  "comparison": null,
+  "sourceReferences": [
+    {
+      "url": "https://www.reuters.com/technology/five-ways-keep-safe-online-wake-ai-supercharged-hacking-2026-10-22/",
+      "publisher": "Reuters",
+      "attribution": "Powered by GNews",
+      "eventDate": "",
+      "publishedAt": "2026-10-22T21:58:17.000Z",
+      "retrievedAt": "2026-10-23T14:47:01.269Z"
+    }
+  ],
+  "automation": {
+    "generated": true,
+    "storyId": "gnews:b60ac68816dc885c522500fe87b37ceb",
+    "jobId": "a45e68c1-30d6-417e-a809-13a007b1b07f",
+    "sourceId": "f7cfd2e0-1022-42c0-913e-332ff687d0f4",
+    "providerArticleId": "gnews:b60ac68816dc885c522500fe87b37ceb",
+    "generatedAt": "2026-10-23T14:47:01.269Z",
+    "automationCategory": "World News",
+    "aiProvider": "openai",
+    "reviewStatus": "approved",
+    "factCheckStatus": "human-reviewed",
+    "highImpactReviewRequired": false,
+    "tokenUsage": {
+      "inputTokens": 534,
+      "outputTokens": 764
+    },
+    "publishMode": "manual-review",
+    "publishedLocallyAt": "2026-10-23T14:48:22.805Z"
+  },
+  "tags": [
+    "Cybersecurity",
+    "Artificial Intelligence",
+    "Online Safety",
+    "PHP",
+    "Phishing"
+  ],
+  "readTime": "2 min read"
+}

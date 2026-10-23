@@ -134,7 +134,7 @@ export default function ContentAutomation({ onReviewDraft }) {
     setBusy(story.id); setError(''); setNotice('');
     try {
       await api(`/stories/${encodeURIComponent(story.id)}/retry`, { method: 'POST', body: '{}' });
-      setNotice(story.status === 'duplicate' ? 'Draft generation started.' : 'A generation retry was started.');
+      setNotice(['duplicate', 'discovered', 'skipped'].includes(story.status) ? 'Article generation started. The draft will appear in Drafts.' : 'A generation retry was started.');
       await loadDashboard(true);
     } catch (actionError) { setError(actionError.message); }
     finally { setBusy(''); }
@@ -396,7 +396,7 @@ export default function ContentAutomation({ onReviewDraft }) {
                   <Typography variant="body2" color="text.secondary">{story.skipReason || story.reason || ''}</Typography>
                   <Typography component="a" href={story.url} target="_blank" rel="noopener noreferrer" sx={{ overflowWrap: 'anywhere' }}>{story.url}</Typography>
                   {story.status === 'duplicate' && story.draftSlug && <Typography variant="body2" color="text.secondary">Existing draft: {story.draftSlug}</Typography>}
-                  {story.status === 'duplicate' && !story.draftSlug && <Button sx={{ alignSelf: 'flex-start' }} onClick={() => retryStory(story)} disabled={busy === story.id}>{busy === story.id ? 'Generating…' : 'Generate draft'}</Button>}
+                  {['duplicate', 'discovered', 'skipped'].includes(story.status) && !story.draftSlug && <Button sx={{ alignSelf: 'flex-start' }} variant="contained" onClick={() => retryStory(story)} disabled={busy === story.id}>{busy === story.id ? 'Generating…' : 'Generate article'}</Button>}
                   {['failed', 'awaiting-ai'].includes(story.status) && <Button sx={{ alignSelf: 'flex-start' }} onClick={() => retryStory(story)} disabled={busy === story.id}>{busy === story.id ? 'Retrying…' : 'Retry generation'}</Button>}
                 </Stack>
               </AccordionDetails>
