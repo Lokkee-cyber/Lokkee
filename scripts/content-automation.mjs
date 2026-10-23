@@ -972,6 +972,32 @@ async function createJob({ trigger = 'manual', sources, categoryFilter, retryOf 
   }
 }
 
+let workerDispatcher = null;
+
+// When set (serverless admin), jobs are handed to an external worker instead of running in-process.
+export function setWorkerDispatcher(dispatcher) { workerDispatcher = dispatcher; }
+
+export async function failJob(jobId, message) {
+  const now = new Date().toISOString();
+  return updateJob(jobId, {
+    status: 'failed', finishedAt: now,
+    errors: [{ message: safeError(new Error(message)), at: now }],
+    progress: { current: 0, total: 0, message: safeError(new Error(message)) },
+  });
+}
+
+async function launchWorker(job, label) {
+  if (!workerDispatcher) {
+    setImmediate(() => runContentJob(job.id).catch((error) => console.error(`${label} worker failed:`, safeError(error))));
+    return;
+  }
+  try { await workerDispatcher({ action: 'run-job', jobId: job.id }); }
+  catch (error) {
+    await failJob(job.id, `The worker could not be started: ${error.message}`).catch(() => {});
+    throw new Error('The background worker could not be started. Check the GitHub token and workflow.');
+  }
+}
+
 export async function startContentJob({ trigger = 'manual', categoryFilter } = {}) {
   const sources = await getSources();
   if (!sources.some((source) => source.enabled !== false)) throw new Error('Enable at least one source before starting an update.');
@@ -981,7 +1007,7 @@ export async function startContentJob({ trigger = 'manual', categoryFilter } = {
     throw new Error('Enable and select at least one content category before starting an update.');
   }
   const job = await createJob({ trigger, sources, categoryFilter });
-  setImmediate(() => runContentJob(job.id).catch((error) => console.error('Content update worker failed:', safeError(error))));
+  await launchWorker(job, 'Content update');
   return job;
 }
 
@@ -1199,11 +1225,11 @@ export async function retryJob(jobId) {
   }
   const sources = original.sourceConfigs || [];
   const job = await createJob({ trigger: 'retry', sources, categoryFilter: original.categories, retryOf: original.id });
-  setImmediate(() => runContentJob(job.id).catch((error) => console.error('Content retry worker failed:', safeError(error))));
+  await launchWorker(job, 'Content retry');
   return job;
 }
 
-export async function retryStory(storyId) {
+export async function retryStory(storyId, { existingJobId = '' } = {}) {
   if (typeof storyId !== 'string' || storyId.length > 600) throw new Error('Invalid story id.');
   const story = (await getStories()).find((item) => item.id === storyId);
   if (!story || !['failed', 'awaiting-ai', 'duplicate', 'discovered', 'skipped'].includes(story.status)) throw new Error('This story is not available for draft generation.');
@@ -1218,11 +1244,27 @@ export async function retryStory(storyId) {
   if (Number(story.retryCount || 0) >= settings.maxGenerationRetries && !isRetryableProviderFailure(story.skipReason)) {
     throw new Error('The maximum generation retry count has been reached.');
   }
-  if (!settings.aiEnabled || !process.env[aiKeyName(settings)]) throw new Error(`Enable AI generation and configure ${aiKeyName(settings)} before retrying.`);
+  if (!settings.aiEnabled || (!workerDispatcher && !process.env[aiKeyName(settings)])) throw new Error(`Enable AI generation and configure ${aiKeyName(settings)} before retrying.`);
   if (await countGenerationsToday(settings.dailySchedule.timezone) >= configuredDailyAiLimit(settings)) throw new Error('The daily AI generation limit has been reached.');
+  if (workerDispatcher) {
+    const queued = await createJob({ trigger: 'story-retry', sources: [], categoryFilter: [story.category], storyId });
+    try { await workerDispatcher({ action: 'retry-story', storyId, jobId: queued.id }); }
+    catch (error) {
+      await failJob(queued.id, `The worker could not be started: ${error.message}`).catch(() => {});
+      throw new Error('The background worker could not be started. Check the GitHub token and workflow.');
+    }
+    return queued;
+  }
   const lock = await acquireJobLock();
   if (!lock) throw new Error('Another content update is already running.');
-  const job = await createJob({ trigger: 'story-retry', sources: [], categoryFilter: [story.category], storyId });
+  const job = existingJobId
+    ? (await getJobs()).find((item) => item.id === existingJobId)
+    : await createJob({ trigger: 'story-retry', sources: [], categoryFilter: [story.category], storyId });
+  if (!job) {
+    await lock.close().catch(() => {});
+    await unlink(lockFile).catch(() => {});
+    throw new Error('The queued retry job was not found.');
+  }
   try {
     await updateJob(job.id, { status: 'running', startedAt: new Date().toISOString(), progress: { current: 0, total: 1, message: firstManualDraft ? 'Generating a draft from the discovered story.' : 'Retrying article generation.' } });
     const generationsToday = await countGenerationsToday(settings.dailySchedule.timezone);

@@ -50,6 +50,7 @@ export default function App({ mode, setMode }) {
         <Route path="/affiliate-disclosure" element={<LegalPage type="affiliate" />} />
         <Route path="/editorial-policy" element={<LegalPage type="editorial" />} />
         {import.meta.env.DEV && <Route path="/admin" element={<AdminPage />} />}
+        <Route path="/manage" element={<AdminPage />} />
         <Route path="/404" element={<NotFoundPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>

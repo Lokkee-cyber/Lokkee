@@ -1,0 +1,81 @@
+name: Content automation worker
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: run-job, retry-story or scheduled
+        required: false
+        default: run-job
+      jobId:
+        description: Queued job id created by the admin page
+        required: false
+        default: ''
+      storyId:
+        description: Story id for retry-story
+        required: false
+        default: ''
+      category:
+        description: Optional category when no jobId is given
+        required: false
+        default: ''
+  schedule:
+    # Checks whether the daily run configured in the admin page is due.
+    - cron: '17 * * * *'
+
+# Least privilege: the built-in token may only write repository contents.
+permissions:
+  contents: write
+
+concurrency:
+  group: content-automation
+  cancel-in-progress: false
+
+jobs:
+  work:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Run content automation
+        env:
+          CI_ACTION: ${{ github.event_name == 'schedule' && 'scheduled' || inputs.action }}
+          CI_JOB_ID: ${{ inputs.jobId }}
+          CI_STORY_ID: ${{ inputs.storyId }}
+          CI_CATEGORY: ${{ inputs.category }}
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
+          GNEWS_API_KEY: ${{ secrets.GNEWS_API_KEY }}
+          NEWSAPI_API_KEY: ${{ secrets.NEWSAPI_API_KEY }}
+        run: node scripts/run-ci-content-update.mjs
+
+      - name: Commit only article files
+        if: always()
+        run: |
+          outside=$(git status --porcelain --untracked-files=all | grep -v -E ' content/articles/[^/]+\.(json|draft|deleted)$' || true)
+          if [ -n "$outside" ]; then
+            echo "Unexpected changes outside content/articles/:"; echo "$outside"; exit 1
+          fi
+          git add -A -- content/articles
+          if git diff --cached --quiet; then
+            echo "No article changes to commit."; exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "content: automated article update"
+          for attempt in 1 2 3; do
+            git pull --rebase origin "${GITHUB_REF_NAME}" && git push && exit 0
+            sleep 5
+          done
+          exit 1

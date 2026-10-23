@@ -93,7 +93,7 @@ export default function AdminPage() {
         setAuthenticated(Boolean(result.authenticated));
         setPasswordConfigured(Boolean(result.passwordConfigured));
       })
-      .catch(() => setAuthError('The local admin API is unavailable. Start it with npm run dev:admin-api.'))
+      .catch(() => setAuthError(import.meta.env.DEV ? 'The local admin API is unavailable. Start it with npm run dev:admin-api.' : 'The admin API is unavailable. Try again shortly.'))
       .finally(() => setSessionLoading(false));
   }, []);
 
@@ -137,7 +137,7 @@ export default function AdminPage() {
       }
       setArticles(result.articles);
     } catch (loadError) {
-      setError(`${loadError.message} Start the local editor API with npm run dev:admin-api.`);
+      setError(import.meta.env.DEV ? `${loadError.message} Start the local editor API with npm run dev:admin-api.` : loadError.message);
     } finally {
       setLoading(false);
     }
@@ -367,7 +367,9 @@ export default function AdminPage() {
           {authError && <Alert severity="error" sx={{ mb: 2 }}>{authError}</Alert>}
           {!passwordConfigured ? (
             <Alert severity="warning">
-              Set a private password of at least 16 characters as LOCAL_CONTENT_ADMIN_PASSWORD in your ignored .env file, then restart npm run dev:admin-api.
+              {import.meta.env.DEV
+                ? 'Set a private password of at least 16 characters as LOCAL_CONTENT_ADMIN_PASSWORD in your ignored .env file, then restart npm run dev:admin-api.'
+                : 'Set ADMIN_PASSWORD (16+ characters) and ADMIN_SESSION_SECRET (32+ characters) in the Vercel environment variables, then redeploy.'}
             </Alert>
           ) : (
             <Box component="form" onSubmit={signIn}>
