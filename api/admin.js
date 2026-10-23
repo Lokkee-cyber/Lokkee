@@ -107,9 +107,24 @@ function clientAddress(req) {
   return String(req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 'unknown';
 }
 
+const memoryAttempts = new Map();
+
+function memoryLoginAttempt(req) {
+  const id = clientAddress(req);
+  const now = Date.now();
+  const current = memoryAttempts.get(id);
+  const fresh = !current || now - current.startedAt >= loginWindowMs;
+  const next = { startedAt: fresh ? now : current.startedAt, count: (fresh ? 0 : current.count) + 1 };
+  memoryAttempts.set(id, next);
+  return { allowed: next.count <= maxLoginAttempts, reset: async () => { memoryAttempts.delete(id); } };
+}
+
+// The shared limiter lives in MongoDB; if it is unreachable, fall back to a per-instance limiter
+// so a database outage never opens sign-in without any limit.
 async function consumeLoginAttempt(req) {
-  const store = await openStateStore();
+  let store;
   try {
+    store = await openStateStore();
     const attempts = store.client.db('toolpilot').collection('lokkee_admin_attempts');
     const id = createHash('sha256').update(clientAddress(req)).digest('hex');
     const now = Date.now();
@@ -118,8 +133,11 @@ async function consumeLoginAttempt(req) {
     const next = { startedAt: fresh ? now : current.startedAt, count: (fresh ? 0 : current.count) + 1 };
     await attempts.replaceOne({ _id: id }, { _id: id, ...next }, { upsert: true });
     return { allowed: next.count <= maxLoginAttempts, reset: () => attempts.deleteOne({ _id: id }) };
+  } catch (error) {
+    console.error('Login rate limit store unavailable:', error.name, String(error.message).slice(0, 200));
+    return memoryLoginAttempt(req);
   } finally {
-    await store.close();
+    await store?.close();
   }
 }
 
@@ -337,8 +355,13 @@ export default async function handler(req, res) {
   } catch (error) {
     if (error instanceof HttpError) return send(res, error.status, { error: error.message });
     const message = String(error?.message || 'Request failed.').slice(0, 300);
-    console.error('Admin request failed:', message);
+    console.error('Admin request failed:', error?.name, error?.code, message);
     const status = /not found/i.test(message) ? 404 : /already running|just submitted/i.test(message) ? 409 : error.code ? 500 : 400;
-    return send(res, status, { error: error.code ? 'Admin data could not be accessed.' : message });
+    const databaseDown = /Mongo|ECONN|ENOTFOUND|ETIMEDOUT|Server selection|bad auth|Authentication failed/i.test(`${error?.name} ${message}`);
+    return send(res, status, {
+      error: databaseDown
+        ? 'The database is unreachable. Check MONGODB_URI and the MongoDB Atlas network access list (allow 0.0.0.0/0 for Vercel).'
+        : error.code ? 'Admin data could not be accessed.' : message,
+    });
   }
 }
