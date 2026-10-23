@@ -58,5 +58,5 @@ export default function middleware(request) {
 
 export const config = {
   runtime: 'nodejs',
-  matcher: ['/((?!api(?:/|$)|admin(?:/|$)|private(?:/|$)|assets/|_vercel/|sitemap\\.xml$|robots\\.txt$|.*\\.[^/]+$).*)'],
+  matcher: ['/((?!api(?:/|$)|admin(?:/|$)|manage(?:/|$)|__local-content(?:/|$)|private(?:/|$)|assets/|_vercel/|sitemap\\.xml$|robots\\.txt$|.*\\.[^/]+$).*)'],
 };
