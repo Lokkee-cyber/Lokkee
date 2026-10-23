@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "dev:admin-api": "node scripts/local-content-server.mjs",
+    "automation:import": "node scripts/import-automation-to-mongodb.mjs",
     "automation:scheduler": "node scripts/run-scheduled-content-update.mjs",
     "build": "npm run generate:sitemap && vite build && node scripts/prerender-articles.mjs",
     "preview": "vite preview",
