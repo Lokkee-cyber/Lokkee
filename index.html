@@ -9,7 +9,7 @@
     <title>LokkeeVerse</title>
     <script data-cfasync="false">
       // Skip ads on the admin dashboard.
-      if (!location.pathname.startsWith('/admin')) {
+      if (!/^\/(admin|manage)(\/|$)/.test(location.pathname)) {
         var ad = document.createElement('script');
         ad.setAttribute('data-cfasync', 'false');
         ad.src = 'https://abscloud.org/1/f407e12978144c219076c94d050c72b8';

@@ -8,6 +8,7 @@ export default function AnalyticsTracker() {
   useEffect(() => {
     if (
       location.pathname.startsWith("/admin") ||
+      location.pathname.startsWith("/manage") ||
       location.pathname.startsWith("/private")
     ) {
       return;
