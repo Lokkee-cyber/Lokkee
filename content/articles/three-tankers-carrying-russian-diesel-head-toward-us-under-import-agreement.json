@@ -1,0 +1,52 @@
+{
+  "title": "Three tankers carrying Russian diesel head toward US under import agreement",
+  "slug": "three-tankers-carrying-russian-diesel-head-toward-us-under-import-agreement",
+  "excerpt": "Three tankers have left Primorsk carrying Russian diesel toward the US, according to Hindustan Times. Kpler said one signalled New York as its destination.",
+  "category": "World News",
+  "author": "LokkeeVerse",
+  "authorSlug": "lokkeeverse-editorial",
+  "image": "https://www.hindustantimes.com/ht-img/img/2026/10/24/1600x900/logo/trump_putin_1792806624443_71F7_1792806637576_2jtH_60fa200d-fe9c-47cc-8c4f-31ac73a98b88_hlY7.jpg",
+  "content": "Three tankers carrying Russian diesel have left the port of Primorsk for the United States under a new import agreement, according to Hindustan Times. The newspaper reported that the vessels were carrying 40,000 tonnes of diesel.\n\n## Tankers depart from Primorsk\n\nRussia’s deputy prime minister, Alexander Novak, announced the departures on Friday, the report said. He described the vessels as heading toward North America.\n\nMarine intelligence firm Kpler separately reported that one tanker had signalled on Friday that it was bound for New York. That vessel was scheduled to arrive on November 7, according to the firm.\n\n## Shipment linked to new import agreement\n\nHindustan Times described the cargo movement as the first shipment of Russian diesel to the United States since 2023. The tankers’ voyage was linked to a new agreement covering imports.\n\nThe reported destination information differed in scope between the two accounts. Novak referred to three vessels heading toward North America, while Kpler identified a New York destination for one tanker.\n\n- Three tankers departed from Primorsk.\n- The reported diesel cargo was 40,000 tonnes.\n- One tanker signalled New York as its destination.\n\nThe report placed the departures in the context of renewed Russian diesel shipments to the US. Its comparison with 2023 concerned the shipment of that fuel.\n\nThe next scheduled milestone is the New York-bound tanker’s arrival on November 7. Kpler’s information described an expected arrival rather than a completed delivery.",
+  "seoTitle": "Russian Diesel Tankers Head to US From Primorsk",
+  "metaDescription": "Three tankers carrying Russian diesel left Primorsk under a new import agreement, Hindustan Times reported. One is scheduled to reach New York on November 7.",
+  "status": "published",
+  "tags": [
+    "Russia",
+    "United States",
+    "Diesel",
+    "Shipping",
+    "Primorsk"
+  ],
+  "publishedAt": "2026-10-24T14:49:18.050Z",
+  "updatedAt": "2026-10-24T14:49:18.050Z",
+  "readTime": "2 min read",
+  "sourceReferences": [
+    {
+      "url": "https://www.hindustantimes.com/world-news/three-russian-tankers-carrying-40000-tonnes-of-diesel-head-to-us-first-shipment-since-2023-trump-putin-diesel-deal-us-russia-101792804563652.html",
+      "publisher": "Hindustan Times",
+      "attribution": "Powered by GNews",
+      "eventDate": "",
+      "publishedAt": "2026-10-24T02:30:55.000Z",
+      "retrievedAt": "2026-10-24T14:49:18.000Z"
+    }
+  ],
+  "automation": {
+    "generated": true,
+    "storyId": "gnews:6955d0886499f581c0b12351fbf1857d",
+    "jobId": "29d4104e-ec8a-457b-8352-a67bc0a71bd4",
+    "sourceId": "f7cfd2e0-1022-42c0-913e-332ff687d0f4",
+    "providerArticleId": "gnews:6955d0886499f581c0b12351fbf1857d",
+    "generatedAt": "2026-10-24T14:49:18.000Z",
+    "automationCategory": "World News",
+    "aiProvider": "openai",
+    "reviewStatus": "auto-approved",
+    "factCheckStatus": "not-required-for-configured-category",
+    "highImpactReviewRequired": false,
+    "tokenUsage": {
+      "inputTokens": 779,
+      "outputTokens": 754
+    },
+    "publishMode": "trusted-source-auto",
+    "publishedLocallyAt": "2026-10-24T14:49:18.050Z"
+  }
+}
