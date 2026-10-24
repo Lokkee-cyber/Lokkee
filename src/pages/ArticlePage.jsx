@@ -22,7 +22,6 @@ import SEO from '../components/SEO';
 import NotFoundPage from './NotFoundPage';
 import { getLegacyArticleContent } from '../data/legacyArticleContent';
 import ComparisonTable from '../components/ComparisonTable';
-import AdSlot from '../components/AdSlot';
 
 function renderMarkdown(markdown) {
   const lines = markdown.split(/\r?\n/);
@@ -74,33 +73,6 @@ function renderMarkdown(markdown) {
   }
 
   return blocks;
-}
-
-const INLINE_ADS = ['banner300', 'banner468', 'banner320'];
-
-// Places up to three ads inside the article text, never directly after a heading.
-function withInlineAds(blocks, slug) {
-  const total = blocks.length;
-  if (total < 3) return blocks;
-  const adCount = total >= 9 ? 3 : total >= 6 ? 2 : 1;
-  const targets = Array.from({ length: adCount }, (_, i) => Math.round((total * (i + 1)) / (adCount + 1)));
-  const positions = new Set();
-  targets.forEach((target) => {
-    let position = Math.min(Math.max(target, 1), total - 1);
-    while (position < total - 1 && ['h4', 'h5'].includes(blocks[position - 1]?.props?.variant)) position += 1;
-    if (position < total) positions.add(position);
-  });
-
-  const result = [];
-  let adIndex = 0;
-  blocks.forEach((block, index) => {
-    if (positions.has(index)) {
-      result.push(<AdSlot key={`inline-ad-${slug}-${index}`} name={INLINE_ADS[adIndex % INLINE_ADS.length]} sx={{ my: 1 }} />);
-      adIndex += 1;
-    }
-    result.push(block);
-  });
-  return result;
 }
 
 export default function ArticlePage() {
@@ -161,10 +133,10 @@ export default function ArticlePage() {
           
           <Stack spacing={3} sx={{ mt: 3, maxWidth: 800, '& .MuiTypography-root': { overflowWrap: 'anywhere' } }}>
             {article.content
-              ? withInlineAds(renderMarkdown(article.content), article.slug)
-              : withInlineAds(content.paragraphs.map((paragraph) => (
+              ? renderMarkdown(article.content)
+              : content.paragraphs.map((paragraph) => (
               <Typography key={paragraph} variant="body1" color="text.secondary" lineHeight={1.8}>{paragraph}</Typography>
-              )), article.slug)}
+              ))}
           </Stack>
           {!article.automation?.generated && (
             <Paper elevation={0} sx={{ p: 3, my: 4, borderLeft: '4px solid', borderColor: 'primary.main', backgroundColor: 'background.paper', borderRadius: 3 }}>
@@ -200,8 +172,6 @@ export default function ArticlePage() {
           )}
            
           <Divider sx={{ my: 4 }} />
-
-          <AdSlot key={`native-${article.slug}`} name="native" sx={{ mb: 4 }} />
 
           <Typography variant="h4" fontWeight={800}>Related articles</Typography>
           <Grid container spacing={{ xs: 2, md: 3 }} sx={{ mt: 1 }}>
