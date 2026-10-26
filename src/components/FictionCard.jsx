@@ -2,14 +2,16 @@ import { useState } from 'react';
 import { Box, Card, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { MenuBookRounded } from '@mui/icons-material';
+import { episodesForSeries } from '../data/fiction.js';
 
 /**
  * Portrait novel card for fiction shelves and the fiction library grid.
- * Cover art on top (2:3), title below the image.
+ * Cover art on top (2:3), title and episode count below the image.
  */
-export default function FictionCard({ series, demo = false }) {
+export default function FictionCard({ series }) {
   const image = series.image || series.coverImage;
   const [imageFailed, setImageFailed] = useState(false);
+  const episodeCount = episodesForSeries(series.slug).length;
 
   return (
     <Card
@@ -66,27 +68,6 @@ export default function FictionCard({ series, demo = false }) {
       )}
 
       <Box sx={{ p: 1.25, pt: 1.5 }}>
-        {demo && (
-          <Typography
-            variant="caption"
-            sx={{
-              display: 'inline-block',
-              mb: 0.5,
-              px: 0.75,
-              py: 0.15,
-              borderRadius: 99,
-              fontSize: '0.62rem',
-              fontWeight: 800,
-              letterSpacing: '0.06em',
-              textTransform: 'uppercase',
-              color: 'fiction.accent',
-              border: '1px solid rgba(199,167,255,0.35)',
-            }}
-          >
-            Demo
-          </Typography>
-        )}
-
         <Typography
           component="h3"
           sx={{
@@ -102,6 +83,21 @@ export default function FictionCard({ series, demo = false }) {
         >
           {series.title}
         </Typography>
+
+        {episodeCount > 0 && (
+          <Typography
+            variant="caption"
+            sx={{
+              display: 'block',
+              mt: 0.5,
+              fontSize: '0.72rem',
+              fontWeight: 700,
+              color: 'rgba(213,197,245,0.75)',
+            }}
+          >
+            {episodeCount} episode{episodeCount === 1 ? '' : 's'}
+          </Typography>
+        )}
       </Box>
     </Card>
   );

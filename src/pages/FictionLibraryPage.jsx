@@ -36,20 +36,6 @@ export default function FictionLibraryPage() {
         canonical={activeGenre ? `/fiction?genre=${activeGenre}` : '/fiction'}
       />
 
-      <Box sx={{ bgcolor: '#161223', color: '#fff', py: { xs: 4, md: 6 }, borderBottom: '1px solid rgba(199,167,255,0.14)' }}>
-        <Container maxWidth="xl">
-          <Typography sx={{ color: '#C7A7FF', fontWeight: 800, textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '0.1em' }}>
-            LokkeeVerse Fiction
-          </Typography>
-          <Typography variant="h1" sx={{ mt: 1, fontSize: { xs: '2.4rem', sm: '3.2rem' } }}>
-            {activeGenre ? `${genreLabelForSlug(activeGenre)} stories` : 'Stories worth staying up for.'}
-          </Typography>
-          <Typography sx={{ mt: 1.5, mb: 4, maxWidth: 650, color: 'rgba(213,197,245,0.8)' }}>
-            Browse serial novels by genre and return whenever a new episode arrives.
-          </Typography>
-        </Container>
-      </Box>
-
       <Container maxWidth="xl" sx={{ py: { xs: 4, md: 6 } }}>
         <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', rowGap: 1, mb: 4 }} useFlexGap>
           <Chip

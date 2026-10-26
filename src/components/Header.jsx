@@ -108,7 +108,7 @@ export default function Header() {
         <Box sx={{ px: 2.5, pt: 2.5, pb: 2, borderBottom: '1px solid', borderColor: 'divider', flexShrink: 0 }}>
           <Stack direction="row" justifyContent="space-between" alignItems="center">
            
-            <IconButton aria-label="Close menu" onClick={closeMobile} sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 2, justifyContent: 'right' }}>
+            <IconButton aria-label="Close menu" onClick={closeMobile} sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 2, alignItems: 'right' }}>
               <CloseRounded fontSize="small" />
             </IconButton>
           </Stack>
