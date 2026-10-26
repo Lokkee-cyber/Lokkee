@@ -1,4 +1,5 @@
 export const navItems = [
+  { label: 'Home', path: '/' },
   { label: 'Serial Fiction', path: '/fiction' },
   { label: 'News Feed', path: '/news' },
   { label: 'AI Content', path: '/ai-content' },

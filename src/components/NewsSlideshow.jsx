@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Box, Chip, IconButton, Stack, Typography } from '@mui/material';
+import { Box, Chip, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { ArrowBackIosNewRounded, ArrowForwardIosRounded, PauseRounded, PlayArrowRounded } from '@mui/icons-material';
 import { alpha } from '@mui/material/styles';
 
-const AUTOPLAY_MS = 6000;
+const AUTOPLAY_MS = 15000;
 
 function NewsSlide({ article }) {
   return (
@@ -128,9 +127,6 @@ export default function NewsSlideshow({ articles }) {
     return () => clearInterval(timer);
   }, [playing, count]);
 
-  // Pause autoplay while the pointer is over the slideshow.
-  const pauseOnHover = playing && count > 1;
-
   if (!count) {
     return (
       <Box
@@ -184,33 +180,6 @@ export default function NewsSlideshow({ articles }) {
         >
           News Feed
         </Typography>
-
-        <Stack direction="row" spacing={0.75} alignItems="center">
-          <IconButton
-            size="small"
-            aria-label={playing ? 'Pause slideshow' : 'Play slideshow'}
-            onClick={() => setPlaying((p) => !p)}
-            sx={{ border: '1px solid', borderColor: 'divider' }}
-          >
-            {playing ? <PauseRounded fontSize="small" /> : <PlayArrowRounded fontSize="small" />}
-          </IconButton>
-          <IconButton
-            size="small"
-            aria-label="Previous story"
-            onClick={() => go(index - 1)}
-            sx={{ border: '1px solid', borderColor: 'divider' }}
-          >
-            <ArrowBackIosNewRounded sx={{ fontSize: 16 }} />
-          </IconButton>
-          <IconButton
-            size="small"
-            aria-label="Next story"
-            onClick={() => go(index + 1)}
-            sx={{ border: '1px solid', borderColor: 'divider' }}
-          >
-            <ArrowForwardIosRounded sx={{ fontSize: 16 }} />
-          </IconButton>
-        </Stack>
       </Stack>
 
       <Box
@@ -243,49 +212,36 @@ export default function NewsSlideshow({ articles }) {
         ))}
       </Box>
 
-      {/* Dots + 'Latest' action */}
-      <Stack
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-        sx={{ mt: 1.5 }}
+      {/* Dots centered under the slideshow */}
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          mt: 1.5,
+          width: '100%',
+          gap: 0.75,
+        }}
       >
-        <Stack direction="row" spacing={0.75}>
-          {articles.map((article, i) => (
-            <Box
-              key={article.slug}
-              component="button"
-              aria-label={`Go to story ${i + 1}: ${article.title}`}
-              onClick={() => go(i)}
-              sx={{
-                width: i === index ? 26 : 8,
-                height: 8,
-                borderRadius: 99,
-                border: 'none',
-                cursor: 'pointer',
-                bgcolor: i === index ? 'primary.main' : alpha('#ffffff', 0.22),
-                transition: 'width 250ms ease, background-color 250ms ease',
-                p: 0,
-              }}
-            />
-          ))}
-        </Stack>
-
-        <Link
-          to="/news"
-          style={{
-            textDecoration: 'none',
-            color: 'text.secondary',
-            fontWeight: 800,
-            fontSize: '0.9rem',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 4,
-          }}
-        >
-          Latest
-        </Link>
-      </Stack>
+        {articles.map((article, i) => (
+          <Box
+            key={article.slug}
+            component="button"
+            aria-label={`Go to story ${i + 1}: ${article.title}`}
+            onClick={() => go(i)}
+            sx={{
+              width: i === index ? 26 : 8,
+              height: 8,
+              borderRadius: 99,
+              border: 'none',
+              cursor: 'pointer',
+              bgcolor: i === index ? 'primary.main' : alpha('#ffffff', 0.22),
+              transition: 'width 250ms ease, background-color 250ms ease',
+              p: 0,
+            }}
+          />
+        ))}
+      </Box>
     </Box>
   );
 }
