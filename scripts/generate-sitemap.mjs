@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const dataUrl = new URL('../src/data/siteData.js', import.meta.url);
 const { categories, tools, articlePreviews, comparisons } = await import(dataUrl.href);
-const productionSiteUrl = 'https://www.toolpillot.com';
+const productionSiteUrl = 'https://www.lokkeeverse.com';
 const configuredSiteUrl = process.env.SITE_URL || process.env.VITE_SITE_URL;
 let siteUrl = productionSiteUrl;
 if (configuredSiteUrl) {

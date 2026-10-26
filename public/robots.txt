@@ -4,4 +4,4 @@ Disallow: /admin
 Disallow: /private
 Disallow: /api/
 Disallow: /api/private
-Sitemap: https://www.toolpillot.com/sitemap.xml
+Sitemap: https://www.lokkeeverse.com/sitemap.xml

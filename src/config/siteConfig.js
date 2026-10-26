@@ -1,4 +1,4 @@
-const productionSiteUrl = 'https://www.toolpillot.com';
+const productionSiteUrl = 'https://www.lokkeeverse.com';
 const configuredSiteUrl = import.meta.env.VITE_SITE_URL || import.meta.env.SITE_URL;
 let siteUrl = productionSiteUrl;
 if (!import.meta.env.PROD && configuredSiteUrl) {
@@ -16,7 +16,7 @@ export const siteConfig = {
   description: 'Read serial fiction, follow the news, and explore practical AI content on LokkeeVerse.',
   domain: siteUrl,
   siteUrl,
-  contactEmail: 'toolpillot.support@gmail.com',
+  contactEmail: 'lokkeeverse.support@gmail.com',
   gaMeasurementId: import.meta.env.VITE_GA_MEASUREMENT_ID || '',
   contactEndpoint: import.meta.env.VITE_CONTACT_ENDPOINT || '',
   newsletterEndpoint: import.meta.env.VITE_NEWSLETTER_ENDPOINT || '',

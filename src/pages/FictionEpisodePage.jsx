@@ -17,7 +17,7 @@ export default function FictionEpisodePage() {
 
   return (
     <>
-      <SEO title={`${episode.title} | ${series.title} | ToolPillot`} description={episode.excerpt || series.synopsis} canonical={`/fiction/${seriesSlug}/${episodeSlug}`} type="article" />
+      <SEO title={`${episode.title} | ${series.title} | LokkeeVerse`} description={episode.excerpt || series.synopsis} canonical={`/fiction/${seriesSlug}/${episodeSlug}`} type="article" />
 
       <Box sx={{ bgcolor: '#161223', minHeight: '100vh', color: '#EDEBF5' }}>
         <Container maxWidth="md" sx={{ py: { xs: 3, md: 6 } }}>

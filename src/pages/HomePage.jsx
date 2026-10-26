@@ -4,17 +4,12 @@ import { AutoAwesomeRounded, MenuBookRounded, NewspaperRounded } from '@mui/icon
 
 import SEO from '../components/SEO.jsx';
 import Shelf from '../components/Shelf.jsx';
+import NewsSlideshow from '../components/NewsSlideshow.jsx';
 import TileCard from '../components/TileCard.jsx';
 import CategoryTileCard from '../components/CategoryTileCard.jsx';
 import { publishedArticles } from '../data/articles.js';
 import { isAiArticle, isNewsArticle } from '../data/contentCategories.js';
 import { fictionGenres } from '../data/fictionGenres.js';
-
-const newsCategoryShelf = [
-  { title: 'Nigeria News', description: 'Stories from across Nigeria.', path: '/news?category=Nigeria%20News' },
-  { title: 'World News', description: 'Reporting and events from around the world.', path: '/news?category=World%20News' },
-  { title: 'Trending', description: "What readers are catching up on right now.", path: '/news' },
-];
 
 const aiCategoryShelf = [
   { title: 'AI Writing', description: 'Draft, edit and research faster with AI.', path: '/ai-writing' },
@@ -27,12 +22,6 @@ const aiCategoryShelf = [
   { title: 'AI for Business', description: 'Automation, marketing and operations.', path: '/ai-business' },
   { title: 'AI for Students', description: 'Study, research and note-taking help.', path: '/ai-students' },
 ];
-
-const newsTileImages = {
-  'Nigeria News': 'https://images.unsplash.com/photo-1618828665347-d870c38c95c7?auto=format&fit=crop&w=800&q=80',
-  'World News': 'https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=800&q=80',
-  Trending: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=80',
-};
 
 const aiTileImages = {
   'AI Writing': 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80',
@@ -54,20 +43,23 @@ export default function HomePage() {
   return (
     <>
       <SEO
-        title="ToolPillot | Serial Fiction, News & AI"
+        title="LokkeeVerse | Serial Fiction, News & AI"
         description="Discover original serial fiction, catch up on the latest news, and explore practical AI tools, guides and comparisons."
         canonical="/"
       />
 
       <Container maxWidth="xl" sx={{ py: { xs: 3, md: 4 }, px: { xs: 2, sm: 3 } }}>
-        {/* 1. Serial Fiction — first, visually distinct */}
+        {/* 1. News Feed — modern slide show */}
+        <NewsSlideshow articles={news} />
+
+        {/* 2. Serial Fiction */}
         <Shelf
           heading="Serial Fiction"
           subtitle="Browse by genre — ongoing stories you can discover, follow and keep reading."
           action={{ label: 'Explore all', to: '/fiction' }}
           contained
           ariaLabel="Serial Fiction"
-          cardBasis={{ xs: '46%', sm: '31%', xmd: '23%', md: '18%', lg: '15%', xl: '12%' }}
+          cardBasis={{ xs: '82%', sm: '46%', xmd: '34%', md: '27%', lg: '21%', xl: '16%' }}
           emptyMessage="New stories are on their way. Check back soon."
         >
           {genres.map((genre) => (
@@ -81,36 +73,13 @@ export default function HomePage() {
           ))}
         </Shelf>
 
-        {/* 2. News Feed */}
-        <Shelf
-          heading="News Feed"
-          subtitle="Reporting, culture and current affairs, newest first."
-          action={{ label: 'Latest', to: '/news' }}
-          ariaLabel="News Feed"
-          cardBasis={{ xs: '31%', sm: '23%', xmd: '18%', md: '15%', lg: '13%', xl: '10.5%' }}
-          emptyMessage="No published news stories yet."
-        >
-          {newsCategoryShelf.map((category) => (
-            <CategoryTileCard
-              key={category.path}
-              title={category.title}
-              description={category.description}
-              image={newsTileImages[category.title]}
-              to={category.path}
-            />
-          ))}
-          {news.map((article) => (
-            <TileCard key={article.slug} article={article} />
-          ))}
-        </Shelf>
-
         {/* 3. AI Content */}
         <Shelf
           heading="AI Content"
           subtitle="Practical AI tools, guides, prompts and comparisons to help you work smarter."
           action={{ label: 'Discover', to: '/ai-content' }}
           ariaLabel="AI Content"
-          cardBasis={{ xs: '31%', sm: '23%', xmd: '18%', md: '15%', lg: '13%', xl: '10.5%' }}
+          cardBasis={{ xs: '64%', sm: '38%', xmd: '30%', md: '24%', lg: '19%', xl: '15%' }}
           emptyMessage="Explore our AI categories and guides as new content is published."
         >
           {aiCategoryShelf.map((category) => (

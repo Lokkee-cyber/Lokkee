@@ -31,15 +31,15 @@ export default function FictionLibraryPage() {
   return (
     <>
       <SEO
-        title={activeGenre ? `${genreLabelForSlug(activeGenre)} Fiction | ToolPillot` : 'Serial Fiction & Novels | ToolPillot'}
-        description="Read original serial fiction on ToolPillot."
+        title={activeGenre ? `${genreLabelForSlug(activeGenre)} Fiction | LokkeeVerse` : 'Serial Fiction & Novels | LokkeeVerse'}
+        description="Read original serial fiction on LokkeeVerse."
         canonical={activeGenre ? `/fiction?genre=${activeGenre}` : '/fiction'}
       />
 
       <Box sx={{ bgcolor: '#161223', color: '#fff', py: { xs: 4, md: 6 }, borderBottom: '1px solid rgba(199,167,255,0.14)' }}>
         <Container maxWidth="xl">
           <Typography sx={{ color: '#C7A7FF', fontWeight: 800, textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '0.1em' }}>
-            ToolPillot Fiction
+            LokkeeVerse Fiction
           </Typography>
           <Typography variant="h1" sx={{ mt: 1, fontSize: { xs: '2.4rem', sm: '3.2rem' } }}>
             {activeGenre ? `${genreLabelForSlug(activeGenre)} stories` : 'Stories worth staying up for.'}

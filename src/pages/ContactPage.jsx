@@ -54,7 +54,7 @@ export default function ContactPage() {
       return;
     }
 
-    const subject = form.subject.trim() || 'ToolPillot Enquiry';
+    const subject = form.subject.trim() || 'LokkeeVerse Enquiry';
 
     const body = [
       `Name: ${form.name}`,
@@ -75,8 +75,8 @@ export default function ContactPage() {
   return (
     <>
       <SEO
-        title="Contact ToolPillot"
-        description="Contact ToolPillot with questions, feedback, corrections, or suggestions."
+        title="Contact LokkeeVerse"
+        description="Contact LokkeeVerse with questions, feedback, corrections, or suggestions."
       />
 
       <Container maxWidth="md" sx={{ py: { xs: 6, md: 10 } }}>
@@ -88,7 +88,7 @@ export default function ContactPage() {
             gutterBottom
             sx={{ fontSize: { xs: '2rem', md: '2.7rem' } }}
           >
-            Contact ToolPillot
+            Contact LokkeeVerse
           </Typography>
 
           <Typography color="text.secondary" sx={{ maxWidth: 520, mx: 'auto' }}>
@@ -156,7 +156,7 @@ export default function ContactPage() {
             <CardActionArea
               component="a"
               href={`mailto:${siteConfig.contactEmail}?subject=${encodeURIComponent(
-                'ToolPillot Enquiry'
+                'LokkeeVerse Enquiry'
               )}`}
               sx={{ height: '100%' }}
             >

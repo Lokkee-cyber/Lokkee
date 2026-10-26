@@ -32,10 +32,10 @@ export default function Header() {
     <AppBar position="sticky" elevation={0}>
       <Container maxWidth="xl" sx={{ px: { xs: 1.5, sm: 3 } }}>
         <Toolbar disableGutters sx={{ minHeight: { xs: 60, md: 72 }, gap: { xs: 0.5, md: 2 } }}>
-          <Box component={Link} to="/" aria-label="ToolPillot home" sx={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit', flexShrink: 0 }}>
+          <Box component={Link} to="/" aria-label="LokkeeVerse home" sx={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit', flexShrink: 0 }}>
             <Box component="img" src="/lokkeeverse-mark.svg" alt="" sx={{ width: { xs: 28, sm: 38 }, height: { xs: 28, sm: 38 }, objectFit: 'contain', mr: { xs: 0.5, sm: 1.25 } }} />
             <Typography variant="h6" sx={{ fontWeight: 900, fontSize: { xs: '0.9rem', sm: '1.2rem' }, letterSpacing: '-0.04em', color: 'text.primary', whiteSpace: 'nowrap' }}>
-              ToolPillot
+              LokkeeVerse
             </Typography>
           </Box>
 
@@ -53,7 +53,7 @@ export default function Header() {
           </Box>
 
           <Stack direction="row" spacing={{ xs: 0, sm: 0.75 }} alignItems="center" sx={{ ml: { xs: 'auto', lg: 0 }, flexShrink: 0 }}>
-            <IconButton component={Link} to="/search" aria-label="Search ToolPillot" color="primary" sx={{ width: { xs: 40, sm: 48 }, height: { xs: 40, sm: 48 } }}>
+            <IconButton component={Link} to="/search" aria-label="Search LokkeeVerse" color="primary" sx={{ width: { xs: 40, sm: 48 }, height: { xs: 40, sm: 48 } }}>
               <SearchRounded />
             </IconButton>
             <IconButton aria-label="Open navigation menu" aria-expanded={mobileOpen} sx={{ display: { xs: 'inline-flex', lg: 'none' }, width: { xs: 40, sm: 48 }, height: { xs: 40, sm: 48 } }} onClick={() => setMobileOpen(true)}>
@@ -73,7 +73,7 @@ export default function Header() {
           <Stack direction="row" spacing={1.25} alignItems="center" sx={{ mb: 2 }}>
             <Box component="img" src="/lokkeeverse-mark.svg" alt="" sx={{ width: 38, height: 38, objectFit: 'contain' }} />
             <Box>
-              <Typography variant="h6" fontWeight={900} lineHeight={1.2}>ToolPillot</Typography>
+              <Typography variant="h6" fontWeight={900} lineHeight={1.2}>LokkeeVerse</Typography>
               <Typography variant="caption" color="text.secondary">Serial fiction, news and AI</Typography>
             </Box>
           </Stack>

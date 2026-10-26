@@ -13,7 +13,7 @@ export default function FictionSeriesPage() {
 
   return (
     <>
-      <SEO title={`${series.title} | ToolPillot Fiction`} description={series.synopsis} canonical={`/fiction/${series.slug}`} image={series.image} type="article" />
+      <SEO title={`${series.title} | LokkeeVerse Fiction`} description={series.synopsis} canonical={`/fiction/${series.slug}`} image={series.image} type="article" />
 
       <Box sx={{ bgcolor: '#161223', color: '#fff', py: { xs: 4, md: 7 }, borderBottom: '1px solid rgba(199,167,255,0.14)' }}>
         <Container maxWidth="md">

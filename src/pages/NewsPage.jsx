@@ -52,21 +52,21 @@ export default function NewsPage() {
   return (
     <>
       <SEO
-        title="News | ToolPillot"
-        description="Browse the latest source-aware news stories published by ToolPillot."
+        title="News | LokkeeVerse"
+        description="Browse the latest source-aware news stories published by LokkeeVerse."
         canonical="/news"
       />
       <Container maxWidth="xl" sx={{ py: { xs: 3, sm: 4, md: 5 }, px: { xs: 2, sm: 3 } }}>
         <Box sx={{ mb: { xs: 3, md: 4 }, maxWidth: 820 }}>
           <Stack direction="row" spacing={1} alignItems="center" color="primary.main">
             <NewspaperRounded fontSize="small" />
-            <Typography variant="overline" fontWeight={800} letterSpacing="0.12em">ToolPillot News</Typography>
+            <Typography variant="overline" fontWeight={800} letterSpacing="0.12em">LokkeeVerse News</Typography>
           </Stack>
           <Typography variant="h1" sx={{ fontSize: { xs: '2.2rem', sm: '3rem', md: '3.5rem' }, lineHeight: 1.05 }}>
             News and updates
           </Typography>
           <Typography color="text.secondary" sx={{ mt: 1.5, maxWidth: 680 }}>
-            Reporting, culture, sport and current affairs from the ToolPillot editorial desk, newest first.
+            Reporting, culture, sport and current affairs from the LokkeeVerse editorial desk, newest first.
           </Typography>
         </Box>
 

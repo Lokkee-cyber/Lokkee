@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const contentDir = resolve(root, 'content/articles');
 const distDir = resolve(root, 'dist');
-const siteUrl = 'https://www.toolpillot.com';
+const siteUrl = 'https://www.lokkeeverse.com';
 
 const escapeHtml = (value = '') =>
   String(value).replace(/[&<>"']/g, (char) => ({
