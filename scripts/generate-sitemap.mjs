@@ -1,4 +1,4 @@
-import { readdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -19,7 +19,19 @@ if (configuredSiteUrl) {
   }
 }
 const contentDirectory = resolve(root, 'content', 'articles');
+const fictionSeriesDirectory = resolve(root, 'content', 'fiction', 'series');
+const fictionEpisodesDirectory = resolve(root, 'content', 'fiction', 'episodes');
 const contentFilenames = await readdir(contentDirectory);
+await mkdir(fictionSeriesDirectory, { recursive: true });
+await mkdir(fictionEpisodesDirectory, { recursive: true });
+const fictionSeries = [];
+const fictionEpisodes = [];
+for (const filename of await readdir(fictionSeriesDirectory)) {
+  if (filename.endsWith('.json')) { const item = JSON.parse(await readFile(resolve(fictionSeriesDirectory, filename), 'utf8')); if (item.status === 'published' && item.slug && !item.demo) fictionSeries.push(item); }
+}
+for (const filename of await readdir(fictionEpisodesDirectory)) {
+  if (filename.endsWith('.json')) { const item = JSON.parse(await readFile(resolve(fictionEpisodesDirectory, filename), 'utf8')); if (item.status === 'published' && item.slug && item.seriesSlug && !item.demo) fictionEpisodes.push(item); }
+}
 const deletedSlugs = new Set(contentFilenames
   .filter((filename) => filename.endsWith('.deleted'))
   .map((filename) => filename.slice(0, -'.deleted'.length)));
@@ -39,7 +51,7 @@ for (const filename of contentFilenames.filter((name) => name.endsWith('.json'))
 const routes = [
   '/', '/ai-tools', '/ai-video', '/ai-image', '/ai-writing', '/ai-audio',
   '/ai-coding', '/ai-creators', '/ai-business', '/ai-students',
-  '/comparisons', '/news', '/about', '/contact', '/privacy-policy',
+  '/comparisons', '/news', '/fiction', '/ai-content', '/about', '/contact', '/privacy-policy',
   '/terms', '/disclaimer', '/affiliate-disclosure', '/editorial-policy',
   '/articles', '/authors/lokkeeverse-editorial',
 ];
@@ -52,6 +64,8 @@ const urls = [
     .filter((article) => !deletedSlugs.has(article.slug) && !unpublishedSlugs.has(article.slug))
     .map((article) => `/articles/${article.slug}`),
   ...comparisons.map((comparison) => `/compare/${comparison.slug}`),
+  ...fictionSeries.map((series) => `/fiction/${series.slug}`),
+  ...fictionEpisodes.map((episode) => `/fiction/${episode.seriesSlug}/${episode.slug}`),
 ];
 
 for (const article of contentArticles) {

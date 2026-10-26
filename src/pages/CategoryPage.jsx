@@ -7,8 +7,10 @@ import { categories } from '../data/siteData.js';
 import { publishedArticles } from '../data/articles.js';
 import SEO from '../components/SEO.jsx';
 import { scrollToElement } from '../utils/scrollToElement.js';
+import { isAiArticle } from '../data/contentCategories.js';
 
 const categoryDescriptions = {
+  'ai-content': 'Practical guides, comparisons, prompts and explainers for using AI well.',
   'ai-tools': 'Discover the best AI tools for productivity, writing, coding, research and daily work.',
   'ai-video': 'Discover AI-powered tools for video creation, editing, animation, avatars and more.',
   'ai-image': 'Explore AI image generators and photo editing tools for design, art and marketing workflows.',
@@ -24,14 +26,15 @@ const categoryDescriptions = {
 const pageSize = 12;
 
 export default function CategoryPage({ categorySlug }) {
-  const category = categories.find((item) => item.slug === categorySlug) || categories[0];
+  const legacyTitles = { 'ai-tools': 'AI Tools', 'ai-video': 'AI Video', 'ai-image': 'AI Image', 'ai-writing': 'AI Writing', 'ai-audio': 'AI Voice & Audio', 'ai-coding': 'AI Coding', 'ai-creators': 'AI for Creators', 'ai-business': 'AI for Business', 'ai-students': 'AI for Students' };
+  const category = categories.find((item) => item.slug === categorySlug) || { title: legacyTitles[categorySlug] || 'AI Content', path: `/${categorySlug}`, description: categoryDescriptions[categorySlug] };
   const [page, setPage] = useState(1);
   const articlesRef = useRef(null);
   const previousPage = useRef(page);
 
   const categoryArticles = useMemo(
-    () => publishedArticles.filter((article) => article.category === category.title),
-    [category.title],
+    () => categorySlug === 'ai-content' ? publishedArticles.filter(isAiArticle) : publishedArticles.filter((article) => article.originalCategory === category.title),
+    [category.title, categorySlug],
   );
   const visibleArticles = categoryArticles.slice((page - 1) * pageSize, page * pageSize);
 

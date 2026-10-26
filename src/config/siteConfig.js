@@ -13,7 +13,7 @@ if (!import.meta.env.PROD && configuredSiteUrl) {
 export const siteConfig = {
   name: 'LokkeeVerse',
   tagline: 'Explore More. Create Smarter.',
-  description: 'Discover verified AI tools, practical comparisons, and smarter workflows for creators, students, businesses, and developers.',
+  description: 'Read serial fiction, follow the news, and explore practical AI content on LokkeeVerse.',
   domain: siteUrl,
   siteUrl,
   contactEmail: 'toolpillot.support@gmail.com',
@@ -23,8 +23,8 @@ export const siteConfig = {
   author: {
     name: 'LokkeeVerse',
     slug: 'lokkeeverse-editorial',
-    bio: 'LokkeeVerse creates source-aware, practical guidance for evaluating AI tools and improving everyday digital workflows.',
-    areas: ['AI tools', 'workflow guidance', 'product research', 'editorial quality'],
+    bio: 'LokkeeVerse publishes serial fiction, source-aware news, and practical AI guidance.',
+    areas: ['serial fiction', 'news', 'AI tools', 'editorial quality'],
   },
 };
 
@@ -41,6 +41,10 @@ export const publicRoutes = [
   '/ai-students',
   '/comparisons',
   '/news',
+  '/fiction',
+  '/fiction/:seriesSlug',
+  '/fiction/:seriesSlug/:episodeSlug',
+  '/ai-content',
   '/search',
   '/about',
   '/contact',

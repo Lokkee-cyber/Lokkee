@@ -5,7 +5,7 @@ import Header from './Header';
 import Footer from './Footer';
 import CookieConsent from './CookieConsent';
 
-export default function Layout({ mode, onToggleMode }) {
+export default function Layout() {
   const { pathname } = useLocation();
 
   useLayoutEffect(() => {
@@ -14,7 +14,7 @@ export default function Layout({ mode, onToggleMode }) {
 
   return (
     <>
-      <Header mode={mode} onToggleMode={onToggleMode} />
+      <Header />
       <Box component="main" sx={{ minHeight: '70vh', minWidth: 0 }}>
         <Outlet />
       </Box>

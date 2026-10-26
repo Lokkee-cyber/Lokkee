@@ -6,14 +6,12 @@ import { reopenConsent } from '../utils/consent';
 
 const footerLinks = {
   Explore: [
+    { label: 'Serial Fiction', to: '/fiction' },
+    { label: 'News Feed', to: '/news' },
+    { label: 'AI Content', to: '/ai-content' },
     { label: 'AI Tools', to: '/ai-tools' },
-    { label: 'AI Video', to: '/ai-video' },
-    { label: 'AI Image', to: '/ai-image' },
-    { label: 'AI Writing', to: '/ai-writing' },
-    { label: 'AI Coding', to: '/ai-coding' },
   ],
   Resources: [
-    { label: 'News', to: '/news' },
     { label: 'Articles', to: '/articles' },
     { label: 'Comparisons', to: '/comparisons' },
     { label: 'AI Creators', to: '/ai-creators' },
@@ -49,10 +47,10 @@ export default function Footer() {
           <Grid size={{ xs: 12, md: 4 }}>
             <Box component={Link} to="/" sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, color: 'inherit', textDecoration: 'none', mb: 1 }}>
               <Box component="img" src="/lokkeeverse-mark.svg" alt="" sx={{ width: 32, height: 32, objectFit: 'contain' }} />
-              <Typography variant="h6" fontWeight={800}>LokkeeVerse</Typography>
+              <Typography variant="h6" fontWeight={800}>ToolPillot</Typography>
             </Box>
             <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 330 }}>
-              Discover verified AI tools, practical comparisons, and smart workflows for creators, students, developers, and businesses.
+              Serial fiction, timely news, and practical AI content for curious people.
             </Typography>
             <Stack direction="row" spacing={1} sx={{ mt: 2 }}>
               {socialLinks.map((link) => (
@@ -78,7 +76,7 @@ export default function Footer() {
         </Grid>
         <Divider sx={{ my: 3 }} />
         <Typography variant="body2" color="text.secondary" textAlign="center">
-          © {new Date().getFullYear()} LokkeeVerse. All rights reserved.
+          © {new Date().getFullYear()} ToolPillot. All rights reserved.
         </Typography>
       </Container>
     </Box>

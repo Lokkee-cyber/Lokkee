@@ -2,6 +2,7 @@ import { articlePreviews } from './siteData.js';
 import { comparisonDataForArticle } from './comparisonData.js';
 import { popularGuideSlugs } from './popularGuideSlugs.js';
 import { sortArticlesByPublishedDate } from '../utils/sortArticles.js';
+import { mainCategoryFor } from './contentCategories.js';
 
 const fallbackImage = 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=1200&q=80';
 const localArticleModules = import.meta.glob('../../content/articles/*.json', {
@@ -60,7 +61,7 @@ const siteArticles = [
 const displayAuthor = (author) => (!author || author === 'LokkeeVerse Editorial' ? 'LokkeeVerse' : author);
 
 export const publishedArticles = sortArticlesByPublishedDate(
-  siteArticles.map((article) => ({ ...article, author: displayAuthor(article.author) })),
+  siteArticles.map((article) => ({ ...article, originalCategory: article.category, category: mainCategoryFor(article), author: displayAuthor(article.author) })),
 );
 
 export const popularGuides = popularGuideSlugs

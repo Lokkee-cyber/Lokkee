@@ -60,7 +60,7 @@ export function validateArticle(value, routeSlug, categoryNames) {
       || feature.values.some((item) => typeof item !== 'string' || !item.trim() || item.length > 500))) {
       return 'Each comparison feature needs a name and a value for every compared object.';
     }
-    if (value.category !== 'AI Comparisons') return 'Comparison articles must use the AI Comparisons category.';
+    if (!['AI Content', 'AI Comparisons'].includes(value.category)) return 'Comparison articles must use the AI Content category.';
   } else if (value.category === 'AI Comparisons') {
     return 'Choose comparison article and complete its comparison table.';
   }

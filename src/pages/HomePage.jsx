@@ -1,195 +1,225 @@
-import { Box, Button, Container, Grid, Paper, Stack, Typography } from '@mui/material';
+import { Box, Container, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import {
-  AutoAwesome,
-  BusinessCenterRounded,
-  CodeRounded,
-  CompareArrowsRounded,
-  EditNoteRounded,
-  EmojiPeopleRounded,
-  GraphicEqRounded,
-  ImageRounded,
-  SchoolRounded,
-  VideoCameraBackRounded,
-} from '@mui/icons-material';
-import { categories, tools } from '../data/siteData.js';
-import { publishedArticles } from '../data/articles.js';
-import SEO from '../components/SEO.jsx';
-import ToolCard from '../components/ToolCard.jsx';
-import ArticleCard from '../components/ArticleCard.jsx';
-import CategoryCard from '../components/CategoryCard.jsx';
-import Newsletter from '../components/Newsletter.jsx';
-import SearchBar from '../components/SearchBar.jsx';
-import AdSlot from '../components/AdSlot.jsx';
+import { AutoAwesomeRounded, MenuBookRounded, NewspaperRounded } from '@mui/icons-material';
 
-const categoryIcons = {
-  'AI Tools': AutoAwesome,
-  'AI Video': VideoCameraBackRounded,
-  'AI Image': ImageRounded,
-  'AI Writing': EditNoteRounded,
-  'AI Voice & Audio': GraphicEqRounded,
-  'AI Coding': CodeRounded,
-  'AI for Creators': EmojiPeopleRounded,
-  'AI for Business': BusinessCenterRounded,
-  'AI for Students': SchoolRounded,
-  'AI Comparisons': CompareArrowsRounded,
+import SEO from '../components/SEO.jsx';
+import Shelf from '../components/Shelf.jsx';
+import TileCard from '../components/TileCard.jsx';
+import CategoryTileCard from '../components/CategoryTileCard.jsx';
+import { publishedArticles } from '../data/articles.js';
+import { isAiArticle, isNewsArticle } from '../data/contentCategories.js';
+import { fictionGenres } from '../data/fictionGenres.js';
+
+const newsCategoryShelf = [
+  { title: 'Nigeria News', description: 'Stories from across Nigeria.', path: '/news?category=Nigeria%20News' },
+  { title: 'World News', description: 'Reporting and events from around the world.', path: '/news?category=World%20News' },
+  { title: 'Trending', description: "What readers are catching up on right now.", path: '/news' },
+];
+
+const aiCategoryShelf = [
+  { title: 'AI Writing', description: 'Draft, edit and research faster with AI.', path: '/ai-writing' },
+  { title: 'AI Video', description: 'Create and edit video with generative tools.', path: '/ai-video' },
+  { title: 'AI Tools', description: 'Verified tools for everyday work.', path: '/ai-tools' },
+  { title: 'AI Image', description: 'Generate and edit images with AI.', path: '/ai-image' },
+  { title: 'AI Voice & Audio', description: 'Voiceovers, podcasts and audio clean-up.', path: '/ai-audio' },
+  { title: 'AI Coding', description: 'Copilots and helpers for developers.', path: '/ai-coding' },
+  { title: 'AI for Creators', description: 'Workflows for YouTube, socials and beyond.', path: '/ai-creators' },
+  { title: 'AI for Business', description: 'Automation, marketing and operations.', path: '/ai-business' },
+  { title: 'AI for Students', description: 'Study, research and note-taking help.', path: '/ai-students' },
+];
+
+const newsTileImages = {
+  'Nigeria News': 'https://images.unsplash.com/photo-1618828665347-d870c38c95c7?auto=format&fit=crop&w=800&q=80',
+  'World News': 'https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=800&q=80',
+  Trending: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=80',
+};
+
+const aiTileImages = {
+  'AI Writing': 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80',
+  'AI Video': 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80',
+  'AI Tools': 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=800&q=80',
+  'AI Image': 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80',
+  'AI Voice & Audio': 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=800&q=80',
+  'AI Coding': 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=800&q=80',
+  'AI for Creators': 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80',
+  'AI for Business': 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80',
+  'AI for Students': 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80',
 };
 
 export default function HomePage() {
-  const latestArticles = publishedArticles.slice(0, 30);
+  const news = publishedArticles.filter(isNewsArticle).slice(0, 10);
+  const ai = publishedArticles.filter(isAiArticle).slice(0, 10);
+  const genres = fictionGenres.slice(0, 8);
 
   return (
     <>
-      <SEO title="LokkeeVerse | Discover useful AI tools and smarter workflows" description="Discover, compare, and learn how to use AI tools and software that help you create, work, and grow smarter." canonical="/" />
-      <Container maxWidth="xl" sx={{ py: { xs: 3, md: 5 }, px: { xs: 2, sm: 3 } }}>
-        <Paper
-          elevation={0}
+      <SEO
+        title="ToolPillot | Serial Fiction, News & AI"
+        description="Discover original serial fiction, catch up on the latest news, and explore practical AI tools, guides and comparisons."
+        canonical="/"
+      />
+
+      <Container maxWidth="xl" sx={{ py: { xs: 3, md: 4 }, px: { xs: 2, sm: 3 } }}>
+        {/* 1. Serial Fiction — first, visually distinct */}
+        <Shelf
+          heading="Serial Fiction"
+          subtitle="Browse by genre — ongoing stories you can discover, follow and keep reading."
+          action={{ label: 'Explore all', to: '/fiction' }}
+          contained
+          ariaLabel="Serial Fiction"
+          cardBasis={{ xs: '46%', sm: '31%', xmd: '23%', md: '18%', lg: '15%', xl: '12%' }}
+          emptyMessage="New stories are on their way. Check back soon."
+        >
+          {genres.map((genre) => (
+            <CategoryTileCard
+              key={genre.slug}
+              title={genre.label}
+              description={genre.description}
+              image={genre.image}
+              to={`/fiction?genre=${genre.slug}`}
+            />
+          ))}
+        </Shelf>
+
+        {/* 2. News Feed */}
+        <Shelf
+          heading="News Feed"
+          subtitle="Reporting, culture and current affairs, newest first."
+          action={{ label: 'Latest', to: '/news' }}
+          ariaLabel="News Feed"
+          cardBasis={{ xs: '31%', sm: '23%', xmd: '18%', md: '15%', lg: '13%', xl: '10.5%' }}
+          emptyMessage="No published news stories yet."
+        >
+          {newsCategoryShelf.map((category) => (
+            <CategoryTileCard
+              key={category.path}
+              title={category.title}
+              description={category.description}
+              image={newsTileImages[category.title]}
+              to={category.path}
+            />
+          ))}
+          {news.map((article) => (
+            <TileCard key={article.slug} article={article} />
+          ))}
+        </Shelf>
+
+        {/* 3. AI Content */}
+        <Shelf
+          heading="AI Content"
+          subtitle="Practical AI tools, guides, prompts and comparisons to help you work smarter."
+          action={{ label: 'Discover', to: '/ai-content' }}
+          ariaLabel="AI Content"
+          cardBasis={{ xs: '31%', sm: '23%', xmd: '18%', md: '15%', lg: '13%', xl: '10.5%' }}
+          emptyMessage="Explore our AI categories and guides as new content is published."
+        >
+          {aiCategoryShelf.map((category) => (
+            <CategoryTileCard
+              key={category.path}
+              title={category.title}
+              description={category.description}
+              image={aiTileImages[category.title]}
+              to={category.path}
+            />
+          ))}
+          {ai.map((article) => (
+            <TileCard key={article.slug} article={article} />
+          ))}
+        </Shelf>
+
+        {/* Secondary discovery links */}
+        <Box
           sx={{
-            p: { xs: 3, sm: 4, md: 5 },
-            mb: { xs: 5, md: 7 },
-            borderRadius: { xs: 3, md: 5 },
-            overflow: 'hidden',
+            mt: { xs: 2, md: 4 },
+            p: { xs: 2.5, md: 4 },
             border: 1,
             borderColor: 'divider',
-            background: (theme) => theme.palette.mode === 'dark'
-              ? 'linear-gradient(125deg, rgba(91,76,245,0.2), rgba(19,184,166,0.12) 70%, rgba(17,26,43,0.96))'
-              : 'linear-gradient(125deg, rgba(91,76,245,0.12), rgba(19,184,166,0.08) 70%, rgba(255,255,255,0.9))',
+            borderRadius: 3,
+            bgcolor: 'background.paper',
           }}
         >
-          <Grid container alignItems="center" spacing={{ xs: 3, md: 5 }}>
-            <Grid size={{ xs: 12, md: 7 }}>
-              <Typography variant="overline" color="primary.main" fontWeight={800} letterSpacing="0.12em">
-                AI tools, explained clearly
+          <Stack
+            direction={{ xs: 'column', md: 'row' }}
+            alignItems={{ xs: 'flex-start', md: 'center' }}
+            spacing={2}
+          >
+            <Box sx={{ flexGrow: 1 }}>
+              <Typography variant="h5" fontWeight={900}>
+                Explore your way
               </Typography>
-              <Typography variant="h1" sx={{ mt: 1, maxWidth: 760, fontSize: { xs: '2.4rem', sm: '3.35rem', md: '4rem' }, lineHeight: 1.04 }}>
-                Find the right AI tools for the work you do.
+              <Typography color="text.secondary" sx={{ mt: 0.75 }}>
+                Choose a section and find something worth your time.
               </Typography>
-              <Typography variant="h6" color="text.secondary" sx={{ mt: 2.5, mb: 3, maxWidth: 650, fontWeight: 400, lineHeight: 1.6 }}>
-                Clear guides, useful comparisons, and practical workflows to help you choose and use AI with confidence.
-              </Typography>
-              <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5}>
-                <Button component={Link} to="/articles" variant="contained" size="large" disableElevation>
-                  Explore all articles
-                </Button>
-                <Button component={Link} to="/ai-tools" variant="outlined" size="large">
-                  Browse AI tools
-                </Button>
-              </Stack>
-            </Grid>
-            <Grid size={{ xs: 12, md: 5 }}>
-              <Paper
-                elevation={0}
+            </Box>
+
+            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.25} sx={{ width: { xs: '100%', md: 'auto' } }}>
+              <Box
+                component={Link}
+                to="/fiction"
                 sx={{
-                  minHeight: { xs: 190, md: 230 },
-                  p: { xs: 2.5, md: 3.5 },
-                  borderRadius: 3,
-                  color: '#fff',
-                  background: 'linear-gradient(145deg, #28216f 0%, #5145d8 58%, #117f83 100%)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 1,
+                  px: 2.25,
+                  py: 1.25,
+                  borderRadius: 2.5,
+                  fontWeight: 800,
+                  color: 'fiction.accent',
+                  border: '1px solid rgba(199,167,255,0.35)',
+                  textDecoration: 'none',
+                  '&:hover': { bgcolor: 'action.hover' },
                 }}
               >
-                <Box>
-                  <Typography variant="overline" sx={{ color: 'rgba(255,255,255,0.76)', fontWeight: 800, letterSpacing: '0.12em' }}>
-                    Explore with purpose
-                  </Typography>
-                  <Typography variant="h4" fontWeight={800} sx={{ mt: 1, maxWidth: 360 }}>
-                    Practical knowledge for better AI decisions.
-                  </Typography>
-                </Box>
-                <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap sx={{ mt: 3 }}>
-                  {[`${publishedArticles.length} guides`, `${categories.length} topics`, `${tools.length} tools`].map((label) => (
-                    <Box key={label} sx={{ px: 1.5, py: 0.75, borderRadius: 99, border: '1px solid rgba(255,255,255,0.3)', bgcolor: 'rgba(255,255,255,0.1)', fontSize: 13, fontWeight: 700 }}>
-                      {label}
-                    </Box>
-                  ))}
-                </Stack>
-              </Paper>
-            </Grid>
-          </Grid>
-        </Paper>
+                <MenuBookRounded fontSize="small" />
+                Read stories
+              </Box>
 
-        <AdSlot name="banner320" sx={{ mb: { xs: 5, md: 6 } }} />
+              <Box
+                component={Link}
+                to="/news"
+                sx={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 1,
+                  px: 2.25,
+                  py: 1.25,
+                  borderRadius: 2.5,
+                  fontWeight: 800,
+                  color: 'text.primary',
+                  border: '1px solid',
+                  borderColor: 'divider',
+                  textDecoration: 'none',
+                  '&:hover': { bgcolor: 'action.hover' },
+                }}
+              >
+                <NewspaperRounded fontSize="small" />
+                Read news
+              </Box>
 
-        <Box component="section" aria-labelledby="latest-articles-heading" sx={{ mb: { xs: 5, md: 6 } }}>
-          <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'stretch', sm: 'flex-end' }} spacing={1.5} sx={{ mb: 3 }}>
-            <Box>
-              <Typography variant="overline" color="primary.main" fontWeight={800} letterSpacing="0.1em">Fresh from the editorial desk</Typography>
-              <Typography id="latest-articles-heading" variant="h3" fontWeight={800}>Latest articles</Typography>
-              <Typography color="text.secondary" sx={{ mt: 0.75 }}>Newly published guides, with the newest stories first.</Typography>
-            </Box>
-            <Button component={Link} to="/articles" variant="outlined" sx={{ alignSelf: { xs: 'flex-start', sm: 'auto' } }}>
-              View all {publishedArticles.length} articles
-            </Button>
+              <Box
+                component={Link}
+                to="/ai-tools"
+                sx={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 1,
+                  px: 2.25,
+                  py: 1.25,
+                  borderRadius: 2.5,
+                  fontWeight: 800,
+                  color: 'primary.main',
+                  border: '1px solid',
+                  borderColor: 'divider',
+                  textDecoration: 'none',
+                  '&:hover': { bgcolor: 'action.hover' },
+                }}
+              >
+                <AutoAwesomeRounded fontSize="small" />
+                Explore AI
+              </Box>
+            </Stack>
           </Stack>
-          <Grid container spacing={{ xs: 2, md: 3 }} alignItems="stretch">
-            {latestArticles.map((article) => (
-              <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={article.slug}>
-                <ArticleCard article={article} />
-              </Grid>
-            ))}
-          </Grid>
-          {publishedArticles.length > latestArticles.length && (
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
-              <Button component={Link} to="/articles" variant="contained" size="large" disableElevation>
-                View more articles
-              </Button>
-            </Box>
-          )}
         </Box>
-
-        <AdSlot name="banner300" sx={{ mb: { xs: 5, md: 6 } }} />
-
-        <Paper elevation={0} sx={{ p: { xs: 2.5, md: 3 }, mb: { xs: 5, md: 6 }, border: 1, borderColor: 'divider', borderRadius: 3 }}>
-          <Stack direction={{ xs: 'column', md: 'row' }} alignItems={{ xs: 'stretch', md: 'center' }} spacing={2}>
-            <Box sx={{ flexGrow: 1 }}>
-              <Typography variant="h6" fontWeight={800}>Find the right tool faster</Typography>
-              <Typography variant="body2" color="text.secondary">Search tools, articles, and topics by name or workflow.</Typography>
-            </Box>
-            <Box sx={{ width: { xs: '100%', md: 460 } }}><SearchBar compact /></Box>
-          </Stack>
-        </Paper>
-
-        <AdSlot name="native" sx={{ mb: { xs: 5, md: 6 } }} />
-
-        <Box component="section" sx={{ mb: { xs: 5, md: 6 } }}>
-          <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'stretch', sm: 'flex-end' }} spacing={1.5} sx={{ mb: 3 }}>
-            <Box>
-              <Typography variant="overline" color="primary.main" fontWeight={800}>Make a confident choice</Typography>
-              <Typography variant="h3" fontWeight={800}>Useful AI tools</Typography>
-            </Box>
-            <Button component={Link} to="/ai-tools" variant="text" sx={{ alignSelf: { xs: 'flex-start', sm: 'auto' } }}>Browse all tools</Button>
-          </Stack>
-          <Grid container spacing={{ xs: 2, md: 3 }}>
-            {tools.map((tool) => (
-              <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={tool.slug}><ToolCard tool={tool} /></Grid>
-            ))}
-          </Grid>
-        </Box>
-
-        <AdSlot name="banner320" sx={{ mb: { xs: 5, md: 6 } }} />
-
-        <Box component="section" sx={{ mb: { xs: 5, md: 6 } }}>
-          <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'stretch', sm: 'flex-end' }} spacing={1.5} sx={{ mb: 3 }}>
-            <Box>
-              <Typography variant="overline" color="primary.main" fontWeight={800}>Browse by workflow</Typography>
-              <Typography variant="h3" fontWeight={800}>Explore topics</Typography>
-            </Box>
-            <Button component={Link} to="/comparisons" variant="text" sx={{ alignSelf: { xs: 'flex-start', sm: 'auto' } }}>See comparisons</Button>
-          </Stack>
-          <Grid container spacing={{ xs: 2, md: 3 }}>
-            {categories.map((category) => (
-              <Grid size={{ xs: 12, sm: 6, lg: 3 }} key={category.slug}>
-                <CategoryCard category={category} icon={categoryIcons[category.title] || AutoAwesome} />
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-
-        <AdSlot name="banner300" sx={{ mb: { xs: 5, md: 6 } }} />
-
-        <Box sx={{ py: { xs: 3, md: 5 } }}><Newsletter /></Box>
       </Container>
     </>
   );

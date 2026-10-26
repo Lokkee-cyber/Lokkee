@@ -1,11 +1,25 @@
 export const navItems = [
+  { label: 'Serial Fiction', path: '/fiction' },
+  { label: 'News Feed', path: '/news' },
+  { label: 'AI Content', path: '/ai-content' },
   { label: 'Explore', path: '/articles' },
-  { label: 'Comparisons', path: '/comparisons' },
-  { label: 'Search', path: '/search' },
   { label: 'About', path: '/about' },
 ];
 
-export const categories = [
+export const aiNavItems = [
+  { label: 'AI Tools', path: '/ai-tools' },
+  { label: 'AI Writing', path: '/ai-writing' },
+  { label: 'AI Video', path: '/ai-video' },
+  { label: 'AI Image', path: '/ai-image' },
+  { label: 'AI Voice & Audio', path: '/ai-audio' },
+  { label: 'AI Coding', path: '/ai-coding' },
+  { label: 'AI for Creators', path: '/ai-creators' },
+  { label: 'AI for Business', path: '/ai-business' },
+  { label: 'AI for Students', path: '/ai-students' },
+  { label: 'AI Comparisons', path: '/comparisons' },
+];
+
+export const legacyCategories = [
   {
     slug: 'ai-tools',
     title: 'AI Tools',
@@ -76,6 +90,12 @@ export const categories = [
     articleCount: 12,
     path: '/comparisons',
   },
+];
+
+export const categories = [
+  { slug: 'fiction', title: 'Serial Fiction / Novels', description: 'Immersive serialized stories and novels.', articleCount: 0, path: '/fiction' },
+  { slug: 'news', title: 'News Feed', description: 'News, culture and current affairs.', articleCount: 0, path: '/news' },
+  { slug: 'ai-content', title: 'AI Content', description: 'AI tools, tutorials, prompts and comparisons.', articleCount: 0, path: '/ai-content' },
 ];
 
 export const tools = [

@@ -60,6 +60,7 @@ const legacySlugs = new Set(
 
 const categoryNames = new Set([
   ...categories.map((category) => category.title),
+  'AI Tools', 'AI Video', 'AI Image', 'AI Writing', 'AI Voice & Audio', 'AI Coding', 'AI for Creators', 'AI for Business', 'AI for Students', 'AI Comparisons',
   ...automationArticleCategoryNames,
 ]);
 
@@ -315,8 +316,8 @@ function validateArticle(value, routeSlug) {
       return 'Each comparison feature needs a name and a value for every compared object.';
     }
 
-    if (value.category !== 'AI Comparisons') {
-      return 'Comparison articles must use the AI Comparisons category.';
+    if (!['AI Content', 'AI Comparisons'].includes(value.category)) {
+      return 'Comparison articles must use the AI Content category.';
     }
   } else if (value.category === 'AI Comparisons') {
     return 'Choose comparison article and complete its comparison table.';

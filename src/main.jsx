@@ -8,27 +8,17 @@ import { getDesignTokens } from './theme/theme';
 import { siteConfig } from './config/siteConfig';
 import Analytics from './components/Analytics';
 
-const getInitialTheme = () => {
-  const storedTheme = localStorage.getItem('lokkeeverse-theme');
-  return storedTheme === 'dark' || storedTheme === 'light' ? storedTheme : 'light';
-};
+// The site ships a single dark theme; no light-mode variant exists.
+const theme = getDesignTokens();
 
 function Root() {
-  const [mode, setMode] = React.useState(getInitialTheme());
-
-  React.useEffect(() => {
-    localStorage.setItem('lokkeeverse-theme', mode);
-  }, [mode]);
-
-  const theme = React.useMemo(() => getDesignTokens(mode), [mode]);
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <HelmetProvider>
         <BrowserRouter>
           <Analytics measurementId={siteConfig.gaMeasurementId} />
-          <App mode={mode} setMode={setMode} />
+          <App />
         </BrowserRouter>
       </HelmetProvider>
     </ThemeProvider>

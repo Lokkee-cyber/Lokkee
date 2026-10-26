@@ -1,88 +1,118 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Alert, Box, Button, Container, InputAdornment, Pagination, Paper, Stack, TextField, Typography } from '@mui/material';
+import { useSearchParams } from 'react-router-dom';
+import { Alert, Box, Button, Chip, Container, InputAdornment, Pagination, Stack, TextField, Typography } from '@mui/material';
 import { NewspaperRounded, SearchRounded } from '@mui/icons-material';
 import { publishedArticles } from '../data/articles.js';
 import ArticleCard from '../components/ArticleCard.jsx';
 import SEO from '../components/SEO.jsx';
+import { isNewsArticle } from '../data/contentCategories.js';
 
 const pageSize = 12;
-const publishedNews = publishedArticles.filter((article) => (
-  article.status === 'published' && article.automation?.generated === true
-));
+const publishedNews = publishedArticles.filter(isNewsArticle);
+
+const NEWS_CATEGORIES = ['Nigeria News', 'World News'];
 
 export default function NewsPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
+  const activeCategory = searchParams.get('category') || '';
   const normalizedQuery = query.trim().toLowerCase();
+
+  const availableCategories = useMemo(
+    () => [...new Set(publishedNews.map((article) => article.originalCategory || article.category).filter(Boolean))],
+    [],
+  );
+
   const matchingNews = useMemo(() => publishedNews.filter((article) => {
+    const articleCategory = article.originalCategory || article.category;
+    const matchesCategory = !activeCategory || articleCategory === activeCategory;
     const sourceNames = (article.sourceReferences || []).map((source) => source.publisher || source.attribution || '');
-    return !normalizedQuery || [
+    return matchesCategory && (!normalizedQuery || [
       article.title,
       article.excerpt,
       article.category,
       ...(article.tags || []),
       ...sourceNames,
-    ].filter(Boolean).join(' ').toLowerCase().includes(normalizedQuery);
-  }), [normalizedQuery]);
+    ].filter(Boolean).join(' ').toLowerCase().includes(normalizedQuery));
+  }), [activeCategory, normalizedQuery]);
 
-  useEffect(() => setPage(1), [normalizedQuery]);
+  useEffect(() => setPage(1), [normalizedQuery, activeCategory]);
 
   const pageArticles = matchingNews.slice((page - 1) * pageSize, page * pageSize);
+
+  const setCategory = (category) => {
+    if (category) {
+      setSearchParams({ category });
+    } else {
+      setSearchParams({});
+    }
+  };
 
   return (
     <>
       <SEO
-        title="News | LokkeeVerse"
-        description="Browse the latest source-aware news stories published by LokkeeVerse."
+        title="News | ToolPillot"
+        description="Browse the latest source-aware news stories published by ToolPillot."
         canonical="/news"
       />
-      <Container maxWidth="xl" sx={{ py: { xs: 3, sm: 4, md: 6 }, px: { xs: 2, sm: 3 } }}>
-        <Paper
-          elevation={0}
-          sx={{
-            mb: { xs: 3, md: 5 },
-            p: { xs: 2.5, sm: 4, md: 5 },
-            border: 1,
-            borderColor: 'divider',
-            borderRadius: { xs: 3, md: 5 },
-            background: (theme) => theme.palette.mode === 'dark'
-              ? 'linear-gradient(125deg, rgba(91,76,245,0.24), rgba(19,184,166,0.16) 68%, rgba(16,27,45,0.94))'
-              : 'linear-gradient(125deg, rgba(91,76,245,0.13), rgba(19,184,166,0.1) 68%, rgba(255,255,255,0.8))',
-          }}
-        >
-          <Stack spacing={2.5} sx={{ maxWidth: 820 }}>
-            <Stack direction="row" spacing={1} alignItems="center" color="primary.main">
-              <NewspaperRounded fontSize="small" />
-              <Typography variant="overline" fontWeight={800} letterSpacing="0.12em">LokkeeVerse News</Typography>
-            </Stack>
-            <Box>
-              <Typography variant="h1" sx={{ fontSize: 'clamp(2.2rem, 6vw, 4rem)', lineHeight: 1.05 }}>
-                News and updates
-              </Typography>
-              <Typography color="text.secondary" sx={{ mt: 1.5, maxWidth: 680 }}>
-                Source-aware stories reviewed and published by the LokkeeVerse editorial team, newest first.
-              </Typography>
-            </Box>
-            <TextField
-              fullWidth
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search news by headline, topic, or source"
-              inputProps={{ 'aria-label': 'Search published news' }}
-              InputProps={{
-                startAdornment: <InputAdornment position="start"><SearchRounded color="action" /></InputAdornment>,
-              }}
-              sx={{ maxWidth: 640, bgcolor: 'background.paper', borderRadius: 2 }}
-            />
+      <Container maxWidth="xl" sx={{ py: { xs: 3, sm: 4, md: 5 }, px: { xs: 2, sm: 3 } }}>
+        <Box sx={{ mb: { xs: 3, md: 4 }, maxWidth: 820 }}>
+          <Stack direction="row" spacing={1} alignItems="center" color="primary.main">
+            <NewspaperRounded fontSize="small" />
+            <Typography variant="overline" fontWeight={800} letterSpacing="0.12em">ToolPillot News</Typography>
           </Stack>
-        </Paper>
-
-        <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'flex-start', sm: 'center' }} spacing={1} sx={{ mb: 2.5 }}>
-          <Typography variant="body2" color="text.secondary">
-            {matchingNews.length} {matchingNews.length === 1 ? 'published story' : 'published stories'}
+          <Typography variant="h1" sx={{ fontSize: { xs: '2.2rem', sm: '3rem', md: '3.5rem' }, lineHeight: 1.05 }}>
+            News and updates
           </Typography>
-          {query && <Button size="small" variant="text" onClick={() => setQuery('')}>Clear search</Button>}
+          <Typography color="text.secondary" sx={{ mt: 1.5, maxWidth: 680 }}>
+            Reporting, culture, sport and current affairs from the ToolPillot editorial desk, newest first.
+          </Typography>
+        </Box>
+
+        <Stack
+          direction={{ xs: 'column', md: 'row' }}
+          spacing={2}
+          alignItems={{ xs: 'stretch', md: 'center' }}
+          sx={{ mb: 3 }}
+        >
+          <TextField
+            fullWidth
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Search news by headline, topic, or source"
+            inputProps={{ 'aria-label': 'Search published news' }}
+            InputProps={{
+              startAdornment: <InputAdornment position="start"><SearchRounded color="action" /></InputAdornment>,
+            }}
+            sx={{ maxWidth: { xs: '100%', md: 480 }, bgcolor: 'background.paper', borderRadius: 2 }}
+          />
+
+          <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', rowGap: 1 }} useFlexGap>
+            {availableCategories.map((category) => (
+              <Chip
+                key={category}
+                label={category}
+                clickable
+                color={activeCategory === category ? 'primary' : 'default'}
+                variant={activeCategory === category ? 'filled' : 'outlined'}
+                onClick={() => setCategory(activeCategory === category ? '' : category)}
+                aria-pressed={activeCategory === category}
+                sx={{ fontWeight: 700 }}
+              />
+            ))}
+            {activeCategory && (
+              <Button size="small" onClick={() => setCategory('')} sx={{ fontWeight: 700 }}>
+                Clear
+              </Button>
+            )}
+          </Stack>
         </Stack>
+
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 2.5 }}>
+          {matchingNews.length} {matchingNews.length === 1 ? 'published story' : 'published stories'}
+          {activeCategory ? ` in ${activeCategory}` : ''}
+        </Typography>
 
         {pageArticles.length ? (
           <>
@@ -103,7 +133,9 @@ export default function NewsPage() {
           </>
         ) : (
           <Alert severity="info">
-            {normalizedQuery ? 'No published news matches that search. Try another headline, topic, or source.' : 'No generated news stories have been published yet. Approved stories will appear here.'}
+            {normalizedQuery || activeCategory
+              ? 'No published news matches that filter. Try another headline, topic, or source.'
+              : 'No published news stories yet. Approved stories will appear here.'}
           </Alert>
         )}
       </Container>

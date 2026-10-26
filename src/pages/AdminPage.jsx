@@ -27,7 +27,6 @@ import {
 } from '@mui/material';
 import SEO from '../components/SEO';
 import { categories } from '../data/siteData';
-import { automationCategories } from '../data/automationCategories.js';
 import ContentAutomation from '../components/ContentAutomation.jsx';
 
 const apiPath = '/__local-content/articles';
@@ -38,7 +37,7 @@ function emptyArticle() {
     title: '',
     slug: '',
     excerpt: '',
-    category: categories[0].title,
+    category: categories.find((category) => category.slug === 'ai-content')?.title || categories[0].title,
     author: 'LokkeeVerse',
     image: defaultImage,
     content: '',
@@ -204,7 +203,7 @@ export default function AdminPage() {
   const setComparisonEnabled = (enabled) => {
     setArticle((current) => ({
       ...current,
-      category: enabled ? 'AI Comparisons' : current.category === 'AI Comparisons' ? categories[0].title : current.category,
+      category: enabled ? 'AI Content' : current.category === 'AI Comparisons' ? 'AI Content' : current.category,
       comparison: enabled ? current.comparison || emptyComparison() : null,
     }));
   };
@@ -360,9 +359,9 @@ export default function AdminPage() {
   if (!authenticated) {
     return (
       <Container maxWidth="sm" sx={{ py: { xs: 6, md: 12 } }}>
-        <SEO title="Admin sign in | ToolPillot" canonical="/admin" noindex />
+        <SEO title="Admin sign in | LokkeeVerse" canonical="/admin" noindex />
         <Card><CardContent>
-          <Typography variant="h4" fontWeight={800} sx={{ mb: 1 }}>ToolPillot admin</Typography>
+          <Typography variant="h4" fontWeight={800} sx={{ mb: 1 }}>LokkeeVerse admin</Typography>
           <Typography color="text.secondary" sx={{ mb: 3 }}>Sign in to the local article editor and content automation dashboard.</Typography>
           {authError && <Alert severity="error" sx={{ mb: 2 }}>{authError}</Alert>}
           {!passwordConfigured ? (
@@ -394,7 +393,7 @@ export default function AdminPage() {
         noindex
       />
       <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'flex-start', sm: 'center' }} spacing={2}>
-        <Typography variant="h2" fontWeight={800}>ToolPillot admin</Typography>
+        <Typography variant="h2" fontWeight={800}>LokkeeVerse admin</Typography>
         <Button variant="outlined" onClick={signOut}>Sign out</Button>
       </Stack>
       <Alert severity="warning" sx={{ my: 3 }}>
@@ -485,13 +484,8 @@ export default function AdminPage() {
                         value={article.category}
                         onChange={updateField('category')}
                       >
-                        {categories.filter((category) => (
-                          article.comparison ? category.slug === 'comparisons' : category.slug !== 'comparisons'
-                        )).map((category) => (
+                        {categories.map((category) => (
                           <MenuItem key={category.slug} value={category.title}>{category.title}</MenuItem>
-                        ))}
-                        {!article.comparison && automationCategories.filter((category) => !category.articleCategory).map((category) => (
-                          <MenuItem key={category.title} value={category.title}>{category.title}</MenuItem>
                         ))}
                       </Select>
                     </FormControl>

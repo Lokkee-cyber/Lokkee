@@ -16,16 +16,23 @@ import NotFoundPage from './pages/NotFoundPage';
 import AdminPage from './pages/AdminPage';
 import ComparisonIndexPage from './pages/ComparisonIndexPage';
 import AnalyticsTracker from './AnalyticsTracker.jsx';
+import FictionLibraryPage from './pages/FictionLibraryPage.jsx';
+import FictionSeriesPage from './pages/FictionSeriesPage.jsx';
+import FictionEpisodePage from './pages/FictionEpisodePage.jsx';
 
-export default function App({ mode, setMode }) {
+export default function App() {
   return (
     <>
       <AnalyticsTracker />
 
     <Routes>
-      <Route element={<Layout mode={mode} onToggleMode={() => setMode((prev) => (prev === 'light' ? 'dark' : 'light'))} />}>
+      <Route element={<Layout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/articles" element={<ArticlesPage />} />
+        <Route path="/fiction" element={<FictionLibraryPage />} />
+        <Route path="/fiction/:seriesSlug" element={<FictionSeriesPage />} />
+        <Route path="/fiction/:seriesSlug/:episodeSlug" element={<FictionEpisodePage />} />
+        <Route path="/ai-content" element={<CategoryPage categorySlug="ai-content" />} />
         <Route path="/ai-tools" element={<CategoryPage categorySlug="ai-tools" />} />
         <Route path="/ai-video" element={<CategoryPage categorySlug="ai-video" />} />
         <Route path="/ai-image" element={<CategoryPage categorySlug="ai-image" />} />
