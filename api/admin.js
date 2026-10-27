@@ -1,15 +1,18 @@
 import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
-import { access, mkdir, readFile, unlink, writeFile } from 'node:fs/promises';
+import { access, mkdir, readFile, readdir, unlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { validateArticle } from '../scripts/article-validation.mjs';
 import { dispatchWorkflow, loadArticles, syncSlug } from '../scripts/github-content.mjs';
+import { loadFiction, syncFictionFile } from '../scripts/fiction-content.mjs';
 import { expireStaleJobs, openStateStore } from '../scripts/remote-state.mjs';
 
 // The automation module reads these directories at import time, so they must be set first.
 const workDirectory = join(tmpdir(), 'lokkee-admin');
 const articleDirectory = join(workDirectory, 'articles');
 const automationDirectory = join(workDirectory, 'automation');
+const fictionSeriesDirectory = join(workDirectory, 'fiction', 'series');
+const fictionEpisodesDirectory = join(workDirectory, 'fiction', 'episodes');
 process.env.CONTENT_ARTICLES_DIR = articleDirectory;
 process.env.CONTENT_AUTOMATION_DATA_DIR = automationDirectory;
 
@@ -24,18 +27,25 @@ const maxLoginAttempts = 8;
 let modulesPromise;
 function loadModules() {
   modulesPromise ||= (async () => {
-    const [automation, siteData, legacyContent, comparison, categories] = await Promise.all([
+    const [automation, siteData, legacyContent, comparison, categories, fictionGenres, contentCategories] = await Promise.all([
       import('../scripts/content-automation.mjs'),
       import('../src/data/siteData.js'),
       import('../src/data/legacyArticleContent.js'),
       import('../src/data/comparisonData.js'),
       import('../src/data/automationCategories.js'),
+      import('../src/data/fictionGenres.js'),
+      import('../src/data/contentCategories.js'),
     ]);
     automation.setWorkerDispatcher(dispatchWorkflow);
     return {
       automation,
       legacyArticles: siteData.articlePreviews,
-      categoryNames: new Set([...siteData.categories.map((category) => category.title), ...categories.automationArticleCategoryNames]),
+      categoryNames: new Set([
+        ...siteData.categories.map((category) => category.title),
+        ...categories.automationArticleCategoryNames,
+        ...fictionGenres.fictionGenres.map((genre) => genre.label),
+        ...contentCategories.aiSubcategoryTitles,
+      ]),
       automationCategoryNames: categories.automationCategoryNames,
       getLegacyArticleContent: legacyContent.getLegacyArticleContent,
       legacyArticleContentToMarkdown: legacyContent.legacyArticleContentToMarkdown,
@@ -267,6 +277,64 @@ async function handleArticles(req, res, route) {
   return false;
 }
 
+async function handleFiction(req, res, route) {
+  if (route === 'fiction' && req.method === 'GET') {
+    const result = await exclusive(async () => {
+      await mkdir(fictionSeriesDirectory, { recursive: true });
+      await mkdir(fictionEpisodesDirectory, { recursive: true });
+      return loadFiction(fictionSeriesDirectory, fictionEpisodesDirectory);
+    });
+    const readAll = async (directory) => {
+      const { readdir, readFile } = await import('node:fs/promises');
+      return Promise.all((await readdir(directory)).filter((name) => name.endsWith('.json'))
+        .map(async (name) => JSON.parse(await readFile(join(directory, name), 'utf8'))));
+    };
+    const series = (await readAll(fictionSeriesDirectory)).sort((first, second) => first.title.localeCompare(second.title));
+    const episodes = (await readAll(fictionEpisodesDirectory)).sort((first, second) => first.number - second.number);
+    return send(res, 200, { series, episodes, remote: result });
+  }
+
+  const match = route.match(/^fiction\/(series|episodes)\/([a-z0-9-]+)(?:\/([a-z0-9-]+))?$/);
+  if (!match || req.method !== 'PUT') return false;
+  const [, kind, seriesSlug, episodeSlug] = match;
+  const isEpisode = kind === 'episodes';
+  const slug = isEpisode ? episodeSlug : seriesSlug;
+  if (!slugPattern.test(seriesSlug) || (isEpisode && !slugPattern.test(slug))) {
+    return send(res, 400, { error: 'Invalid fiction slug.' });
+  }
+  const item = readBody(req);
+  const required = isEpisode
+    ? ['slug', 'seriesSlug', 'number', 'title', 'excerpt', 'content']
+    : ['slug', 'title', 'genre', 'synopsis'];
+  for (const field of required) {
+    const value = item[field];
+    if (value === undefined || value === null || String(value).trim() === '') {
+      return send(res, 400, { error: `${field} is required.` });
+    }
+  }
+  if (item.slug !== slug || (isEpisode && item.seriesSlug !== seriesSlug)) {
+    return send(res, 400, { error: 'Slug must match the request URL.' });
+  }
+  if (!['draft', 'published'].includes(item.status)) {
+    return send(res, 400, { error: 'Status must be draft or published.' });
+  }
+  if (isEpisode && (!Number.isInteger(item.number) || item.number < 1)) {
+    return send(res, 400, { error: 'Episode number must be a positive whole number.' });
+  }
+  const directory = isEpisode ? fictionEpisodesDirectory : fictionSeriesDirectory;
+  const folderPath = isEpisode ? 'content/fiction/episodes' : 'content/fiction/series';
+  const filename = `${slug}.json`;
+  const outcome = await exclusive(async () => {
+    await mkdir(directory, { recursive: true });
+    const remote = await loadFiction(fictionSeriesDirectory, fictionEpisodesDirectory);
+    await writeFile(join(directory, filename), `${JSON.stringify(item, null, 2)}\n`);
+    const remoteMap = isEpisode ? remote.episodes : remote.series;
+    await syncFictionFile(directory, filename, folderPath, remoteMap, `Admin: save ${isEpisode ? 'episode' : 'series'} ${slug}`);
+    return { item, deploymentTriggered: true };
+  });
+  return send(res, 200, outcome);
+}
+
 async function handleAutomation(req, res, route) {
   if (route === 'automation' && req.method === 'GET') {
     const dashboard = await withState('all', async ({ automation, store }) => {
@@ -350,6 +418,7 @@ export default async function handler(req, res) {
     if (await handleSession(req, res, route) !== false) return;
     if (!isAuthenticated(req)) return send(res, 401, { error: 'Sign in to use the admin editor.' });
     if (await handleArticles(req, res, route) !== false) return;
+    if (await handleFiction(req, res, route) !== false) return;
     if (await handleAutomation(req, res, route) !== false) return;
     return send(res, 404, { error: 'Admin endpoint not found.' });
   } catch (error) {

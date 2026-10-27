@@ -19,6 +19,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  ListSubheader,
   Stack,
   TextField,
   Tabs,
@@ -27,6 +28,9 @@ import {
 } from '@mui/material';
 import SEO from '../components/SEO';
 import { categories } from '../data/siteData';
+import { aiSubcategories } from '../data/contentCategories.js';
+import { fictionGenres } from '../data/fictionGenres.js';
+import FictionManager from '../components/FictionManager.jsx';
 import ContentAutomation from '../components/ContentAutomation.jsx';
 
 const apiPath = '/__local-content/articles';
@@ -401,9 +405,12 @@ export default function AdminPage() {
       </Alert>
       <Tabs value={section} onChange={(_event, value) => setSection(value)} aria-label="Admin sections" sx={{ mb: 3 }}>
         <Tab value="editor" label="Article Editor" />
+        <Tab value="fiction" label="Fiction Manager" />
         <Tab value="automation" label="Content Automation" />
       </Tabs>
-      {section === 'automation' ? (
+      {section === 'fiction' ? (
+        <FictionManager />
+      ) : section === 'automation' ? (
         <ContentAutomation onReviewDraft={(draft) => { editArticle({ ...draft, source: 'automation' }); setSection('editor'); }} />
       ) : (
       <>
@@ -486,6 +493,14 @@ export default function AdminPage() {
                       >
                         {categories.map((category) => (
                           <MenuItem key={category.slug} value={category.title}>{category.title}</MenuItem>
+                        ))}
+                        <ListSubheader>Serial Fiction genres</ListSubheader>
+                        {fictionGenres.map((genre) => (
+                          <MenuItem key={genre.slug} value={genre.label}>{`Serial Fiction — ${genre.label}`}</MenuItem>
+                        ))}
+                        <ListSubheader>AI Content subcategories</ListSubheader>
+                        {aiSubcategories.map((sub) => (
+                          <MenuItem key={sub.slug} value={sub.title}>{`AI Content — ${sub.title}`}</MenuItem>
                         ))}
                       </Select>
                     </FormControl>

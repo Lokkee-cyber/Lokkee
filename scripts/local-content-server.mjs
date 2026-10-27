@@ -52,6 +52,9 @@ const {
   automationCategoryNames,
 } = await import('../src/data/automationCategories.js');
 
+const { fictionGenres } = await import('../src/data/fictionGenres.js');
+const { aiSubcategoryTitles } = await import('../src/data/contentCategories.js');
+
 const automationApi = await import('./content-automation.mjs');
 
 const legacySlugs = new Set(
@@ -62,6 +65,8 @@ const categoryNames = new Set([
   ...categories.map((category) => category.title),
   'AI Tools', 'AI Video', 'AI Image', 'AI Writing', 'AI Voice & Audio', 'AI Coding', 'AI for Creators', 'AI for Business', 'AI for Students', 'AI Comparisons',
   ...automationArticleCategoryNames,
+  ...fictionGenres.map((genre) => genre.label),
+  ...aiSubcategoryTitles,
 ]);
 
 const sessions = new Map();
@@ -426,6 +431,73 @@ async function fileExists(filename) {
 
     throw error;
   }
+}
+
+/*
+ * Pushes fiction series/episode files to GitHub.
+ */
+async function pushFictionToGitHub(seriesSlug, slug, isEpisode) {
+  const relativePath = isEpisode
+    ? `content/fiction/episodes/${slug}.json`
+    : `content/fiction/series/${slug}.json`;
+
+  const runGit = (args) =>
+    execFileAsync('git', args, {
+      cwd: root,
+      windowsHide: true,
+      timeout: 60_000,
+      maxBuffer: 1024 * 1024,
+    });
+
+  await runGit(['add', '-A', '--', relativePath]);
+
+  const { stdout } = await runGit([
+    'status',
+    '--porcelain',
+    '--',
+    relativePath,
+  ]);
+
+  const identity = [
+    '-c',
+    'user.name=LokkeeVerse Publisher',
+    '-c',
+    'user.email=lokkeeverse-publisher@users.noreply.github.com',
+  ];
+
+  if (stdout.trim()) {
+    await runGit([
+      ...identity,
+      'commit',
+      '--only',
+      '-m',
+      `Publish fiction: ${seriesSlug}${isEpisode ? ` episode ${slug}` : ''}`,
+      '--',
+      relativePath,
+    ]);
+  } else {
+    await runGit([
+      ...identity,
+      'commit',
+      '--allow-empty',
+      '-m',
+      `Trigger LokkeeVerse deployment: ${relativePath}`,
+    ]);
+  }
+
+  await runGit(['push', 'origin', 'HEAD:main']);
+
+  return true;
+}
+
+function queueFictionPush(seriesSlug, slug, isEpisode) {
+  const operation = publicationQueue.then(
+    () => pushFictionToGitHub(seriesSlug, slug, isEpisode)
+  );
+
+  publicationQueue = operation.catch(() => {});
+
+  return operation;
 }
 
 /*
@@ -855,6 +927,96 @@ const server = createServer(async (request, response) => {
       error: 'Sign in to use the local admin editor.',
     });
 
+    return;
+  }
+
+  if (
+    requestUrl.pathname === '/__local-content/fiction' &&
+    request.method === 'GET'
+  ) {
+    try {
+      const seriesDirectory = resolve(root, 'content', 'fiction', 'series');
+      const episodesDirectory = resolve(root, 'content', 'fiction', 'episodes');
+      await mkdir(seriesDirectory, { recursive: true });
+      await mkdir(episodesDirectory, { recursive: true });
+      const readAll = async (directory) => Promise.all(
+        (await readdir(directory))
+          .filter((name) => name.endsWith('.json'))
+          .map(async (name) => JSON.parse(await readFile(join(directory, name), 'utf8')))
+      );
+      sendJson(response, 200, {
+        series: (await readAll(seriesDirectory)).sort((first, second) => first.title.localeCompare(second.title)),
+        episodes: (await readAll(episodesDirectory)).sort((first, second) => first.number - second.number),
+      });
+    } catch (error) {
+      console.error('Unable to read fiction files:', error);
+      sendJson(response, 500, { error: 'Unable to read fiction files.' });
+    }
+    return;
+  }
+
+  const fictionMatch = requestUrl.pathname.match(
+    /^\/__local-content\/fiction\/(series|episodes)\/([a-z0-9-]+)(?:\/([a-z0-9-]+))?$/
+  );
+
+  if (fictionMatch && request.method === 'PUT') {
+    const [, kind, firstSlug, secondSlug] = fictionMatch;
+    const isEpisode = kind === 'episodes';
+    const slug = isEpisode ? secondSlug : firstSlug;
+    const seriesSlug = isEpisode ? firstSlug : firstSlug;
+
+    if (!slugPattern.test(seriesSlug) || (isEpisode && !slugPattern.test(slug))) {
+      sendJson(response, 400, { error: 'Invalid fiction slug.' });
+      return;
+    }
+
+    try {
+      const item = await readRequestBody(request);
+      const required = isEpisode
+        ? ['slug', 'seriesSlug', 'number', 'title', 'excerpt', 'content']
+        : ['slug', 'title', 'genre', 'synopsis'];
+      for (const field of required) {
+        const value = item[field];
+        if (value === undefined || value === null || String(value).trim() === '') {
+          sendJson(response, 400, { error: `${field} is required.` });
+          return;
+        }
+      }
+      if (item.slug !== slug || (isEpisode && item.seriesSlug !== seriesSlug)) {
+        sendJson(response, 400, { error: 'Slug must match the request URL.' });
+        return;
+      }
+      if (!['draft', 'published'].includes(item.status)) {
+        sendJson(response, 400, { error: 'Status must be draft or published.' });
+        return;
+      }
+
+      const directory = resolve(root, 'content', 'fiction', isEpisode ? 'episodes' : 'series');
+      await mkdir(directory, { recursive: true });
+      const targetFilename = resolve(directory, `${slug}.json`);
+      const tempFilename = `${targetFilename}.${process.pid}.tmp`;
+      await writeFile(tempFilename, `${JSON.stringify(item, null, 2)}\n`, { flag: 'w' });
+      await rename(tempFilename, targetFilename);
+
+      let deploymentTriggered = false;
+      try {
+        deploymentTriggered = await queueFictionPush(seriesSlug, slug, isEpisode);
+      } catch (error) {
+        const details = gitErrorMessage(error);
+        console.error('Fiction saved locally, but GitHub push failed:', details);
+        sendJson(response, 502, {
+          error: 'Fiction was saved locally, but the GitHub push failed. Push manually to publish it.',
+          savedLocally: true,
+          details,
+        });
+        return;
+      }
+
+      sendJson(response, 200, { item, deploymentTriggered });
+    } catch (error) {
+      console.error('Unable to save fiction file:', error);
+      sendJson(response, 400, { error: String(error.message || 'Could not save fiction.') });
+    }
     return;
   }
 
