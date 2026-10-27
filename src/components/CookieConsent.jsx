@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button, Paper, Stack, Typography } from '@mui/material';
 import { setConsent, useConsent } from '../utils/consent';
+import { ADS_ENABLED } from './AdSlot';
 
 export default function CookieConsent() {
   const { adsAllowed, showBanner } = useConsent();
@@ -9,7 +10,7 @@ export default function CookieConsent() {
   const onArticle = /^\/articles\/[^/]+/.test(pathname);
 
   useEffect(() => {
-    if (!adsAllowed || !onArticle) return undefined;
+    if (!ADS_ENABLED || !adsAllowed || !onArticle) return undefined;
     const before = new Set(document.body.children);
     const script = document.createElement('script');
     script.setAttribute('data-cfasync', 'false');

@@ -4,6 +4,7 @@ import { comparisons } from '../data/siteData';
 import ComparisonTable from '../components/ComparisonTable';
 import SEO from '../components/SEO';
 import NotFoundPage from './NotFoundPage';
+import AdSlot from '../components/AdSlot';
 
 export default function ComparisonPage() {
   const { slug } = useParams();
@@ -20,6 +21,9 @@ export default function ComparisonPage() {
       <Box sx={{ my: 4 }}>
         <ComparisonTable comparison={comparison} />
       </Box>
+
+      {/* Leaderboard between the table and the verdict cards */}
+      <AdSlot variant="leaderboard" sx={{ my: 4 }} />
            
       <Grid container spacing={3}>
         <Grid size={{ xs: 12, sm: 6 }}>
@@ -36,6 +40,8 @@ export default function ComparisonPage() {
         </Grid>
       </Grid>
       
+      {/* Bottom square ad */}
+      <AdSlot variant="square" sx={{ mt: 5 }} />
     </Container>
   );
 }

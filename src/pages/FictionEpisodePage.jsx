@@ -3,6 +3,25 @@ import { Link, useParams } from 'react-router-dom';
 import SEO from '../components/SEO.jsx';
 import { episodesForSeries, findEpisode, findSeries } from '../data/fiction.js';
 import NotFoundPage from './NotFoundPage.jsx';
+import AdSlot from '../components/AdSlot.jsx';
+
+function withInlineEpisodeAds(paragraphBlocks, episodeSlug) {
+  const total = paragraphBlocks.length;
+  if (total < 4) return paragraphBlocks;
+  const adCount = total >= 14 ? 3 : total >= 8 ? 2 : 1;
+  const targets = Array.from({ length: adCount }, (_, i) => Math.round((total * (i + 1)) / (adCount + 1)));
+  const positions = new Set(targets.map((target) => Math.min(Math.max(target, 1), total - 1)));
+  const result = [];
+  let adIndex = 0;
+  paragraphBlocks.forEach((block, blockIndex) => {
+    if (positions.has(blockIndex)) {
+      result.push(<AdSlot key={`episode-ad-${episodeSlug}-${blockIndex}`} variant="inline" sx={{ my: 2 }} />);
+      adIndex += 1;
+    }
+    result.push(block);
+  });
+  return result;
+}
 
 export default function FictionEpisodePage() {
   const { seriesSlug, episodeSlug } = useParams();
@@ -50,13 +69,22 @@ export default function FictionEpisodePage() {
               fontSize: { xs: '1.08rem', md: '1.2rem' },
               lineHeight: 1.9,
               mt: 5,
-              whiteSpace: 'pre-wrap',
               color: '#E8E5F0',
               '& p': { mb: 2 },
             }}
           >
-            {content}
+            {withInlineEpisodeAds(
+              content.split(/\n{2,}|\r\n\r\n/).map((paragraph, paragraphIndex) => (
+                <Typography key={`episode-paragraph-${paragraphIndex}`} component="p" sx={{ whiteSpace: 'pre-wrap' }}>
+                  {paragraph.trim()}
+                </Typography>
+              )).filter((block) => block.props.children.trim()),
+              episode.slug,
+            )}
           </Box>
+
+          {/* Episode-end banner */}
+          <AdSlot variant="leaderboard" sx={{ my: 4 }} />
 
           <Divider sx={{ my: 6, borderColor: 'rgba(199,167,255,0.2)' }} />
 

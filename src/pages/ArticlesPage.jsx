@@ -4,6 +4,7 @@ import { SearchRounded } from '@mui/icons-material';
 import ArticleCard from '../components/ArticleCard.jsx';
 import SEO from '../components/SEO.jsx';
 import { publishedArticles } from '../data/articles.js';
+import AdSlot from '../components/AdSlot.jsx';
 
 const pageSize = 12;
 
@@ -55,6 +56,8 @@ export default function ArticlesPage() {
 
         {visibleArticles.length ? (
           <>
+            {/* Leaderboard above the article grid */}
+            <AdSlot variant="leaderboard" sx={{ mb: 3 }} />
             <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'minmax(0, 1fr)', sm: 'repeat(2, minmax(0, 1fr))', lg: 'repeat(3, minmax(0, 1fr))' }, gap: { xs: 2, md: 3 }, alignItems: 'stretch' }}>
               {visibleArticles.map((article) => <ArticleCard key={article.slug} article={article} />)}
             </Box>
@@ -67,7 +70,9 @@ export default function ArticlesPage() {
                 aria-label="Article pages"
               />
             </Stack>
-          </>
+            {/* Inline ad below pagination */}
+            <AdSlot variant="inline" sx={{ mt: 4 }} />
+          </> 
         ) : (
           <Alert severity="info">No articles match that search. Try a different title or topic.</Alert>
         )}

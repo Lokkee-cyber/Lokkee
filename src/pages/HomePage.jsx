@@ -10,6 +10,7 @@ import CategoryTileCard from '../components/CategoryTileCard.jsx';
 import { publishedArticles } from '../data/articles.js';
 import { isAiArticle, isNewsArticle } from '../data/contentCategories.js';
 import { fictionGenres } from '../data/fictionGenres.js';
+import AdSlot from '../components/AdSlot.jsx';
 
 const aiCategoryShelf = [
   { title: 'AI Writing', description: 'Draft, edit and research faster with AI.', path: '/ai-writing' },
@@ -51,6 +52,9 @@ export default function HomePage() {
       <Container maxWidth="xl" sx={{ py: { xs: 3, md: 4 }, px: { xs: 2, sm: 3 } }}>
         {/* 1. News Feed — modern slide show */}
         <NewsSlideshow articles={news} />
+
+        {/* Leaderboard ad below the hero slideshow */}
+        <AdSlot variant="leaderboard" sx={{ my: { xs: 2, md: 3 } }} />
 
         {/* 2. Serial Fiction */}
         <Shelf
@@ -95,6 +99,9 @@ export default function HomePage() {
             <TileCard key={article.slug} article={article} />
           ))}
         </Shelf>
+
+        {/* Mid-page square ad */}
+        <AdSlot variant="square" sx={{ my: { xs: 2, md: 3 } }} />
 
         {/* Secondary discovery links */}
         <Box
@@ -189,6 +196,9 @@ export default function HomePage() {
             </Stack>
           </Stack>
         </Box>
+
+        {/* Footer banner before page end */}
+        <AdSlot variant="inline" sx={{ mt: { xs: 2, md: 4 } }} />
       </Container>
     </>
   );

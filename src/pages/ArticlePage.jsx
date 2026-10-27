@@ -76,7 +76,7 @@ function renderMarkdown(markdown) {
   return blocks;
 }
 
-const INLINE_ADS = ['banner300', 'banner468', 'banner320'];
+const INLINE_ADS = ['inline', 'square', 'inline'];
 
 function withInlineAds(blocks, slug) {
   const total = blocks.length;
@@ -139,6 +139,9 @@ export default function ArticlePage() {
             <Box component="img" src={article.image} alt={article.title} sx={{ width: '100%', borderRadius: 4, mt: 4, height: { xs: 240, md: 420 }, objectFit: 'cover' }} />
           )}
 
+          {/* Leaderboard ad under the article header */}
+          <AdSlot variant="leaderboard" sx={{ mt: 4 }} />
+
           {article.comparison && (
             <Box sx={{ my: 4 }}>
               <ComparisonTable comparison={article.comparison} />
@@ -199,7 +202,12 @@ export default function ArticlePage() {
            
           <Divider sx={{ my: 4 }} />
 
+          <Divider sx={{ my: 4 }} />
+
           <AdSlot key={`native-${article.slug}`} name="native" sx={{ mb: 4 }} />
+
+          {/* Square ad above related articles */}
+          <AdSlot variant="square" sx={{ mb: 4 }} />
 
           <Typography variant="h4" fontWeight={800}>Related articles</Typography>
           <Grid container spacing={{ xs: 2, md: 3 }} sx={{ mt: 1 }}>
@@ -213,6 +221,9 @@ export default function ArticlePage() {
           <Box sx={{ my: 5 }}>
             <Newsletter />
           </Box>
+
+          {/* Bottom banner before the sidebar fold */}
+          <AdSlot variant="leaderboard" sx={{ mt: 2, mb: 4 }} />
         </Grid>
            
         <Grid size={{ xs: 12, lg: 4 }}>

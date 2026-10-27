@@ -1,0 +1,1 @@
+export default async function run(page, ui){ await page.goto('http://localhost:4177',{waitUntil:'domcontentloaded',timeout:45000}).catch(()=>{}); await page.waitForTimeout(2000); const consentState = await page.evaluate(() => localStorage.getItem('lokkee-cookie-consent')); return 'consent='+consentState;}
