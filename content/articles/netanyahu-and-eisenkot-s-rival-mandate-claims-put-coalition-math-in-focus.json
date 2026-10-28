@@ -1,0 +1,52 @@
+{
+  "title": "Netanyahu and Eisenkot’s Rival Mandate Claims Put Coalition Math in Focus",
+  "slug": "netanyahu-and-eisenkot-s-rival-mandate-claims-put-coalition-math-in-focus",
+  "excerpt": "Times Now reports 74 percent voter turnout as Netanyahu and Eisenkot prepare competing arguments for the chance to form Israel’s next government.",
+  "category": "World News",
+  "author": "LokkeeVerse",
+  "authorSlug": "lokkeeverse-editorial",
+  "image": "https://images.timesnownews.com/thumb/msid-156418638,thumbsize-96013,width-1280,height-720,resizemode-75/156418638.jpg",
+  "content": "Israeli Prime Minister Benjamin Netanyahu and Gadi Eisenkot are preparing competing claims to the mandate to form Israel’s next government, according to Times Now, which reports voter turnout reaching 74 percent. Netanyahu is expected to argue that his Likud party should receive the first opportunity if it wins the most seats, even if Eisenkot’s bloc is larger. Eisenkot is expected to press his own claim if his bloc finishes ahead.\n\n## Largest Party or Largest Bloc?\n\nThe reported dispute highlights a central feature of Israel’s parliamentary system: leading the biggest individual party is not the same as commanding a governing majority. Voters elect the 120-member Knesset through proportional representation, and governments generally depend on agreements among multiple parties. A party can finish first yet struggle to secure enough partners to govern.\n\nA larger bloc can therefore offer a competing argument for receiving the mandate. But a bloc’s apparent strength does not automatically establish that all its members will support the same government. Political commitments, policy differences and willingness to cooperate matter alongside the seat totals. The decisive question is not simply who leads the results, but who can assemble a viable coalition.\n\n## Herzog’s Role in Choosing a Government-Builder\n\nPresident Isaac Herzog has the authority to assign the task of forming a government after consultations with parliamentary representatives. Those discussions allow parties to recommend a candidate and signal possible alliances. The presidency’s role is consequently more than confirming which party finished first: it involves assessing who has a realistic prospect of forming a government.\n\nReceiving the mandate is an opportunity to negotiate, not confirmation that a candidate has become prime minister. The prospective government must still secure parliamentary approval. Netanyahu’s and Eisenkot’s reported arguments should therefore be understood as opening positions in a potentially consequential bargaining process, rather than proof that either has already secured the numbers needed to govern.\n\n- **Turnout:** Times Now reports participation reaching 74 percent; turnout alone does not determine the governing majority.\n- **Seat totals:** The largest party and the largest bloc may support different claims to the mandate.\n- **Coalition support:** Parties’ recommendations and negotiating commitments will help establish which claim is workable.\n\nReaders should watch for confirmed seat allocations, public recommendations to Herzog and evidence that potential partners can agree on a governing arrangement. Those developments will be more revealing than competing declarations of victory. The next crucial step is the president’s choice of government-builder, followed by whether that candidate can turn political backing into a functioning parliamentary majority.",
+  "seoTitle": "Netanyahu and Eisenkot: Israel’s Government Mandate Explained",
+  "metaDescription": "Netanyahu and Eisenkot prepare rival claims to form Israel’s government. How coalition numbers and President Herzog’s decision shape the next steps.",
+  "status": "published",
+  "tags": [
+    "Israel",
+    "Benjamin Netanyahu",
+    "Gadi Eisenkot",
+    "Isaac Herzog",
+    "Elections"
+  ],
+  "publishedAt": "2026-10-28T08:34:21.367Z",
+  "updatedAt": "2026-10-28T08:34:21.367Z",
+  "readTime": "3 min read",
+  "sourceReferences": [
+    {
+      "url": "https://www.timesnownews.com/world/israel-election-results-as-voter-turnout-hits-74-percent-netanyahu-and-eisenkot-prepare-rival-claims-to-form-israels-government-article-156418489",
+      "publisher": "Times Now",
+      "attribution": "Powered by GNews",
+      "eventDate": "",
+      "publishedAt": "2026-10-27T19:35:46.000Z",
+      "retrievedAt": "2026-10-28T08:27:17.408Z"
+    }
+  ],
+  "automation": {
+    "generated": true,
+    "storyId": "gnews:089fcdf48f964c0f0f33846e9b2bf3db",
+    "jobId": "f323a597-386c-4796-955d-b96deb89f8c4",
+    "sourceId": "f7cfd2e0-1022-42c0-913e-332ff687d0f4",
+    "providerArticleId": "gnews:089fcdf48f964c0f0f33846e9b2bf3db",
+    "generatedAt": "2026-10-28T08:27:17.408Z",
+    "automationCategory": "World News",
+    "aiProvider": "openai",
+    "reviewStatus": "approved",
+    "factCheckStatus": "human-reviewed",
+    "highImpactReviewRequired": false,
+    "tokenUsage": {
+      "inputTokens": 556,
+      "outputTokens": 760
+    },
+    "publishMode": "manual-review",
+    "publishedLocallyAt": "2026-10-28T08:34:21.367Z"
+  }
+}
