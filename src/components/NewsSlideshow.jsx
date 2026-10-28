@@ -10,7 +10,7 @@ function NewsSlide({ article }) {
     <Box
       sx={{
         position: 'relative',
-        height: { xs: 300, sm: 380, md: 440 },
+        height: { xs: 450, sm: 380, md: 440 },
         borderRadius: { xs: 3, md: 4 },
         overflow: 'hidden',
         border: '1px solid',

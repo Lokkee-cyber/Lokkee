@@ -7,9 +7,11 @@ import Shelf from '../components/Shelf.jsx';
 import NewsSlideshow from '../components/NewsSlideshow.jsx';
 import TileCard from '../components/TileCard.jsx';
 import CategoryTileCard from '../components/CategoryTileCard.jsx';
+import NovelUpdateCard from '../components/NovelUpdateCard.jsx';
 import { publishedArticles } from '../data/articles.js';
 import { isAiArticle, isNewsArticle } from '../data/contentCategories.js';
 import { fictionGenres } from '../data/fictionGenres.js';
+import { fictionSeries, episodesForSeries } from '../data/fiction.js';
 
 const aiCategoryShelf = [
   { title: 'AI Writing', description: 'Draft, edit and research faster with AI.', path: '/ai-writing' },
@@ -35,10 +37,42 @@ const aiTileImages = {
   'AI for Students': 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80',
 };
 
+/*
+ * Builds the "New & Updated Novels" list: recently released series plus
+ * series whose episode count grew recently. Returns items shaped as
+ * { series, badge, isNewRelease, updatedAt }.
+ */
+function buildNovelUpdates() {
+  const updates = fictionSeries.map((series) => {
+    const episodes = episodesForSeries(series.slug);
+    const latestDate = episodes
+      .map((episode) => Date.parse(episode.publishedAt || episode.date || episode.updatedAt || '') || 0)
+      .sort((a, b) => b - a)[0] || 0;
+    return { series, episodes, latestDate };
+  });
+
+  const withDates = updates.filter((item) => item.latestDate > 0);
+  const newest = withDates.sort((a, b) => b.latestDate - a.latestDate).slice(0, 4);
+
+  const withoutDates = updates.filter((item) => item.latestDate === 0);
+  const filled = [...newest];
+  for (const item of withoutDates) {
+    if (filled.length >= 6) break;
+    filled.push(item);
+  }
+
+  return filled.map((item) => {
+    const isNewRelease = item.episodes.length <= 1;
+    const badge = isNewRelease ? 'NEW' : `+${item.episodes.length - 1} EP`;
+    return { series: item.series, badge, isNewRelease, updatedAt: item.latestDate };
+  });
+}
+
 export default function HomePage() {
   const news = publishedArticles.filter(isNewsArticle).slice(0, 10);
   const ai = publishedArticles.filter(isAiArticle).slice(0, 10);
   const genres = fictionGenres.slice(0, 8);
+  const novelUpdates = buildNovelUpdates();
 
   return (
     <>
@@ -52,14 +86,15 @@ export default function HomePage() {
         {/* 1. News Feed — modern slide show */}
         <NewsSlideshow articles={news} />
 
-        {/* 2. Serial Fiction */}
+        {/* 2. Serial Fiction — borderless on the page body */}
         <Shelf
           heading="Serial Fiction"
           subtitle="Browse by genre — ongoing stories you can discover, follow and keep reading."
           action={{ label: 'Explore all', to: '/fiction' }}
           contained
+          borderless
           ariaLabel="Serial Fiction"
-          cardBasis={{ xs: '82%', sm: '46%', xmd: '34%', md: '27%', lg: '21%', xl: '16%' }}
+          cardBasis={{ xs: '96%', sm: '46%', xmd: '34%', md: '27%', lg: '21%', xl: '16%' }}
           emptyMessage="New stories are on their way. Check back soon."
         >
           {genres.map((genre) => (
@@ -93,6 +128,20 @@ export default function HomePage() {
           ))}
           {ai.map((article) => (
             <TileCard key={article.slug} article={article} />
+          ))}
+        </Shelf>
+
+        {/* 4. New & Updated Novels — large borderless cards on the page body */}
+        <Shelf
+          heading="New & Updated Novels"
+          subtitle="Series with fresh episodes and newly released stories."
+          action={{ label: 'All series', to: '/fiction' }}
+          ariaLabel="New and Updated Novels"
+          cardBasis={{ xs: '72%', sm: '38%', xmd: '30%', md: '24%', lg: '19%', xl: '15%' }}
+          emptyMessage="No series published yet. Check back soon."
+        >
+          {novelUpdates.map(({ series, badge }) => (
+            <NovelUpdateCard key={series.slug} series={series} badge={badge} />
           ))}
         </Shelf>
 

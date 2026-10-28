@@ -17,6 +17,7 @@ export default function Shelf({
   action,
   children,
   contained = false,
+  borderless = false,
   ariaLabel,
   emptyMessage,
   containerSx,
@@ -30,8 +31,8 @@ export default function Shelf({
         mb: { xs: 4, md: 6 },
         minWidth: 0,
         overflowX: 'clip',
-        ...(contained && {
-          borderRadius: { xs: 3, md: 5 },
+        ...(contained && !borderless && {
+          borderRadius: { xs: 2, md: 3 },
           bgcolor: 'fiction.surface',
           border: '1px solid rgba(199,167,255,0.14)',
           px: { xs: 1.75, sm: 2.5, md: 3.5 },
@@ -54,7 +55,7 @@ export default function Shelf({
               fontWeight: 900,
               letterSpacing: '-0.03em',
               fontSize: { xs: '1.45rem', sm: '1.8rem', md: '2.1rem' },
-              color: contained ? '#FFFFFF' : 'text.primary',
+              color: contained && !borderless ? '#FFFFFF' : 'text.primary',
               minWidth: 0,
             }}
           >
@@ -72,13 +73,13 @@ export default function Shelf({
                 gap: 0.5,
                 fontWeight: 800,
                 fontSize: { xs: '0.85rem', md: '0.95rem' },
-                color: contained ? 'fiction.accent' : 'text.secondary',
+                color: contained && !borderless ? 'fiction.accent' : 'text.secondary',
                 borderRadius: 2,
                 px: 1.25,
                 py: 0.75,
                 transition: 'color 150ms ease, background-color 150ms ease',
-                '&:hover': { color: contained ? '#E3D3FF' : 'primary.main', bgcolor: 'action.hover' },
-                '&:focus-visible': { outline: '2px solid', outlineColor: 'fiction.accent', outlineOffset: 2 },
+                '&:hover': { color: contained && !borderless ? '#E3D3FF' : 'primary.main', bgcolor: 'action.hover' },
+                '&:focus-visible': { outline: '2px solid', outlineColor: contained && !borderless ? 'fiction.accent' : 'primary.main', outlineOffset: 2 },
               }}
             >
               {action.label}
@@ -91,9 +92,9 @@ export default function Shelf({
       {subtitle && (
         <Typography
           sx={{
-            mb: 2.25,
+            ml: 2,
             maxWidth: 720,
-            color: contained ? 'rgba(213,197,245,0.78)' : 'text.secondary',
+            color: contained && !borderless ? 'rgba(213,197,245,0.78)' : 'text.secondary',
             fontSize: { xs: '0.9rem', md: '1rem' },
             lineHeight: 1.6,
           }}
@@ -108,13 +109,10 @@ export default function Shelf({
             display: 'flex',
             gap: { xs: 1.25, md: 1.75 },
             overflowX: 'auto',
-            overflowY: 'hidden',
-            pb: 1.5,
-            mb: -0.75,
-            scrollSnapType: 'x proximity',
-            scrollPaddingLeft: 2,
             WebkitOverflowScrolling: 'touch',
             overscrollBehaviorX: 'contain',
+            scrollSnapType: { xs: 'none', md: 'x proximity' },
+            scrollPaddingLeft: 2,
             scrollbarWidth: 'thin',
             scrollbarColor: 'rgba(199,167,255,0.35) transparent',
             '&::-webkit-scrollbar': {
@@ -122,17 +120,17 @@ export default function Shelf({
             },
             '&::-webkit-scrollbar-track': {
               background: 'rgba(255,255,255,0.04)',
-              borderRadius: 10,
+              borderRadius: 8,
             },
             '&::-webkit-scrollbar-thumb': {
               background: 'rgba(199,167,255,0.35)',
-              borderRadius: 10,
+              borderRadius: 15,
               '&:hover': {
                 background: 'rgba(199,167,255,0.55)',
               },
             },
             '& > *': {
-              scrollSnapAlign: 'start',
+              scrollSnapAlign: { xs: 'none', md: 'start' },
               flex: `0 0 ${typeof cardBasis === 'string' ? cardBasis : cardBasis.xs}`,
               minWidth: 0,
             },
