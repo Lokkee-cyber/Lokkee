@@ -8,7 +8,6 @@ import { publishedArticles } from '../data/articles.js';
 import SEO from '../components/SEO.jsx';
 import { scrollToElement } from '../utils/scrollToElement.js';
 import { isAiArticle } from '../data/contentCategories.js';
-import AdSlot from '../components/AdSlot.jsx';
 
 const categoryDescriptions = {
   'ai-content': 'Practical guides, comparisons, prompts and explainers for using AI well.',
@@ -57,8 +56,6 @@ export default function CategoryPage({ categorySlug }) {
         </Typography>
 
         <Stack ref={articlesRef} spacing={3} sx={{ my: { xs: 4, md: 6 }, scrollMarginTop: 90 }}>
-          {/* Leaderboard ad above the category grid */}
-          <AdSlot variant="leaderboard" />
           <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'stretch', sm: 'flex-end' }} spacing={1}>
             <Box>
               <Typography variant="h3" fontWeight={800}>Latest articles</Typography>
@@ -74,8 +71,6 @@ export default function CategoryPage({ categorySlug }) {
           <Stack alignItems="center">
             <Pagination count={Math.max(1, Math.ceil(categoryArticles.length / pageSize))} page={page} onChange={(event, value) => setPage(value)} color="primary" />
           </Stack>
-          {/* Inline ad after the pagination */}
-          <AdSlot variant="inline" />
         </Stack>
 
         <Newsletter />

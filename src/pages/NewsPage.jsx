@@ -6,7 +6,6 @@ import { publishedArticles } from '../data/articles.js';
 import ArticleCard from '../components/ArticleCard.jsx';
 import SEO from '../components/SEO.jsx';
 import { isNewsArticle } from '../data/contentCategories.js';
-import AdSlot from '../components/AdSlot.jsx';
 
 const pageSize = 12;
 const publishedNews = publishedArticles.filter(isNewsArticle);
@@ -115,9 +114,6 @@ export default function NewsPage() {
           {activeCategory ? ` in ${activeCategory}` : ''}
         </Typography>
 
-        {/* Leaderboard ad above the news grid */}
-        <AdSlot variant="leaderboard" sx={{ mb: 3 }} />
-
         {pageArticles.length ? (
           <>
             <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'minmax(0, 1fr)', sm: 'repeat(2, minmax(0, 1fr))', lg: 'repeat(3, minmax(0, 1fr))' }, gap: { xs: 2, md: 3 }, alignItems: 'stretch' }}>
@@ -134,9 +130,6 @@ export default function NewsPage() {
                 />
               </Stack>
             )}
-
-            {/* Bottom inline ad */}
-            <AdSlot variant="inline" sx={{ mt: 4 }} />
           </>
         ) : (
           <Alert severity="info">

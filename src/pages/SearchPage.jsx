@@ -22,7 +22,6 @@ import SEO from '../components/SEO.jsx';
 import ArticleCard from '../components/ArticleCard.jsx';
 import CategoryCard from '../components/CategoryCard.jsx';
 import { scrollToElement } from '../utils/scrollToElement.js';
-import AdSlot from '../components/AdSlot.jsx';
 
 const categoryIcons = {
   'AI Tools': () => 'A',
@@ -134,8 +133,6 @@ export default function SearchPage() {
               color="primary"
             />
           </Box>
-          {/* Inline ad below search results */}
-          <AdSlot variant="inline" sx={{ mt: 4 }} />
         </>
       )}
     </Container>

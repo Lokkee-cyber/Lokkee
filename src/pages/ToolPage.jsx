@@ -6,7 +6,6 @@ import ToolReview from '../components/ToolReview.jsx';
 import ArticleCard from '../components/ArticleCard.jsx';
 import SEO from '../components/SEO.jsx';
 import NotFoundPage from './NotFoundPage.jsx';
-import AdSlot from '../components/AdSlot.jsx';
 
 export default function ToolPage() {
   const { slug } = useParams();
@@ -21,9 +20,6 @@ export default function ToolPage() {
         
         <ToolReview tool={tool} />
       </Paper>
-
-      {/* Leaderboard below the tool review card */}
-      <AdSlot variant="leaderboard" sx={{ my: { xs: 2, md: 4 } }} />
       
          
       <Grid container spacing={{ xs: 2, md: 3 }} sx={{ mt: { xs: 2, md: 4 } }}>
