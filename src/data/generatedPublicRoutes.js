@@ -110,6 +110,7 @@ export const publicRoutePaths = [
   "/compare/deepseek-vs-github-copilot",
   "/compare/ideogram-vs-leonardo-ai",
   "/compare/midjourney-vs-stability",
+  "/fiction/after-midnight-hours",
   "/fiction/guy-next-door",
   "/fiction/the-intern-s-secret",
   "/fiction/after-midnight-hours/after-midnight-hours-02",
