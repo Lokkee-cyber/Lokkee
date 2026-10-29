@@ -26,7 +26,26 @@ const port = Number(process.env.LOCAL_CONTENT_PORT || 4179);
 const allowedOrigins = new Set([
   'http://127.0.0.1:5173',
   'http://localhost:5173',
+  'http://127.0.0.1:4173',
+  'http://localhost:4173',
+  'http://127.0.0.1:5199',
+  'http://localhost:5199',
 ]);
+
+/*
+ * Accepts any local development origin (127.0.0.1 or localhost on any port)
+ * so uploads and saves keep working when Vite falls back to another port.
+ */
+function isAllowedOrigin(value) {
+  if (!value) return false;
+  if (allowedOrigins.has(value)) return true;
+  try {
+    const url = new URL(value);
+    return (url.hostname === '127.0.0.1' || url.hostname === 'localhost') && url.protocol === 'http:';
+  } catch {
+    return false;
+  }
+}
 
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const maxRequestBytes = 12_000_000;
@@ -1018,7 +1037,7 @@ const server = createServer(async (request, response) => {
   const origin = request.headers.origin;
 
   if (
-    (origin && !allowedOrigins.has(origin)) ||
+    (origin && !isAllowedOrigin(origin)) ||
     (!origin && request.method !== 'GET')
   ) {
     sendJson(response, 403, {
@@ -1130,8 +1149,35 @@ const server = createServer(async (request, response) => {
       const directory = resolve(root, 'content', 'fiction', isEpisode ? 'episodes' : 'series');
       await mkdir(directory, { recursive: true });
       const targetFilename = resolve(directory, `${slug}.json`);
+
+      /*
+       * Stamp publication dates so the "New & Updated Novels" shelf can
+       * rank series by their most recent episode. Existing dates survive
+       * edits; new files get the current timestamp.
+       */
+      const now = new Date().toISOString();
+      let previousDates = {};
+      try {
+        previousDates = JSON.parse(await readFile(targetFilename, 'utf8'));
+      } catch {
+        previousDates = {};
+      }
+
+      const itemWithDates = {
+        ...item,
+        ...(isEpisode
+          ? {
+              publishedAt: previousDates.publishedAt || item.publishedAt || now,
+              updatedAt: now,
+            }
+          : {
+              releasedAt: previousDates.releasedAt || item.releasedAt || now,
+              updatedAt: now,
+            }),
+      };
+
       const tempFilename = `${targetFilename}.${process.pid}.tmp`;
-      await writeFile(tempFilename, `${JSON.stringify(item, null, 2)}\n`, { flag: 'w' });
+      await writeFile(tempFilename, `${JSON.stringify(itemWithDates, null, 2)}\n`, { flag: 'w' });
       await rename(tempFilename, targetFilename);
 
       let deploymentTriggered = false;
@@ -1148,7 +1194,7 @@ const server = createServer(async (request, response) => {
         return;
       }
 
-      sendJson(response, 200, { item, deploymentTriggered });
+      sendJson(response, 200, { item: itemWithDates, deploymentTriggered });
     } catch (error) {
       console.error('Unable to save fiction file:', error);
       sendJson(response, 400, { error: String(error.message || 'Could not save fiction.') });

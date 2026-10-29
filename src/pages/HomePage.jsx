@@ -49,14 +49,21 @@ function buildNovelUpdates() {
     .map((series) => {
       const episodes = episodesForSeries(series.slug);
       const latestDate = episodes
-        .map((episode) => Date.parse(episode.publishedAt || episode.date || episode.updatedAt || '') || 0)
+        .map((episode) => Date.parse(episode.updatedAt || episode.publishedAt || episode.date || '') || 0)
         .sort((a, b) => b - a)[0] || 0;
       return { series, episodes, latestDate };
     });
 
-  const ranked = updates.sort((a, b) => {
+  /*
+   * Rank by recency when any episode dates exist; otherwise by episode
+   * count so the shelf still shows the most content-rich series first.
+   */
+  const anyDates = updates.some((item) => item.latestDate > 0);
+  const ranked = [...updates].sort((a, b) => {
+    if (anyDates) {
+      if (b.latestDate !== a.latestDate) return b.latestDate - a.latestDate;
+    }
     if (b.episodes.length !== a.episodes.length) return b.episodes.length - a.episodes.length;
-    if (b.latestDate !== a.latestDate) return b.latestDate - a.latestDate;
     return a.series.title.localeCompare(b.series.title);
   });
 
