@@ -32,6 +32,7 @@ import { aiSubcategories } from '../data/contentCategories.js';
 import { fictionGenres } from '../data/fictionGenres.js';
 import FictionManager from '../components/FictionManager.jsx';
 import ContentAutomation from '../components/ContentAutomation.jsx';
+import ImageUploadField from '../components/ImageUploadField.jsx';
 
 const apiPath = '/__local-content/articles';
 const defaultImage = 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=1200&q=80';
@@ -509,7 +510,11 @@ export default function AdminPage() {
                     <TextField fullWidth label="Author" value={article.author} onChange={updateField('author')} />
                   </Grid>
                   <Grid item xs={12}>
-                    <TextField fullWidth label="Featured image URL (HTTPS or site-relative path)" value={article.image} onChange={updateField('image')} />
+                    <ImageUploadField
+                      label="Featured image (upload or URL)"
+                      value={article.image}
+                      onChange={updateField('image')}
+                    />
                   </Grid>
                   <Grid item xs={12}>
                     <FormControlLabel

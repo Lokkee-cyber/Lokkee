@@ -17,6 +17,7 @@ import {
   Typography,
 } from '@mui/material';
 import { fictionGenres } from '../data/fictionGenres.js';
+import ImageUploadField from './ImageUploadField.jsx';
 
 const apiPath = '/__local-content';
 const defaultCover = 'https://images.unsplash.com/photo-1519751138087-5bf79df62d5b?auto=format&fit=crop&w=800&q=80';
@@ -270,7 +271,11 @@ export default function FictionManager() {
                   <TextField fullWidth required multiline minRows={3} label="Synopsis" value={series.synopsis} onChange={updateSeries('synopsis')} />
                 </Grid>
                 <Grid item xs={12}>
-                  <TextField fullWidth label="Cover image URL" value={series.cover} onChange={updateSeries('cover')} />
+                  <ImageUploadField
+                    label="Cover image (upload or URL)"
+                    value={series.cover}
+                    onChange={updateSeries('cover')}
+                  />
                 </Grid>
                 <Grid item xs={12}>
                   <Stack direction="row" spacing={2}>

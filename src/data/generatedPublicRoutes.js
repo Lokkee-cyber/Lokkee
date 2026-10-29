@@ -120,6 +120,8 @@ export const publicRoutePaths = [
   "/fiction/seven-days-until-i-die/seven-days-until-i-die-01",
   "/fiction/seven-days-until-i-die/seven-days-until-i-die-02",
   "/fiction/the-intern-s-secret/the-intern-s-secret-01",
+  "/fiction/the-intern-s-secret/the-intern-s-secret-02",
+  "/fiction/the-intern-s-secret/the-intern-s-secret-03",
   "/articles/5-best-ai-video-generators-to-create-1-minute-videos-in-2026",
   "/articles/5-surprising-ways-beginners-can-use-ai-to-build-real-projects",
   "/articles/6-ai-tools-that-can-automate-everyday-tasks-without-coding",

@@ -29,7 +29,7 @@ const allowedOrigins = new Set([
 ]);
 
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-const maxRequestBytes = 1_000_000;
+const maxRequestBytes = 12_000_000;
 
 const execFileAsync = promisify(execFile);
 let publicationQueue = Promise.resolve();
@@ -578,6 +578,138 @@ function gitErrorMessage(error) {
   return detail.slice(-500);
 }
 
+/*
+ * Pushes an uploaded image (saved under public/images) to GitHub so the
+ * image is part of the repository and deploys with the site.
+ */
+async function pushImageToGitHub(relativePath) {
+  const runGit = (args) =>
+    execFileAsync('git', args, {
+      cwd: root,
+      windowsHide: true,
+      timeout: 60_000,
+      maxBuffer: 8 * 1024 * 1024,
+    });
+
+  await runGit(['add', '-A', '--', relativePath]);
+
+  const { stdout } = await runGit([
+    'status',
+    '--porcelain',
+    '--',
+    relativePath,
+  ]);
+
+  const identity = [
+    '-c',
+    'user.name=LokkeeVerse Publisher',
+    '-c',
+    'user.email=lokkeeverse-publisher@users.noreply.github.com',
+  ];
+
+  if (stdout.trim()) {
+    await runGit([
+      ...identity,
+      'commit',
+      '--only',
+      '-m',
+      `Add uploaded image: ${relativePath}`,
+      '--',
+      relativePath,
+    ]);
+  }
+
+  await runGit(['push', 'origin', 'HEAD:main']);
+
+  return true;
+}
+
+function queueImagePush(relativePath) {
+  const operation = publicationQueue.then(
+    () => pushImageToGitHub(relativePath)
+  );
+
+  publicationQueue = operation.catch(() => {});
+
+  return operation;
+}
+
+async function handleImageUpload(request, response, requestUrl) {
+  if (
+    requestUrl.pathname === '/__local-content/images' &&
+    request.method === 'POST'
+  ) {
+    try {
+      const body = await readRequestBody(request);
+      const dataUrl = body?.data || '';
+      const match = /^data:image\/(png|jpeg|jpg|webp|gif|avif);base64,([A-Za-z0-9+/=]+)$/.exec(dataUrl);
+
+      if (!match) {
+        sendJson(response, 400, {
+          error: 'Send the image as a base64 data URL in { data }. Supported types: png, jpeg, webp, gif, avif.',
+        });
+        return true;
+      }
+
+      const extension = match[1] === 'jpeg' ? 'jpg' : match[1];
+      const buffer = Buffer.from(match[2], 'base64');
+
+      if (buffer.length < 100) {
+        sendJson(response, 400, { error: 'The uploaded file is too small to be an image.' });
+        return true;
+      }
+
+      const requestedName = typeof body.name === 'string' ? body.name : '';
+      const baseName = (requestedName
+        .normalize('NFKD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .trim()
+        .replace(/\.[a-z0-9]+$/, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '') || 'image').slice(0, 60);
+
+      const imagesDirectory = resolve(root, 'public', 'images');
+      await mkdir(imagesDirectory, { recursive: true });
+
+      const safeSlug = slugPattern.test(baseName) ? baseName : `image-${Date.now()}`;
+      const filename = `${safeSlug}-${Date.now().toString(36)}.${extension}`;
+      const relativePath = `public/images/${filename}`;
+
+      await writeFile(resolve(imagesDirectory, filename), buffer, { flag: 'wx' });
+
+      let deploymentTriggered = false;
+      try {
+        deploymentTriggered = await queueImagePush(relativePath);
+      } catch (error) {
+        const details = gitErrorMessage(error);
+        console.error('Image saved locally, but GitHub push failed:', details);
+        sendJson(response, 502, {
+          error: 'Image was saved locally, but the GitHub push failed. Push manually to publish it.',
+          savedLocally: true,
+          path: `/${relativePath.replace(/^public\//, '')}`,
+          details,
+        });
+        return true;
+      }
+
+      sendJson(response, 200, {
+        path: `/${relativePath.replace(/^public\//, '')}`,
+        deploymentTriggered,
+      });
+    } catch (error) {
+      const isTooLarge = error.message === 'Request body is too large.';
+      sendJson(response, isTooLarge ? 413 : 400, {
+        error: isTooLarge ? 'Image is too large (limit is about 8 MB).' : String(error.message || 'Could not upload image.'),
+      });
+    }
+
+    return true;
+  }
+
+  return false;
+}
+
 async function handleSessionRequest(request, response, requestUrl) {
   if (
     requestUrl.pathname === '/__local-content/session' &&
@@ -927,6 +1059,10 @@ const server = createServer(async (request, response) => {
       error: 'Sign in to use the local admin editor.',
     });
 
+    return;
+  }
+
+  if (await handleImageUpload(request, response, requestUrl)) {
     return;
   }
 
