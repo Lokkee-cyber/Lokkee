@@ -1,4 +1,4 @@
-import { Box, Button, Chip, Container, Divider, Stack, Typography } from '@mui/material';
+import { Box, Button, Container, Divider, Stack, Typography } from '@mui/material';
 import { Link, useParams } from 'react-router-dom';
 import SEO from '../components/SEO.jsx';
 import { episodesForSeries, findEpisode, findSeries } from '../data/fiction.js';
@@ -13,7 +13,6 @@ export default function FictionEpisodePage() {
   const episodes = episodesForSeries(seriesSlug);
   const index = episodes.findIndex((item) => item.slug === episode.slug);
   const content = episode.content || '';
-  const isDemo = Boolean(series.demo) || Boolean(episode.demo);
 
   return (
     <>
@@ -29,14 +28,6 @@ export default function FictionEpisodePage() {
             <Typography sx={{ color: '#C7A7FF', fontWeight: 800, textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '0.08em' }}>
               Episode {episode.number}
             </Typography>
-            {isDemo && (
-              <Chip
-                label="Demo"
-                size="small"
-                variant="outlined"
-                sx={{ color: '#C7A7FF', borderColor: 'rgba(199,167,255,0.4)', fontSize: '0.65rem', fontWeight: 800, height: 20 }}
-              />
-            )}
           </Stack>
 
           <Typography variant="h1" sx={{ mt: 1, fontSize: { xs: '2rem', sm: '2.8rem' } }}>{episode.title}</Typography>

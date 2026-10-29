@@ -23,7 +23,7 @@ export default function NovelUpdateCard({ series, badge }) {
         textDecoration: 'none',
         bgcolor: 'transparent',
         borderRadius: 3,
-        overflow: 'hidden',
+        overflow: 'visible',
         transition: 'transform 180ms ease',
         '&:hover': {
           transform: 'translateY(-4px)',

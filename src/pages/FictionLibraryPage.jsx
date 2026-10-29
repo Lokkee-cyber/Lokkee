@@ -9,7 +9,6 @@ import { fictionGenres, genreLabelForSlug } from '../data/fictionGenres.js';
 export default function FictionLibraryPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const activeGenre = searchParams.get('genre') || '';
-  const hasDemo = fictionSeries.some((series) => series.demo);
 
   const filteredSeries = useMemo(() => {
     if (!activeGenre) return fictionSeries;
@@ -75,14 +74,9 @@ export default function FictionLibraryPage() {
               }}
             >
               {filteredSeries.map((series) => (
-                <FictionCard key={series.slug} series={series} demo={Boolean(series.demo)} />
+                <FictionCard key={series.slug} series={series} />
               ))}
             </Box>
-            {hasDemo && (
-              <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 3, textAlign: 'center' }}>
-                Titles marked "Demo" are sample content used to illustrate the reading experience.
-              </Typography>
-            )}
           </>
         ) : (
           <Stack

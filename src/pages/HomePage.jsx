@@ -38,30 +38,29 @@ const aiTileImages = {
 };
 
 /*
- * Builds the "New & Updated Novels" list: recently released series plus
- * series whose episode count grew recently. Returns items shaped as
+ * Builds the "New & Updated Novels" list, excluding demo series.
+ * Series with the most episodes (i.e. the most new content) come first,
+ * followed by the rest in release order. Returns items shaped as
  * { series, badge, isNewRelease, updatedAt }.
  */
 function buildNovelUpdates() {
-  const updates = fictionSeries.map((series) => {
-    const episodes = episodesForSeries(series.slug);
-    const latestDate = episodes
-      .map((episode) => Date.parse(episode.publishedAt || episode.date || episode.updatedAt || '') || 0)
-      .sort((a, b) => b - a)[0] || 0;
-    return { series, episodes, latestDate };
+  const updates = fictionSeries
+    .filter((series) => !series.demo)
+    .map((series) => {
+      const episodes = episodesForSeries(series.slug);
+      const latestDate = episodes
+        .map((episode) => Date.parse(episode.publishedAt || episode.date || episode.updatedAt || '') || 0)
+        .sort((a, b) => b - a)[0] || 0;
+      return { series, episodes, latestDate };
+    });
+
+  const ranked = updates.sort((a, b) => {
+    if (b.episodes.length !== a.episodes.length) return b.episodes.length - a.episodes.length;
+    if (b.latestDate !== a.latestDate) return b.latestDate - a.latestDate;
+    return a.series.title.localeCompare(b.series.title);
   });
 
-  const withDates = updates.filter((item) => item.latestDate > 0);
-  const newest = withDates.sort((a, b) => b.latestDate - a.latestDate).slice(0, 4);
-
-  const withoutDates = updates.filter((item) => item.latestDate === 0);
-  const filled = [...newest];
-  for (const item of withoutDates) {
-    if (filled.length >= 6) break;
-    filled.push(item);
-  }
-
-  return filled.map((item) => {
+  return ranked.slice(0, 10).map((item) => {
     const isNewRelease = item.episodes.length <= 1;
     const badge = isNewRelease ? 'NEW' : `+${item.episodes.length - 1} EP`;
     return { series: item.series, badge, isNewRelease, updatedAt: item.latestDate };

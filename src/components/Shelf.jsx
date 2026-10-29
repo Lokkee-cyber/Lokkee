@@ -107,12 +107,15 @@ export default function Shelf({
         <Box
           sx={{
             display: 'flex',
-            gap: { xs: 1.25, md: 1.75 },
+            gap: { xs: 1.5, md: 2 },
             overflowX: 'auto',
             WebkitOverflowScrolling: 'touch',
             overscrollBehaviorX: 'contain',
             scrollSnapType: { xs: 'none', md: 'x proximity' },
             scrollPaddingLeft: 2,
+            pt: 0.5,
+            pb: 2.5,
+            mb: -1.5,
             scrollbarWidth: 'thin',
             scrollbarColor: 'rgba(199,167,255,0.35) transparent',
             '&::-webkit-scrollbar': {
