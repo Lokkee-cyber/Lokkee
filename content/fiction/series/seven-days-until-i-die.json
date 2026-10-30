@@ -1,10 +1,12 @@
 {
   "slug": "seven-days-until-i-die",
-  "title": "SEVEN DAYS UNTIL I DIE S1",
+  "title": "SEVEN DAYS UNTIL I DIE S1:  THE COUNTDOWN",
   "genre": "Thriller",
   "synopsis": "Murder, mystery, betrayal and shocking twists",
   "author": "LokkeeVerse",
-  "cover": "https://images.openai.com/static-rsc-4/a9yTglged1se2lAMWkjuhp0SUKh7rsqiE4q5QEo7Af6ywURQ5GTjIbL432bJQI6THJeZQ3Q6Hoi6qZBUOgRjL-OyHFlcA8M7a-dD4Q3K_7m4_mhrq6-JfGNy4seUFDAYgXhbEB5bzO3T2DV4W9tS_ArCuqT83cBYxQMp5qnFEyEVbssrCpdgBxFGTwWB8Hw1?purpose=fullsize",
+  "cover": "/images/sevend-days-mvurakx7.jpg",
   "status": "published",
-  "demo": true
+  "demo": true,
+  "releasedAt": "2026-10-30T09:15:24.864Z",
+  "updatedAt": "2026-10-30T09:15:24.864Z"
 }
