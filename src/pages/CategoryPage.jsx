@@ -7,7 +7,21 @@ import { categories } from '../data/siteData.js';
 import { publishedArticles } from '../data/articles.js';
 import SEO from '../components/SEO.jsx';
 import { scrollToElement } from '../utils/scrollToElement.js';
-import { isAiArticle } from '../data/contentCategories.js';
+import { isAiArticle, aiSubcategories } from '../data/contentCategories.js';
+import CategoryTileCard from '../components/CategoryTileCard.jsx';
+
+const aiCategoryImages = {
+  'AI Tools': 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=800&q=80',
+  'AI Video': 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80',
+  'AI Image': 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80',
+  'AI Writing': 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80',
+  'AI Voice & Audio': 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=800&q=80',
+  'AI Coding': 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=800&q=80',
+  'AI for Creators': 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80',
+  'AI for Business': 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80',
+  'AI for Students': 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80',
+  'AI Comparisons': 'https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?auto=format&fit=crop&w=800&q=80',
+};
 
 const categoryDescriptions = {
   'ai-content': 'Practical guides, comparisons, prompts and explainers for using AI well.',
@@ -54,6 +68,20 @@ export default function CategoryPage({ categorySlug }) {
         <Typography variant="body1" color="text.secondary" sx={{ mt: 1.5, maxWidth: 760 }}>
           {categoryDescriptions[categorySlug] || category.description}
         </Typography>
+
+        {categorySlug === 'ai-content' ? (
+          <Box sx={{ my: { xs: 3, md: 4 }, display: 'grid', gridTemplateColumns: { xs: 'repeat(2, minmax(0, 1fr))', sm: 'repeat(3, minmax(0, 1fr))', md: 'repeat(5, minmax(0, 1fr))' }, gap: { xs: 1.5, md: 2 } }}>
+            {aiSubcategories.map((sub) => (
+              <CategoryTileCard
+                key={sub.slug}
+                title={sub.title}
+                description={categoryDescriptions[sub.slug]}
+                image={aiCategoryImages[sub.title]}
+                to={`/${sub.slug}`}
+              />
+            ))}
+          </Box>
+        ) : null}
 
         <Stack ref={articlesRef} spacing={3} sx={{ my: { xs: 4, md: 6 }, scrollMarginTop: 90 }}>
           <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'stretch', sm: 'flex-end' }} spacing={1}>

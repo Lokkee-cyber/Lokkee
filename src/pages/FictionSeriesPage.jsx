@@ -51,11 +51,11 @@ export default function FictionSeriesPage() {
               {episodes.length > 0 && (
                 <Button
                   component={Link}
-                  to={`/fiction/${series.slug}/${episodes[episodes.length - 1].slug}`}
+                  to={`/fiction/${series.slug}/${episodes[0].slug}`}
                   variant="contained"
                   sx={{ mt: 3, bgcolor: '#7C5CFF', '&:hover': { bgcolor: '#9477FF' }, fontWeight: 800 }}
                 >
-                  {episodes.length === 1 ? 'Start reading' : `Continue to Episode ${episodes[episodes.length - 1].number}`}
+                  Start reading
                 </Button>
               )}
             </Box>
